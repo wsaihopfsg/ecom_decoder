@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAB-IND10 Nomenclature Decoder (Color-Coded)</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        
+        /* Color Palette for distinct segments */
+        .color-conn { color: #D32F2F; } /* Red */
+        .color-proc { color: #388E3C; } /* Green */
+        .color-bio  { color: #F57C00; } /* Orange */
+        .color-os   { color: #1976D2; } /* Blue */
+        .color-plat { color: #00838F; } /* Cyan/Teal */
+        .color-scan { color: #7B1FA2; } /* Purple */
+        .color-fixed{ color: #c4c4c4; } /* Light Grey for fixed strings to fade them out */
+
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.8rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 130px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>TAB-IND10 Decoder</h1>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="connectivity" class="color-conn">Connectivity & GNSS</label>
+            <select id="connectivity">
+                <option value="T5G">T5G - WWAN 5G & GNSS</option>
+                <option value="WIN">WIN - Wi-Fi Only</option>
+                <option value="WIU">WIU - Wi-Fi & GNSS</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="processor" class="color-proc">Processor & Memory</label>
+            <select id="processor">
+                <option value="AA">AA - Qualcomm QCS6490 | 8GB RAM | 128GB</option>
+                <option value="AB">AB - Intel N100 | 8GB RAM | 128GB</option>
+                <option value="AC">AC - Intel N100 | 16GB RAM | 256GB</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="biometrics" class="color-bio">Biometric Security</label>
+            <select id="biometrics">
+                <option value="A">A - Fingerprint Sensor (Android)</option>
+                <option value="N">N - No Fingerprint Sensor</option>
+                <option value="F">F - Fingerprint Sensor (Windows)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="os" class="color-os">Operating System</label>
+            <select id="os">
+                <option value="3">3 - Android 15</option>
+                <option value="B">B - ThinManager Ready</option>
+                <option value="1">1 - Windows 10 IoT Enterprise</option>
+                <option value="2">2 - Windows 11 LTSC</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="platform" class="color-plat">Platform Code</label>
+            <select id="platform">
+                <option value="L">L - Android 5G Platform</option>
+                <option value="N">N - Android Wi-Fi Platform</option>
+                <option value="J">J - Intel N100 Platform</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="scanner" class="color-scan">Scanner Option</label>
+            <select id="scanner">
+                <option value="W">W - Standard (No Scanner)</option>
+                <option value="X">X - Mounted Scanner Frame Included</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="model-number" id="modelOutput"></div>
+        
+        <ul class="specs-list" id="specsOutput">
+            </ul>
+    </div>
+</div>
+
+<script>
+    const selects = document.querySelectorAll('select');
+    const modelOutput = document.getElementById('modelOutput');
+    const specsOutput = document.getElementById('specsOutput');
+
+    function updateDecoder() {
+        const conn = document.getElementById('connectivity');
+        const proc = document.getElementById('processor');
+        const bio = document.getElementById('biometrics');
+        const os = document.getElementById('os');
+        const plat = document.getElementById('platform');
+        const scan = document.getElementById('scanner');
+
+        // Construct HTML string with color-coded spans
+        const modelHTML = `
+            <span class="color-fixed">TAB-IND10</span><span class="color-conn">${conn.value}</span><span class="color-proc">${proc.value}</span><span class="color-fixed">1</span><span class="color-bio">${bio.value}</span><span class="color-os">${os.value}</span><span class="color-fixed">XX</span><span class="color-plat">${plat.value}</span><span class="color-scan">${scan.value}</span><span class="color-fixed">.1</span>
+        `;
+        // Use innerHTML instead of textContent to render the colored spans
+        modelOutput.innerHTML = modelHTML;
+
+        // Construct Specifications List matching the colors to the values
+        let specsHTML = `<li><strong class="color-fixed">Screen Size:</strong> 10.1" (WUXGA 1920 x 1200)</li>`;
+        specsHTML += `<li><strong class="color-conn">Connectivity:</strong> ${conn.options[conn.selectedIndex].text.split('- ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-proc">Hardware:</strong> ${proc.options[proc.selectedIndex].text.split('- ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-bio">Security:</strong> ${bio.options[bio.selectedIndex].text.split('- ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-os">OS:</strong> ${os.options[os.selectedIndex].text.split('- ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-plat">Platform:</strong> ${plat.options[plat.selectedIndex].text.split('- ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-scan">Scanner:</strong> ${scan.options[scan.selectedIndex].text.split('- ')[1]}</li>`;
+        
+        specsOutput.innerHTML = specsHTML;
+    }
+
+    // Attach event listeners
+    selects.forEach(select => {
+        select.addEventListener('change', updateDecoder);
+    });
+
+    // Initialize on load
+    updateDecoder();
+</script>
+
+</body>
+</html>
