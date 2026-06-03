@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab-Ex 05 Nomenclature Decoder</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        
+        /* Color Palette for distinct segments */
+        .color-type   { color: #D32F2F; } /* Red */
+        .color-radio  { color: #1976D2; } /* Blue */
+        .color-region { color: #388E3C; } /* Green */
+        .color-cam    { color: #F57C00; } /* Orange */
+        .color-sd     { color: #8E24AA; } /* Purple */
+        .color-ram    { color: #00838F; } /* Teal */
+        .color-csl    { color: #C2185B; } /* Pink */
+        .color-suffix { color: #E65100; } /* Dark Orange */
+        .color-fixed  { color: #c4c4c4; } /* Light Grey for fixed strings */
+
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.6rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tab-Ex 05 Decoder</h1>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="type" class="color-type">Type / Cert</label>
+            <select id="type">
+                <option value="DZ1">DZ1 - Zone 1/21 & Div 1</option>
+                <option value="DZ2">DZ2 - Zone 2/22 & Div 2</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="radio" class="color-radio">Radio Module</label>
+            <select id="radio">
+                <option value="WWAN">WWAN - incl. Wi-Fi (LTE/5G)</option>
+                <option value="WIFI">WIFI - Wi-Fi only</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="region" class="color-region">Region / Country</label>
+            <select id="region">
+                <option value="EUR">EUR - Europe</option>
+                <option value="NAM">NAM - USA</option>
+                <option value="CAN">CAN - Canada</option>
+                <option value="AIN">AIN - ATEX/IECEx/NEC/CEC</option>
+                <option value="ANZ">ANZ - Australia/New Zealand</option>
+                <option value="BRA">BRA - Brazil</option>
+                <option value="KOR">KOR - South Korea</option>
+                <option value="ZAF">ZAF - South Africa</option>
+                <option value="SGP" selected>SGP - Singapore</option>
+                <option value="SAM">SAM - South America</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="camera" class="color-cam">Camera</label>
+            <select id="camera">
+                <option value="C">C - Camera included</option>
+                <option value="N">N - No Camera</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sd" class="color-sd">SD Card</label>
+            <select id="sd">
+                <option value="S">S - SD card included</option>
+                <option value="N">N - No SD card</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="ram" class="color-ram">RAM / ROM</label>
+            <select id="ram">
+                <option value="1">1 - 6 GB RAM / 128 GB ROM</option>
+                <option value="2">2 - 8 GB RAM / 256 GB ROM</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="csl" class="color-csl">CSL Base</label>
+            <select id="csl">
+                <option value="000">000 - Standard Base</option>
+                <option value="HWV">HWV - HWV Base Variant</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="suffix" class="color-suffix">Customization / Ver</label>
+            <select id="suffix">
+                <option value="..">.. - Standard</option>
+                <option value="NC">NC - No Charger</option>
+                <option value="HM">HM - Hart Modem</option>
+                <option value="HAM">HAM - Hamilton</option>
+                <option value="PTE">PTE - Prüftechnik</option>
+                <option value="BAS">BAS - BASF SE</option>
+                <option value="SHE">SHE - SHELL</option>
+                <option value="WIN">WIN - WIND</option>
+                <option value="SLC">SLC - SureLock</option>
+                <option value="NVB">NVB - Nvent Belgium</option>
+                <option value="3Y">3Y - 3 Year Variant</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="model-number" id="modelOutput"></div>
+        <ul class="specs-list" id="specsOutput">
+            </ul>
+    </div>
+</div>
+
+<script>
+    const selects = document.querySelectorAll('select');
+    const modelOutput = document.getElementById('modelOutput');
+    const specsOutput = document.getElementById('specsOutput');
+
+    function updateDecoder() {
+        const type = document.getElementById('type');
+        const radio = document.getElementById('radio');
+        const region = document.getElementById('region');
+        const cam = document.getElementById('camera');
+        const sd = document.getElementById('sd');
+        const ram = document.getElementById('ram');
+        const csl = document.getElementById('csl');
+        const suffix = document.getElementById('suffix');
+
+        // Construct HTML string with color-coded spans and grey dashes
+        const modelHTML = `
+            <span class="color-fixed">TAB-EX05-</span><span class="color-type">${type.value}</span><span class="color-fixed">-</span><span class="color-radio">${radio.value}</span><span class="color-region">${region.value}</span><span class="color-fixed">-</span><span class="color-cam">${cam.value}</span><span class="color-sd">${sd.value}</span><span class="color-ram">${ram.value}</span><span class="color-csl">${csl.value}</span><span class="color-fixed">-</span><span class="color-suffix">${suffix.value}</span>
+        `;
+        
+        modelOutput.innerHTML = modelHTML;
+
+        // Construct Specifications List
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> Tab-Ex 05</li>`;
+        specsHTML += `<li><strong class="color-type">Certification:</strong> ${type.options[type.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-radio">Radio:</strong> ${radio.options[radio.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-region">Region:</strong> ${region.options[region.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-cam">Camera:</strong> ${cam.options[cam.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-sd">SD Card:</strong> ${sd.options[sd.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-ram">Storage:</strong> ${ram.options[ram.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-csl">CSL Base:</strong> ${csl.options[csl.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-suffix">Customization:</strong> ${suffix.options[suffix.selectedIndex].text.split(' - ')[1]}</li>`;
+        
+        specsOutput.innerHTML = specsHTML;
+    }
+
+    // Attach event listeners
+    selects.forEach(select => {
+        select.addEventListener('change', updateDecoder);
+    });
+
+    // Initialize on load
+    updateDecoder();
+</script>
+
+</body>
+</html>
