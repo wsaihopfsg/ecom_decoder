@@ -1,4 +1,5 @@
 # tabind10_decoder
 Nomenclature decoder 
-- TAB-IND10 https://wsaihopfsg.github.io/tab_decoder/tabind10.html
-- TAB-EX05 https://wsaihopfsg.github.io/tab_decoder/tabex05.html
+- TAB-IND10 https://wsaihopfsg.github.io/ecom_decoder/tabind10.html
+- TAB-EX05 https://wsaihopfsg.github.io/ecom_decoder/tabex05.html
+- IDENT-EX02 https://wsaihopfsg.github.io/ecom_decoder/identex02.html
