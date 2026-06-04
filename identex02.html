@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ident-Ex 02 Nomenclature Decoder</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        
+        /* Color Palette for distinct segments */
+        .color-fixed   { color: #c4c4c4; } /* Light Grey for fixed strings */
+        .color-type    { color: #D32F2F; } /* Red */
+        .color-app     { color: #1976D2; } /* Blue */
+        .color-range   { color: #388E3C; } /* Green */
+        .color-variant { color: #F57C00; } /* Orange */
+
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.6rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 0.5rem; /* Reduced to pull part number closer */
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .part-number {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .part-number span {
+            color: #1976D2; /* Stand out blue for the actual number */
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 190px;
+        }
+        .warning {
+            color: #D32F2F;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Ident-Ex 02 Decoder</h1>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="type" class="color-type">Explosion Protection (1)</label>
+            <select id="type">
+                <option value="DZ1-">DZ1 - Division 1 and Zone 1/21</option>
+                <option value="DZ2-">DZ2 - Division 2 and Zone 2/22</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="approval" style="color: #a0aec0;">Approval (2)</label>
+            <select id="approval" disabled style="background-color: #edf2f7; color: #a0aec0; border-color: #e2e8f0; cursor: not-allowed;">
+                <option value="AI--">AI - ATEX, IECEx</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="range" class="color-range">Scanning Range (3)</label>
+            <select id="range">
+                <option value="F-">F - Flex Range (up to 10 m)</option>
+                <option value="L-">L - Long Range (up to 25 m)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="variant" class="color-variant">Variant (4)</label>
+            <select id="variant">
+                <option value="P00-00-..">P00-00-.. - Pocket</option>
+                <option value="G00-00-..">G00-00-.. - Grip</option>
+                <option value="H00-00-..">H00-00-.. - Grip+ (HMI version)</option>
+                <option value="S00-00-03">S00-00-03 - Smart Grip for Smart-Ex 03</option>
+                <option value="S00-00-23">S00-00-23 - Smart Grip for Smart-Ex 203</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="model-number" id="modelOutput"></div>
+        <div class="part-number" id="partNumberOutput"></div>
+        
+        <div id="warningMsg" class="warning">⚠️ Note: The Grip+ (HMI version) is only compatible with the Flex Range (F-) scan engine.</div>
+        
+        <ul class="specs-list" id="specsOutput">
+            </ul>
+    </div>
+</div>
+
+<script>
+    const selects = document.querySelectorAll('select');
+    const modelOutput = document.getElementById('modelOutput');
+    const partNumberOutput = document.getElementById('partNumberOutput');
+    const specsOutput = document.getElementById('specsOutput');
+    const warningMsg = document.getElementById('warningMsg');
+
+    // Database mapping specific nomenclatures to their part numbers
+    const partNumberDB = {
+        "IDENT-EX02-DZ1-AI--F-P00-00-..": "70198683-100000",
+		"IDENT-EX02-DZ1-AI--F-G00-00-..": "70198683-100001",
+		"IDENT-EX02-DZ1-AI--F-H00-00-..": "70198683-100002",
+		"IDENT-EX02-DZ1-AI--L-P00-00-..": "70198683-100003",
+		"IDENT-EX02-DZ1-AI--L-G00-00-..": "70198683-100004",
+		"IDENT-EX02-DZ2-AI--F-P00-00-..": "70198683-100005",
+		"IDENT-EX02-DZ2-AI--F-G00-00-..": "70198683-100006",
+		"IDENT-EX02-DZ2-AI--F-H00-00-..": "70198683-100007",
+		"IDENT-EX02-DZ2-AI--L-P00-00-..": "70198683-100008",
+		"IDENT-EX02-DZ2-AI--L-G00-00-..": "70198683-100009",
+		"IDENT-EX02-DZ1-AI--F-S00-00-03": "70198683-100010",
+		"IDENT-EX02-DZ1-AI--L-S00-00-03": "70198683-100011",
+		"IDENT-EX02-DZ1-AI--F-S00-00-23": "70198683-100012",
+		"IDENT-EX02-DZ1-AI--L-S00-00-23": "70198683-100013",
+		"IDENT-EX02-DZ2-AI--F-S00-00-03": "70198683-100014",
+		"IDENT-EX02-DZ2-AI--L-S00-00-03": "70198683-100015",
+		"IDENT-EX02-DZ2-AI--F-S00-00-23": "70198683-100016",
+        "IDENT-EX02-DZ2-AI--L-S00-00-23": "70198683-100017",
+    };
+
+    function updateDecoder() {
+        const type = document.getElementById('type');
+        const approval = document.getElementById('approval');
+        const range = document.getElementById('range');
+        const variant = document.getElementById('variant');
+
+        // Check for invalid combo: Grip+ (H00) is ONLY Flex Range (F)
+        if (range.value === 'L-' && variant.value === 'H00-00-..') {
+            warningMsg.style.display = 'block';
+        } else {
+            warningMsg.style.display = 'none';
+        }
+
+        // Construct HTML string with color-coded spans. 
+        const modelHTML = `
+            <span class="color-fixed">IDENT-EX02-</span><span class="color-type">${type.value}</span><span class="color-app">${approval.value}</span><span class="color-range">${range.value}</span><span class="color-variant">${variant.value}</span>
+        `;
+        modelOutput.innerHTML = modelHTML;
+
+        // Construct raw string to query the part number DB
+        const rawModelString = `IDENT-EX02-${type.value}${approval.value}${range.value}${variant.value}`;
+        const matchedPartNumber = partNumberDB[rawModelString] || "Not Listed";
+        
+        partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+
+        // Construct Specifications List
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> Intrinsically safe Bluetooth® handheld</li>`;
+        specsHTML += `<li><strong class="color-type">Explosion Protection:</strong> ${type.options[type.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-app">Approval:</strong> ${approval.options[approval.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-range">Scanning Range:</strong> ${range.options[range.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-variant">Variant:</strong> ${variant.options[variant.selectedIndex].text.split(' - ')[1]}</li>`;
+        
+        specsOutput.innerHTML = specsHTML;
+    }
+
+    // Attach event listeners
+    selects.forEach(select => {
+        select.addEventListener('change', updateDecoder);
+    });
+
+    // Initialize on load
+    updateDecoder();
+</script>
+
+</body>
+</html>
