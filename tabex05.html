@@ -25,6 +25,34 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
+        
+        /* Search Section Styling */
+        .reverse-search-box {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .reverse-search-box label {
+            font-size: 1.1rem;
+            color: #1565c0;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .reverse-search-box select {
+            border-color: #90caf9;
+            font-weight: bold;
+            color: #1565c0;
+            flex-grow: 1;
+            max-width: 300px;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -69,13 +97,24 @@
             font-size: 1.6rem;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             text-align: center;
             background: #fff;
             padding: 1rem;
             border-radius: 6px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
             word-break: break-all;
+        }
+        .part-number {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .part-number span {
+            color: #1976D2;
+            font-family: 'Courier New', Courier, monospace;
         }
         .specs-list {
             margin: 0;
@@ -85,7 +124,7 @@
         }
         .specs-list strong {
             display: inline-block;
-            width: 150px;
+            width: 160px;
         }
     </style>
 </head>
@@ -94,12 +133,20 @@
 <div class="container">
     <h1>Tab-Ex 05 Decoder</h1>
     
+    <div class="reverse-search-box">
+        <label for="reverseSearch">🔍 Part # Search: </label>
+        <select id="reverseSearch">
+            <option value="">-- Select or Build Below --</option>
+            </select>
+    </div>
+    
     <div class="grid">
         <div class="form-group">
             <label for="type" class="color-type">Type / Cert</label>
             <select id="type">
                 <option value="DZ1">DZ1 - Zone 1/21 & Div 1</option>
                 <option value="DZ2">DZ2 - Zone 2/22 & Div 2</option>
+                <option value="D2-">D2- - Division 2</option>
             </select>
         </div>
 
@@ -114,16 +161,23 @@
         <div class="form-group">
             <label for="region" class="color-region">Region / Country</label>
             <select id="region">
-                <option value="EUR">EUR - Europe</option>
-                <option value="NAM">NAM - USA</option>
-                <option value="CAN">CAN - Canada</option>
                 <option value="AIN">AIN - ATEX/IECEx/NEC/CEC</option>
-                <option value="ANZ">ANZ - Australia/New Zealand</option>
+                <option value="APC">APC - Asia Pacific</option>
+                <option value="ARE">ARE - United Arab Emirates</option>
+                <option value="ARG">ARG - Argentina</option>
                 <option value="BRA">BRA - Brazil</option>
+                <option value="BRN">BRN - Brunei</option>
+                <option value="CAN">CAN - Canada</option>
+                <option value="EUR">EUR - Europe</option>
+                <option value="IND">IND - India</option>
                 <option value="KOR">KOR - South Korea</option>
-                <option value="ZAF">ZAF - South Africa</option>
+                <option value="MYS">MYS - Malaysia</option>
+                <option value="NAM">NAM - USA</option>
+                <option value="PHL">PHL - Philippines</option>
+                <option value="QAT">QAT - Qatar</option>
+                <option value="SAU">SAU - Saudi Arabia</option>
                 <option value="SGP" selected>SGP - Singapore</option>
-                <option value="SAM">SAM - South America</option>
+                <option value="ZAF">ZAF - South Africa</option>
             </select>
         </div>
 
@@ -146,16 +200,23 @@
         <div class="form-group">
             <label for="ram" class="color-ram">RAM / ROM</label>
             <select id="ram">
-                <option value="1">1 - 6 GB RAM / 128 GB ROM</option>
-                <option value="2">2 - 8 GB RAM / 256 GB ROM</option>
+                <option value="1">1 - Standard Storage</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="csl" class="color-csl">CSL Base</label>
             <select id="csl">
-                <option value="000">000 - Standard Base</option>
-                <option value="HWV">HWV - HWV Base Variant</option>
+                <option value="000">000 - Standard</option>
+                <option value="BMS">BMS - BMS</option>
+                <option value="HAM">HAM - Hamilton</option>
+                <option value="PBK">PBK - PBK</option>
+                <option value="PTE">PTE - Prüftechnik</option>
+                <option value="SH1">SH1 - Shell Variant 1</option>
+                <option value="SH2">SH2 - Shell Variant 2</option>
+                <option value="SH3">SH3 - Shell Variant 3</option>
+                <option value="SHE">SHE - Shell Standard</option>
+                <option value="WIN">WIN - WIND</option>
             </select>
         </div>
 
@@ -163,31 +224,170 @@
             <label for="suffix" class="color-suffix">Customization / Ver</label>
             <select id="suffix">
                 <option value="..">.. - Standard</option>
-                <option value="NC">NC - No Charger</option>
                 <option value="HM">HM - Hart Modem</option>
-                <option value="HAM">HAM - Hamilton</option>
-                <option value="PTE">PTE - Prüftechnik</option>
-                <option value="BAS">BAS - BASF SE</option>
-                <option value="SHE">SHE - SHELL</option>
-                <option value="WIN">WIN - WIND</option>
-                <option value="SLC">SLC - SureLock</option>
-                <option value="NVB">NVB - Nvent Belgium</option>
-                <option value="3Y">3Y - 3 Year Variant</option>
+                <option value="NC">NC - No Charger</option>
             </select>
         </div>
     </div>
 
     <div class="output-section">
         <div class="model-number" id="modelOutput"></div>
+        <div class="part-number" id="partNumberOutput"></div>
         <ul class="specs-list" id="specsOutput">
             </ul>
     </div>
 </div>
 
 <script>
-    const selects = document.querySelectorAll('select');
+document.addEventListener('DOMContentLoaded', () => {
+    const selects = document.querySelectorAll('.grid select');
+    const reverseSearchSelect = document.getElementById('reverseSearch');
     const modelOutput = document.getElementById('modelOutput');
+    const partNumberOutput = document.getElementById('partNumberOutput');
     const specsOutput = document.getElementById('specsOutput');
+
+    // Database extracted from uploaded CSV
+    const partNumberDB = {
+        "TAB-EX05-DZ1-WIFIAIN-CN1HAM-..": "480996-100076",
+        "TAB-EX05-DZ1-WIFIAIN-CN1PTE-..": "480996-100093",
+        "TAB-EX05-DZ1-WIFIAIN-CN1000-..": "480996-100011",
+        "TAB-EX05-DZ1-WIFIAIN-CN1000-NC": "480996-100019",
+        "TAB-EX05-DZ1-WIFIAIN-CS1000-..": "480996-100012",
+        "TAB-EX05-DZ1-WIFIAIN-CS1000-NC": "480996-100020",
+        "TAB-EX05-DZ1-WIFIAPC-CN1PTE-..": "480996-100097",
+        "TAB-EX05-DZ1-WIFIAPC-CN1000-..": "480996-100073",
+        "TAB-EX05-DZ1-WIFIAPC-CS1000-..": "480996-100074",
+        "TAB-EX05-DZ1-WIFIARG-CN1000-NC": "480996-100055",
+        "TAB-EX05-DZ1-WIFIBRA-CN1PTE-..": "480996-100094",
+        "TAB-EX05-DZ1-WIFIBRA-CN1000-..": "480996-100023",
+        "TAB-EX05-DZ1-WIFIBRN-CN1000-..": "480996-100038",
+        "TAB-EX05-DZ1-WIFIEUR-CS1000-HM": "480996-100004",
+        "TAB-EX05-DZ1-WIFIIND-CN1000-..": "480996-100040",
+        "TAB-EX05-DZ1-WIFIMYS-CN1000-..": "480996-100030",
+        "TAB-EX05-DZ1-WIFIPHL-CN1000-..": "480996-100032",
+        "TAB-EX05-DZ1-WIFISGP-CN1000-..": "480996-100034",
+        "TAB-EX05-DZ1-WWANAIN-CN1000-..": "480996-100013",
+        "TAB-EX05-DZ1-WWANAIN-CN1000-NC": "480996-100021",
+        "TAB-EX05-DZ1-WWANAIN-CS1000-..": "480996-100014",
+        "TAB-EX05-DZ1-WWANAIN-CS1000-NC": "480996-100022",
+        "TAB-EX05-DZ1-WWANAPC-CN1PTE-..": "480996-100096",
+        "TAB-EX05-DZ1-WWANAPC-CN1000-..": "480996-100062",
+        "TAB-EX05-DZ1-WWANAPC-CS1000-..": "480996-100075",
+        "TAB-EX05-DZ1-WWANARE-CN1000-..": "480996-100035",
+        "TAB-EX05-DZ1-WWANARE-NN1000-..": "480996-100036",
+        "TAB-EX05-DZ1-WWANARG-CN1000-NC": "480996-100056",
+        "TAB-EX05-DZ1-WWANBRA-CN1PBK-..": "480996-100060",
+        "TAB-EX05-DZ1-WWANBRA-CN1000-..": "480996-100024",
+        "TAB-EX05-DZ1-WWANBRN-CN1000-..": "480996-100037",
+        "TAB-EX05-DZ1-WWANCAN-CN1PTE-..": "480996-100095",
+        "TAB-EX05-DZ1-WWANCAN-CN1SHE-..": "480996-100066",
+        "TAB-EX05-DZ1-WWANCAN-CN1000-..": "480996-100015",
+        "TAB-EX05-DZ1-WWANCAN-CS1000-..": "480996-100016",
+        "TAB-EX05-DZ1-WWANEUR-CN1SH1-..": "480996-100063",
+        "TAB-EX05-DZ1-WWANEUR-CN1SH2-..": "480996-100064",
+        "TAB-EX05-DZ1-WWANEUR-CN1WIN-..": "480996-100054",
+        "TAB-EX05-DZ1-WWANEUR-CS1000-HM": "480996-100005",
+        "TAB-EX05-DZ1-WWANIND-CN1000-..": "480996-100039",
+        "TAB-EX05-DZ1-WWANKOR-CN1000-..": "480996-100042",
+        "TAB-EX05-DZ1-WWANMYS-CN1000-..": "480996-100029",
+        "TAB-EX05-DZ1-WWANNAM-CN1SHE-..": "480996-100065",
+        "TAB-EX05-DZ1-WWANNAM-CN1000-..": "480996-100017",
+        "TAB-EX05-DZ1-WWANNAM-CS1000-..": "480996-100018",
+        "TAB-EX05-DZ1-WWANPHL-CN1000-..": "480996-100031",
+        "TAB-EX05-DZ1-WWANQAT-CN1000-..": "480996-100051",
+        "TAB-EX05-DZ1-WWANSAU-CN1000-..": "480996-100027",
+        "TAB-EX05-DZ1-WWANSGP-CN1000-..": "480996-100033",
+        "TAB-EX05-DZ1-WWANZAF-CN1000-..": "480996-100026",
+        "TAB-EX05-DZ2-WIFIAIN-CN1BMS-..": "480997-100061",
+        "TAB-EX05-DZ2-WIFIAIN-CN1000-..": "480997-100013",
+        "TAB-EX05-DZ2-WIFIAIN-CN1000-NC": "480997-100021",
+        "TAB-EX05-DZ2-WIFIAIN-CS1000-..": "480997-100014",
+        "TAB-EX05-DZ2-WIFIAIN-CS1000-NC": "480997-100022",
+        "TAB-EX05-DZ2-WIFIAPC-CN1000-..": "480997-100074",
+        "TAB-EX05-DZ2-WIFIAPC-CS1000-..": "480997-100076",
+        "TAB-EX05-DZ2-WIFIARG-CN1000-NC": "480997-100057",
+        "TAB-EX05-DZ2-WIFIBRA-CN1000-..": "480997-100025",
+        "TAB-EX05-DZ2-WIFIBRN-CN1000-..": "480997-100040",
+        "TAB-EX05-DZ2-WIFIEUR-CN1BMS-..": "480997-100073",
+        "TAB-EX05-DZ2-WIFIEUR-CN1000-HM": "480997-100005",
+        "TAB-EX05-DZ2-WIFIIND-CN1000-..": "480997-100042",
+        "TAB-EX05-DZ2-WIFIMYS-CN1000-..": "480997-100032",
+        "TAB-EX05-DZ2-WIFINAM-CN1000-..": "480997-100069",
+        "TAB-EX05-DZ2-WIFIPHL-CN1000-..": "480997-100034",
+        "TAB-EX05-DZ2-WIFISGP-CN1000-..": "480997-100036",
+        "TAB-EX05-DZ2-WWANAIN-CN1000-..": "480997-100015",
+        "TAB-EX05-DZ2-WWANAIN-CN1000-NC": "480997-100023",
+        "TAB-EX05-DZ2-WWANAIN-CS1000-..": "480997-100016",
+        "TAB-EX05-DZ2-WWANAIN-CS1000-NC": "480997-100024",
+        "TAB-EX05-DZ2-WWANAPC-CN1000-..": "480997-100063",
+        "TAB-EX05-DZ2-WWANAPC-CS1000-..": "480997-100077",
+        "TAB-EX05-DZ2-WWANARG-CN1000-NC": "480997-100058",
+        "TAB-EX05-DZ2-WWANBRA-CN1000-..": "480997-100026",
+        "TAB-EX05-DZ2-WWANBRN-CN1000-..": "480997-100039",
+        "TAB-EX05-DZ2-WWANCAN-CN1SHE-..": "480997-100066",
+        "TAB-EX05-DZ2-WWANCAN-CN1000-..": "480997-100068",
+        "TAB-EX05-DZ2-WWANEUR-CN1SH3-..": "480997-100064",
+        "TAB-EX05-DZ2-WWANEUR-CN1WIN-..": "480997-100056",
+        "TAB-EX05-DZ2-WWANEUR-CN1000-HM": "480997-100006",
+        "TAB-EX05-DZ2-WWANEUR-CS1000-HM": "480997-100007",
+        "TAB-EX05-DZ2-WWANIND-CN1000-..": "480997-100041",
+        "TAB-EX05-DZ2-WWANKOR-CN1000-..": "480997-100044",
+        "TAB-EX05-DZ2-WWANKOR-CN1000-HM": "480997-100075",
+        "TAB-EX05-DZ2-WWANNAM-CN1SHE-..": "480997-100065",
+        "TAB-EX05-DZ2-WWANNAM-CN1000-..": "480997-100067",
+        "TAB-EX05-DZ2-WWANPHL-CN1000-..": "480997-100033",
+        "TAB-EX05-DZ2-WWANQAT-CN1000-..": "480997-100053",
+        "TAB-EX05-DZ2-WWANSAU-CN1000-..": "480997-100029",
+        "TAB-EX05-DZ2-WWANSGP-CN1000-..": "480997-100035",
+        "TAB-EX05-DZ2-WWANZAF-CN1000-..": "480997-100028",
+        "TAB-EX05-D2--WIFINAM-CN1000-..": "70185305",
+        "TAB-EX05-D2--WIFINAM-CS1000-..": "70185306",
+        "TAB-EX05-D2--WWANCAN-CN1000-..": "70185307",
+        "TAB-EX05-D2--WWANCAN-CS1000-..": "70185308",
+        "TAB-EX05-D2--WWANNAM-CN1000-..": "70185309",
+        "TAB-EX05-D2--WWANNAM-CS1000-..": "70185310"
+    };
+
+    // Tracks which manual dropdowns the user has actually touched
+    let dirtyFields = new Set();
+
+    // Helper to slice the nomenclature string to find exact traits
+    function extractFieldFromKey(key, fieldId) {
+        switch(fieldId) {
+            case 'type': return key.substring(9, 12);
+            case 'radio': return key.substring(13, 17);
+            case 'region': return key.substring(17, 20);
+            case 'camera': return key.substring(21, 22);
+            case 'sd': return key.substring(22, 23);
+            case 'ram': return key.substring(23, 24);
+            case 'csl': return key.substring(24, 27);
+            case 'suffix': return key.substring(28, 30);
+            default: return "";
+        }
+    }
+
+    // Safely repopulates the Part Number dropdown
+    function populateReverseSearch(keysToInclude) {
+        const currentVal = reverseSearchSelect.value;
+        reverseSearchSelect.innerHTML = '<option value="">-- Select or Build Below --</option>';
+
+        const entries = keysToInclude.map(nom => {
+            return { nom: nom, pn: partNumberDB[nom] };
+        });
+
+        // Sort numerically by part number
+        entries.sort((a, b) => a.pn.localeCompare(b.pn));
+
+        entries.forEach(entry => {
+            const newOption = new Option(entry.pn, entry.nom);
+            reverseSearchSelect.add(newOption);
+        });
+
+        // Retain the visual selection if it's still in the filtered list
+        if (keysToInclude.includes(currentVal)) {
+            reverseSearchSelect.value = currentVal;
+        }
+    }
 
     function updateDecoder() {
         const type = document.getElementById('type');
@@ -199,17 +399,50 @@
         const csl = document.getElementById('csl');
         const suffix = document.getElementById('suffix');
 
-        // Construct HTML string with color-coded spans and grey dashes
+        // Construct HTML string with color-coded spans.
         const modelHTML = `
             <span class="color-fixed">TAB-EX05-</span><span class="color-type">${type.value}</span><span class="color-fixed">-</span><span class="color-radio">${radio.value}</span><span class="color-region">${region.value}</span><span class="color-fixed">-</span><span class="color-cam">${cam.value}</span><span class="color-sd">${sd.value}</span><span class="color-ram">${ram.value}</span><span class="color-csl">${csl.value}</span><span class="color-fixed">-</span><span class="color-suffix">${suffix.value}</span>
         `;
         
         modelOutput.innerHTML = modelHTML;
 
+        // Construct raw string for query
+        const rawModelString = `TAB-EX05-${type.value}-${radio.value}${region.value}-${cam.value}${sd.value}${ram.value}${csl.value}-${suffix.value}`;
+        const matchedPartNumber = partNumberDB[rawModelString];
+        
+        // --- DYNAMIC FILTERING LOGIC ---
+        let allKeys = Object.keys(partNumberDB);
+        
+        // Filter the available part numbers based on what the user has explicitly changed
+        let filteredKeys = allKeys.filter(key => {
+            for (let fieldId of dirtyFields) {
+                if (extractFieldFromKey(key, fieldId) !== document.getElementById(fieldId).value) {
+                    return false; 
+                }
+            }
+            return true;
+        });
+
+        // If the current combination leads to 0 matches, fallback to showing everything
+        if (filteredKeys.length === 0) {
+            filteredKeys = allKeys;
+        }
+
+        // Repopulate dropdown
+        populateReverseSearch(filteredKeys);
+
+        if (matchedPartNumber) {
+            partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+            reverseSearchSelect.value = rawModelString; // Sync top box
+        } else {
+            partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom</span>`;
+            reverseSearchSelect.value = ""; 
+        }
+
         // Construct Specifications List
         let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> Tab-Ex 05</li>`;
         specsHTML += `<li><strong class="color-type">Certification:</strong> ${type.options[type.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-radio">Radio:</strong> ${radio.options[radio.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-radio">Radio Module:</strong> ${radio.options[radio.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-region">Region:</strong> ${region.options[region.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-cam">Camera:</strong> ${cam.options[cam.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-sd">SD Card:</strong> ${sd.options[sd.selectedIndex].text.split(' - ')[1]}</li>`;
@@ -220,13 +453,43 @@
         specsOutput.innerHTML = specsHTML;
     }
 
-    // Attach event listeners
+    // Attach event listeners to the grid dropdowns
     selects.forEach(select => {
-        select.addEventListener('change', updateDecoder);
+        select.addEventListener('change', (e) => {
+            dirtyFields.add(e.target.id); // Mark this field as actively chosen by the user
+            updateDecoder();
+        });
     });
 
-    // Initialize on load
+    // Handle Top Search Selection
+    reverseSearchSelect.addEventListener('change', (e) => {
+        const selectedNom = e.target.value;
+        if (!selectedNom) {
+            dirtyFields.clear(); // Reset to show all parts if placeholder is chosen
+            updateDecoder();
+            return; 
+        }
+
+        document.getElementById('type').value      = selectedNom.substring(9, 12); 
+        document.getElementById('radio').value     = selectedNom.substring(13, 17); 
+        document.getElementById('region').value    = selectedNom.substring(17, 20); 
+        document.getElementById('camera').value    = selectedNom.substring(21, 22); 
+        document.getElementById('sd').value        = selectedNom.substring(22, 23); 
+        document.getElementById('ram').value       = selectedNom.substring(23, 24); 
+        document.getElementById('csl').value       = selectedNom.substring(24, 27); 
+        document.getElementById('suffix').value    = selectedNom.substring(28, 30); 
+
+        // Clear previous manual filters, but lock in the Region so the dropdown
+        // cleanly filters to show only the models from that specific country.
+        dirtyFields.clear();
+        dirtyFields.add('region');
+
+        updateDecoder();
+    });
+
+    // Run setup on load
     updateDecoder();
+});
 </script>
 
 </body>
