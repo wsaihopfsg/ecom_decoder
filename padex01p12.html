@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pad-Ex 01 Nomenclature Decoder</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        
+        /* Color Palette for distinct segments */
+        .color-fixed { color: #c4c4c4; } /* Light Grey */
+        .color-prot  { color: #D32F2F; } /* Red */
+        .color-reg   { color: #1976D2; } /* Blue */
+        .color-cpu   { color: #388E3C; } /* Green */
+        .color-ram   { color: #F57C00; } /* Orange */
+        .color-hdd   { color: #8E24AA; } /* Purple */
+        .color-rad   { color: #00838F; } /* Teal */
+        .color-suf   { color: #C2185B; } /* Pink */
+
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .part-number {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .part-number span {
+            color: #1976D2; /* Stand out blue for the actual number */
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 190px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pad-Ex 01 P12 Decoder</h1>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="protection" class="color-prot">Explosion Protection</label>
+            <select id="protection">
+                <option value="-D2">-D2 - Division 2</option>
+                <option value="DZ2" selected>DZ2 - Division 2 / Zone 2</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="region" class="color-reg">Region</label>
+            <select id="region">
+                <option value="NAM">NAM - North America</option>
+                <option value="EUN">EUN - Europe</option>
+                <option value="JPN">JPN - Japan</option>
+                <option value="CHN">CHN - China</option>
+                <option value="SGP">SGP - Singapore</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="processor" class="color-cpu">Processor</label>
+            <select id="processor">
+                <option value="C5">C5 - Intel Core i5</option>
+                <option value="C7">C7 - Intel Core i7</option>
+                <option value="N5">N5 - Intel N-Series</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="ram" class="color-ram">RAM</label>
+            <select id="ram">
+                <option value="16">16 - 16 GB</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="storage" class="color-hdd">Storage</label>
+            <select id="storage">
+                <option value="256">256 - 256 GB SSD</option>
+                <option value="512">512 - 512 GB SSD</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="radio" class="color-rad">Modules / Radio</label>
+            <select id="radio">
+                <option value="WIF">WIF - Wi-Fi Only</option>
+                <option value="W2D">W2D - Wi-Fi + 2D Scanner</option>
+                <option value="LTE">LTE - WWAN / LTE</option>
+                <option value="L2D">L2D - LTE + 2D Scanner</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="suffix" class="color-suf">Customization</label>
+            <select id="suffix">
+                <option value="000">000 - Standard</option>
+                <option value="00A">00A - Standard Variant A</option>
+                <option value="NOS">NOS - No Operating System</option>
+                <option value="EH3">EH3 - Custom EH3</option>
+                <option value="EH4">EH4 - Custom EH4</option>
+                <option value="RTM">RTM - Custom RTM</option>
+                <option value="HAM">HAM - Custom HAM</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="model-number" id="modelOutput"></div>
+        <div class="part-number" id="partNumberOutput"></div>
+        
+        <ul class="specs-list" id="specsOutput">
+            </ul>
+    </div>
+</div>
+
+<script>
+    const selects = document.querySelectorAll('select');
+    const modelOutput = document.getElementById('modelOutput');
+    const partNumberOutput = document.getElementById('partNumberOutput');
+    const specsOutput = document.getElementById('specsOutput');
+
+    // Automatically extracted directly from your CSV upload
+    const partNumberDB = {
+        "PAD-EX01P12-D2NAMC516256WIF000": "480991-100000",
+        "PAD-EX01P12-D2NAMC516256W2D000": "480991-100001",
+        "PAD-EX01P12-D2NAMC516256LTE000": "480991-100002",
+        "PAD-EX01P12-D2NAMC516256L2D000": "480991-100003",
+        "PAD-EX01P12DZ2JPNC516256WIF000": "480991-100014",
+        "PAD-EX01P12DZ2JPNC516256W2D000": "480991-100015",
+        "PAD-EX01P12DZ2JPNC516256LTE000": "480991-100016",
+        "PAD-EX01P12DZ2JPNC516256L2D000": "480991-100017",
+        "PAD-EX01P12DZ2CHNC516256WIF000": "480991-100018",
+        "PAD-EX01P12DZ2CHNC516256W2D000": "480991-100019",
+        "PAD-EX01P12DZ2SGPC516256WIF000": "480991-100020",
+        "PAD-EX01P12DZ2SGPC516256W2D000": "480991-100021",
+        "PAD-EX01P12DZ2SGPC516256LTE000": "480991-100022",
+        "PAD-EX01P12DZ2SGPC516256L2D000": "480991-100023",
+        "PAD-EX01P12DZ2EUNC516256LTENOS": "480991-100042",
+        "PAD-EX01P12DZ2EUNC516512W2DEH3": "480991-100047",
+        "PAD-EX01P12DZ2EUNC516512L2DEH4": "480991-100048",
+        "PAD-EX01P12DZ2EUNC516256WIFRTM": "480991-100049",
+        "PAD-EX01P12DZ2EUNC516256WIFHAM": "480991-100050",
+        "PAD-EX01P12DZ2EUNC516256WIF00A": "480991-100051",
+        "PAD-EX01P12DZ2EUNC516256W2D00A": "480991-100052",
+        "PAD-EX01P12DZ2EUNC516256LTE00A": "480991-100053",
+        "PAD-EX01P12DZ2EUNC516256L2D00A": "480991-100054",
+        "PAD-EX01P12DZ2EUNN516256WIF00A": "480991-100055",
+        "PAD-EX01P12DZ2EUNN516256LTE00A": "480991-100056",
+        "PAD-EX01P12DZ2EUNC716256W2D00A": "480991-100057",
+        "PAD-EX01P12DZ2EUNC716256L2D00A": "480991-100058",
+        "PAD-EX01P12DZ2EUNC716256WIF00A": "480991-100059",
+        "PAD-EX01P12DZ2EUNC716256LTE00A": "480991-100060"
+    };
+
+    function updateDecoder() {
+        const prot = document.getElementById('protection');
+        const reg = document.getElementById('region');
+        const cpu = document.getElementById('processor');
+        const ram = document.getElementById('ram');
+        const hdd = document.getElementById('storage');
+        const rad = document.getElementById('radio');
+        const suf = document.getElementById('suffix');
+
+        // Construct HTML string with color-coded spans. 
+        const modelHTML = `
+            <span class="color-fixed">PAD-EX01P12</span><span class="color-prot">${prot.value}</span><span class="color-reg">${reg.value}</span><span class="color-cpu">${cpu.value}</span><span class="color-ram">${ram.value}</span><span class="color-hdd">${hdd.value}</span><span class="color-rad">${rad.value}</span><span class="color-suf">${suf.value}</span>
+        `;
+        modelOutput.innerHTML = modelHTML;
+
+        // Construct raw string exactly as it appears in the CSV to query the DB
+        const rawModelString = `PAD-EX01P12${prot.value}${reg.value}${cpu.value}${ram.value}${hdd.value}${rad.value}${suf.value}`;
+        const matchedPartNumber = partNumberDB[rawModelString] || "Not Listed";
+        
+        partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+
+        // Construct Specifications List
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> Pad-Ex 01 P12</li>`;
+        specsHTML += `<li><strong class="color-prot">Explosion Protection:</strong> ${prot.options[prot.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-reg">Region:</strong> ${reg.options[reg.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-cpu">Processor:</strong> ${cpu.options[cpu.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-ram">Memory (RAM):</strong> ${ram.options[ram.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-hdd">Storage:</strong> ${hdd.options[hdd.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-rad">Radio/Modules:</strong> ${rad.options[rad.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-suf">Customization:</strong> ${suf.options[suf.selectedIndex].text.split(' - ')[1]}</li>`;
+        
+        specsOutput.innerHTML = specsHTML;
+    }
+
+    // Attach event listeners
+    selects.forEach(select => {
+        select.addEventListener('change', updateDecoder);
+    });
+
+    // Initialize on load
+    updateDecoder();
+</script>
+
+</body>
+</html>
