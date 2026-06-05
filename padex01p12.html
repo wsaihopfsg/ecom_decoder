@@ -25,6 +25,34 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
+        
+        /* Search Section Styling */
+        .reverse-search-box {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .reverse-search-box label {
+            font-size: 1.1rem;
+            color: #1565c0;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .reverse-search-box select {
+            border-color: #90caf9;
+            font-weight: bold;
+            color: #1565c0;
+            flex-grow: 1;
+            max-width: 300px;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -52,9 +80,9 @@
         .color-fixed { color: #c4c4c4; } /* Light Grey */
         .color-prot  { color: #D32F2F; } /* Red */
         .color-reg   { color: #1976D2; } /* Blue */
-        .color-cpu   { color: #388E3C; } /* Green */
+        .color-cpu   { color: #8E24AA; } /* Purple */
         .color-ram   { color: #F57C00; } /* Orange */
-        .color-hdd   { color: #8E24AA; } /* Purple */
+        .color-hdd   { color: #388E3C; } /* Green */
         .color-rad   { color: #00838F; } /* Teal */
         .color-suf   { color: #C2185B; } /* Pink */
 
@@ -84,7 +112,7 @@
             margin-bottom: 1.5rem;
         }
         .part-number span {
-            color: #1976D2; /* Stand out blue for the actual number */
+            color: #1976D2;
             font-family: 'Courier New', Courier, monospace;
         }
         .specs-list {
@@ -104,6 +132,13 @@
 <div class="container">
     <h1>Pad-Ex 01 P12 Decoder</h1>
     
+    <div class="reverse-search-box">
+        <label for="reverseSearch">🔍 Part # Search: <strong>480991 -</strong></label>
+        <select id="reverseSearch">
+            <option value="">-- Select or Build Below --</option>
+            </select>
+    </div>
+
     <div class="grid">
         <div class="form-group">
             <label for="protection" class="color-prot">Explosion Protection</label>
@@ -130,13 +165,6 @@
                 <option value="C5">C5 - Intel Core i5</option>
                 <option value="C7">C7 - Intel Core i7</option>
                 <option value="N5">N5 - Intel N-Series</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="ram" class="color-ram">RAM</label>
-            <select id="ram">
-                <option value="16">16 - 16 GB</option>
             </select>
         </div>
 
@@ -182,12 +210,14 @@
 </div>
 
 <script>
-    const selects = document.querySelectorAll('select');
+document.addEventListener('DOMContentLoaded', () => {
+    const selects = document.querySelectorAll('.grid select');
+    const reverseSearchSelect = document.getElementById('reverseSearch');
     const modelOutput = document.getElementById('modelOutput');
     const partNumberOutput = document.getElementById('partNumberOutput');
     const specsOutput = document.getElementById('specsOutput');
 
-    // Automatically extracted directly from your CSV upload
+    // Database
     const partNumberDB = {
         "PAD-EX01P12-D2NAMC516256WIF000": "480991-100000",
         "PAD-EX01P12-D2NAMC516256W2D000": "480991-100001",
@@ -220,33 +250,100 @@
         "PAD-EX01P12DZ2EUNC716256LTE00A": "480991-100060"
     };
 
+    // Tracks which manual dropdowns the user has actually touched
+    let dirtyFields = new Set();
+
+    // Helper to slice the nomenclature string to find exact traits
+    function extractFieldFromKey(key, fieldId) {
+        switch(fieldId) {
+            case 'protection': return key.substring(11, 14);
+            case 'region': return key.substring(14, 17);
+            case 'processor': return key.substring(17, 19);
+            // RAM is skipped as it is fixed at "16"
+            case 'storage': return key.substring(21, 24);
+            case 'radio': return key.substring(24, 27);
+            case 'suffix': return key.substring(27, 30);
+            default: return "";
+        }
+    }
+
+    // Safely repopulates the Part Number dropdown
+    function populateReverseSearch(keysToInclude) {
+        const currentVal = reverseSearchSelect.value;
+        reverseSearchSelect.innerHTML = '<option value="">-- Select or Build Below --</option>';
+
+        const entries = keysToInclude.map(nom => {
+            const fullPN = partNumberDB[nom];
+            return { nom: nom, suffix: fullPN.replace("480991-", "") };
+        });
+
+        // Sort numerically by suffix
+        entries.sort((a, b) => a.suffix.localeCompare(b.suffix));
+
+        entries.forEach(entry => {
+            const newOption = new Option(entry.suffix, entry.nom);
+            reverseSearchSelect.add(newOption);
+        });
+
+        // Retain the visual selection if it's still in the filtered list
+        if (keysToInclude.includes(currentVal)) {
+            reverseSearchSelect.value = currentVal;
+        }
+    }
+
     function updateDecoder() {
         const prot = document.getElementById('protection');
         const reg = document.getElementById('region');
         const cpu = document.getElementById('processor');
-        const ram = document.getElementById('ram');
         const hdd = document.getElementById('storage');
         const rad = document.getElementById('radio');
         const suf = document.getElementById('suffix');
 
-        // Construct HTML string with color-coded spans. 
+        // Construct HTML string with color-coded spans. RAM is fixed as "16".
         const modelHTML = `
-            <span class="color-fixed">PAD-EX01P12</span><span class="color-prot">${prot.value}</span><span class="color-reg">${reg.value}</span><span class="color-cpu">${cpu.value}</span><span class="color-ram">${ram.value}</span><span class="color-hdd">${hdd.value}</span><span class="color-rad">${rad.value}</span><span class="color-suf">${suf.value}</span>
+            <span class="color-fixed">PAD-EX01P12</span><span class="color-prot">${prot.value}</span><span class="color-reg">${reg.value}</span><span class="color-cpu">${cpu.value}</span><span class="color-fixed">16</span><span class="color-hdd">${hdd.value}</span><span class="color-rad">${rad.value}</span><span class="color-suf">${suf.value}</span>
         `;
         modelOutput.innerHTML = modelHTML;
 
-        // Construct raw string exactly as it appears in the CSV to query the DB
-        const rawModelString = `PAD-EX01P12${prot.value}${reg.value}${cpu.value}${ram.value}${hdd.value}${rad.value}${suf.value}`;
-        const matchedPartNumber = partNumberDB[rawModelString] || "Not Listed";
+        // Construct raw string
+        const rawModelString = `PAD-EX01P12${prot.value}${reg.value}${cpu.value}16${hdd.value}${rad.value}${suf.value}`;
+        const matchedPartNumber = partNumberDB[rawModelString];
         
-        partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+        // --- DYNAMIC FILTERING LOGIC ---
+        let allKeys = Object.keys(partNumberDB);
+        
+        // Filter the available part numbers based on what the user has explicitly changed
+        let filteredKeys = allKeys.filter(key => {
+            for (let fieldId of dirtyFields) {
+                if (extractFieldFromKey(key, fieldId) !== document.getElementById(fieldId).value) {
+                    return false; // Exclude if it doesn't match a user's selection
+                }
+            }
+            return true;
+        });
+
+        // If the current combination leads to 0 matches, fallback to showing everything
+        if (filteredKeys.length === 0) {
+            filteredKeys = allKeys;
+        }
+
+        // Repopulate dropdown
+        populateReverseSearch(filteredKeys);
+
+        if (matchedPartNumber) {
+            partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+            reverseSearchSelect.value = rawModelString; // Sync top box
+        } else {
+            partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom</span>`;
+            reverseSearchSelect.value = ""; 
+        }
 
         // Construct Specifications List
         let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> Pad-Ex 01 P12</li>`;
         specsHTML += `<li><strong class="color-prot">Explosion Protection:</strong> ${prot.options[prot.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-reg">Region:</strong> ${reg.options[reg.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-cpu">Processor:</strong> ${cpu.options[cpu.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-ram">Memory (RAM):</strong> ${ram.options[ram.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-fixed">Memory (RAM):</strong> 16 GB</li>`;
         specsHTML += `<li><strong class="color-hdd">Storage:</strong> ${hdd.options[hdd.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-rad">Radio/Modules:</strong> ${rad.options[rad.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-suf">Customization:</strong> ${suf.options[suf.selectedIndex].text.split(' - ')[1]}</li>`;
@@ -254,13 +351,41 @@
         specsOutput.innerHTML = specsHTML;
     }
 
-    // Attach event listeners
+    // Attach event listeners to the grid dropdowns
     selects.forEach(select => {
-        select.addEventListener('change', updateDecoder);
+        select.addEventListener('change', (e) => {
+            dirtyFields.add(e.target.id); // Mark this field as actively chosen by the user
+            updateDecoder();
+        });
     });
 
-    // Initialize on load
+    // Handle Top Search Selection
+    reverseSearchSelect.addEventListener('change', (e) => {
+        const selectedNom = e.target.value;
+        if (!selectedNom) {
+            dirtyFields.clear(); // Reset to show all parts if placeholder is chosen
+            updateDecoder();
+            return; 
+        }
+
+        document.getElementById('protection').value = selectedNom.substring(11, 14); 
+        document.getElementById('region').value     = selectedNom.substring(14, 17); 
+        document.getElementById('processor').value  = selectedNom.substring(17, 19); 
+        document.getElementById('storage').value    = selectedNom.substring(21, 24); 
+        document.getElementById('radio').value      = selectedNom.substring(24, 27); 
+        document.getElementById('suffix').value     = selectedNom.substring(27, 30); 
+
+        // Clear previous manual filters, but lock in the Region so the dropdown
+        // cleanly filters to show only the models from that specific country.
+        dirtyFields.clear();
+        dirtyFields.add('region');
+
+        updateDecoder();
+    });
+
+    // Run setup on load
     updateDecoder();
+});
 </script>
 
 </body>
