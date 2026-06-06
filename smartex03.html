@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart-Ex 03 Nomenclature Decoder</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        /* Search Section Styling */
+        .reverse-search-box {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .reverse-search-box label {
+            font-size: 1.1rem;
+            color: #1565c0;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .reverse-search-box select {
+            border-color: #90caf9;
+            font-weight: bold;
+            color: #1565c0;
+            flex-grow: 1;
+            max-width: 300px;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        
+        /* Color Palette for distinct segments */
+        .color-prot { color: #D32F2F; } /* Red */
+        .color-reg  { color: #388E3C; } /* Green */
+        .color-cam  { color: #F57C00; } /* Orange */
+        .color-cust { color: #8E24AA; } /* Purple */
+        .color-suf  { color: #00838F; } /* Teal */
+        .color-fixed{ color: #c4c4c4; } /* Light Grey for fixed strings */
+
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .part-number {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .part-number span {
+            color: #1976D2;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 140px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Smart-Ex 03 Decoder</h1>
+    
+    <div class="reverse-search-box">
+        <label for="reverseSearch">🔍 Part # Search: <strong>480994 -</strong></label>
+        <select id="reverseSearch">
+            <option value="">-- Select or Build Below --</option>
+            </select>
+    </div>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="protection" class="color-prot">Explosion Protection</label>
+            <select id="protection">
+                <option value="DZ1">DZ1 - Zone 1/21 & Div 1</option>
+                <option value="DZ2">DZ2 - Zone 2/22 & Div 2</option>
+                <option value="DZ1M">DZ1M - Zone 1/21 Mining</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="region" class="color-reg">Region / Approval</label>
+            <select id="region">
+                <option value="AIX">AIX - ATEX/IECEx (Global)</option>
+                <option value="AIC">AIC - ATEX/IECEx (WW EXCL)</option>
+                <option value="ANX">ANX - AU & NZ (Mining)</option>
+                <option value="ARG">ARG - Argentina</option>
+                <option value="AX">AX - ATEX/IECEx (Mining)</option>
+                <option value="BRA">BRA - Brazil & Chile ATEX / IECEx</option>
+                <option value="BRX">BRX - Brazil & Chile ATEX / IECEx</option>
+                <option value="JPX">JPX - Japan CML</option>
+                <option value="KOX">KOX - South Korea KC</option>
+                <option value="MEX">MEX - Mexico</option>
+                <option value="NAM">NAM - North America</option>
+                <option value="ZAX">ZAX - South Africa</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="camera" class="color-cam">Camera & Storage</label>
+            <select id="camera">
+                <option value="C128">C128 - 13 MP Camera | 128 GB</option>
+                <option value="N128" selected>N128 - No Camera | 128 GB</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="custom" class="color-cust">Customization</label>
+            <select id="custom">
+                <option value="000">000 - Standard</option>
+                <option value="AZT" selected>AZT - AZT Enrolled</option>
+                <option value="CLM">CLM - Classic Mode</option>
+                <option value="COM">COM - Camera Only Mode</option>
+                <option value="HAM">HAM - Hart Modem BT</option>
+                <option value="PBK">PBK - Kit Containing</option>
+                <option value="SHE">SHE - Shell, AZT Enrolled </option>
+                <option value="WIN">WIN - WIND labelling (WW EXCL)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="suffix" class="color-suf">Variant</label>
+            <select id="suffix">
+                <option value="..">.. - Standard</option>
+                <option value="NB">NB - No Battery</option>
+                <option value="NC">NC - No Charger</option>
+                <option value="NS">NS - No Slipcase</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="model-number" id="modelOutput"></div>
+        <div class="part-number" id="partNumberOutput"></div>
+        
+        <ul class="specs-list" id="specsOutput">
+        </ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const selects = document.querySelectorAll('.grid select');
+    const reverseSearchSelect = document.getElementById('reverseSearch');
+    const modelOutput = document.getElementById('modelOutput');
+    const partNumberOutput = document.getElementById('partNumberOutput');
+    const specsOutput = document.getElementById('specsOutput');
+
+    // Database extracted from uploaded CSV
+    const partNumberDB = {
+        "SMART-EX03-DZ1-AIC-C128-WIN-..": "480994-100081",
+        "SMART-EX03-DZ1-AIX-C128-AZT-..": "480994-100116",
+        "SMART-EX03-DZ1-AIX-C128-CLM-..": "480994-100113",
+        "SMART-EX03-DZ1-AIX-C128-COM-..": "480994-100110",
+        "SMART-EX03-DZ1-AIX-C128-HAM-..": "480994-100125",
+        "SMART-EX03-DZ1-AIX-C128-SHE-..": "480994-100111",
+        "SMART-EX03-DZ1-AIX-C128-000-..": "480994-100097",
+        "SMART-EX03-DZ1-AIX-C128-000-NC": "480994-100098",
+        "SMART-EX03-DZ1-AIX-C128-000-NS": "480994-100118",
+        "SMART-EX03-DZ1-AIX-N128-CLM-..": "480994-100095",
+        "SMART-EX03-DZ1-AIX-N128-000-..": "480994-100093",
+        "SMART-EX03-DZ1-BRA-C128-PBK-..": "480994-100094",
+        "SMART-EX03-DZ1-BRX-C128-COM-..": "480994-100120",
+        "SMART-EX03-DZ1-BRX-C128-000-..": "480994-100106",
+        "SMART-EX03-DZ1-BRX-C128-000-NS": "480994-100124",
+        "SMART-EX03-DZ1-JPX-C128-000-..": "480994-100102",
+        "SMART-EX03-DZ1-JPX-C128-000-NS": "480994-100123",
+        "SMART-EX03-DZ1-KOX-C128-000-..": "480994-100104",
+        "SMART-EX03-DZ1MANX-C128-000-..": "480994-100115",
+        "SMART-EX03-DZ1MAX--C128-000-..": "480994-100122",
+        "SMART-EX03-DZ1-MEX-C128-000-..": "480994-100076",
+        "SMART-EX03-DZ1MZAX-C128-000-..": "480994-100128",
+        "SMART-EX03-DZ1-NAM-C128-000-..": "480994-100121",
+        "SMART-EX03-DZ1-ZAX-C128-000-..": "480994-100108",
+        "SMART-EX03-DZ2-AIC-C128-WIN-..": "480994-100082",
+        "SMART-EX03-DZ2-AIX-C128-AZT-..": "480994-100117",
+        "SMART-EX03-DZ2-AIX-C128-COM-..": "480994-100119",
+        "SMART-EX03-DZ2-AIX-C128-HAM-..": "480994-100126",
+        "SMART-EX03-DZ2-AIX-C128-SHE-..": "480994-100112",
+        "SMART-EX03-DZ2-AIX-C128-000-..": "480994-100099",
+        "SMART-EX03-DZ2-AIX-C128-000-NB": "480994-100127",
+        "SMART-EX03-DZ2-AIX-C128-000-NC": "480994-100100",
+        "SMART-EX03-DZ2-AIX-N128-000-..": "480994-100096",
+        "SMART-EX03-DZ2-AIX-N128-000-NC": "480994-100101",
+        "SMART-EX03-DZ2-ARG-C128-COM-NC": "480994-100069",
+        "SMART-EX03-DZ2-BRX-C128-000-..": "480994-100107",
+        "SMART-EX03-DZ2-JPX-C128-000-..": "480994-100103",
+        "SMART-EX03-DZ2-KOX-C128-000-..": "480994-100105",
+        "SMART-EX03-DZ2-MEX-C128-000-..": "480994-100077",
+        "SMART-EX03-DZ2-NAM-C128-000-..": "480994-100114",
+        "SMART-EX03-DZ2-ZAX-C128-000-..": "480994-100109"
+    };
+
+    let lockRegion = false;
+
+    // Advanced extractor that can parse the missing hyphens in the CSV typos gracefully
+    function extractFieldFromKey(key, fieldId) {
+        let parts = key.split('-');
+        let prot, reg, cam, cust, suf;
+
+        if (parts[2].startsWith("DZ1M")) {
+            prot = "DZ1M";
+            if (parts[2] === "DZ1MANX") reg = "ANX";
+            else if (parts[2] === "DZ1MZAX") reg = "ZAX";
+            else if (parts[2] === "DZ1MAX") reg = "AX";
+            
+            if (parts[2] === "DZ1MAX") {
+               cam = parts[4]; cust = parts[5]; suf = parts[6];
+            } else {
+               cam = parts[3]; cust = parts[4]; suf = parts[5];
+            }
+        } else {
+            prot = parts[2];
+            reg = parts[3];
+            cam = parts[4];
+            cust = parts[5];
+            suf = parts[6];
+        }
+
+        switch(fieldId) {
+            case 'protection': return prot;
+            case 'region': return reg;
+            case 'camera': return cam;
+            case 'custom': return cust;
+            case 'suffix': return suf;
+            default: return "";
+        }
+    }
+
+    // Safely repopulates the Part Number dropdown
+    function populateReverseSearch(keysToInclude) {
+        const currentVal = reverseSearchSelect.value;
+        reverseSearchSelect.innerHTML = '<option value="">-- Select or Build Below --</option>';
+
+        const entries = keysToInclude.map(nom => {
+            const fullPN = partNumberDB[nom];
+            return { nom: nom, suffix: fullPN.replace("480994-", "") };
+        });
+
+        // Sort numerically by suffix
+        entries.sort((a, b) => a.suffix.localeCompare(b.suffix));
+
+        entries.forEach(entry => {
+            const newOption = new Option(entry.suffix, entry.nom);
+            reverseSearchSelect.add(newOption);
+        });
+
+        if (keysToInclude.includes(currentVal)) {
+            reverseSearchSelect.value = currentVal;
+        }
+    }
+
+    function updateDecoder() {
+        const prot = document.getElementById('protection');
+        const reg = document.getElementById('region');
+        const cam = document.getElementById('camera');
+        const cust = document.getElementById('custom');
+        const suf = document.getElementById('suffix');
+
+        // Construct visually clean HTML string for UI
+        const modelHTML = `
+            <span class="color-fixed">SMART-EX03-</span><span class="color-prot">${prot.value}</span><span class="color-fixed">-</span><span class="color-reg">${reg.value}</span><span class="color-fixed">-</span><span class="color-cam">${cam.value}</span><span class="color-fixed">-</span><span class="color-cust">${cust.value}</span><span class="color-fixed">-</span><span class="color-suf">${suf.value}</span>
+        `;
+        modelOutput.innerHTML = modelHTML;
+
+        // Construct raw theoretical string
+        const rawModelString = `SMART-EX03-${prot.value}-${reg.value}-${cam.value}-${cust.value}-${suf.value}`;
+        let lookupKey = rawModelString;
+        
+        // Background correction for the DB typos (missing hyphens)
+        if (prot.value === "DZ1M" && reg.value === "ANX") lookupKey = `SMART-EX03-DZ1MANX-${cam.value}-${cust.value}-${suf.value}`;
+        else if (prot.value === "DZ1M" && reg.value === "AX") lookupKey = `SMART-EX03-DZ1MAX--${cam.value}-${cust.value}-${suf.value}`;
+        else if (prot.value === "DZ1M" && reg.value === "ZAX") lookupKey = `SMART-EX03-DZ1MZAX-${cam.value}-${cust.value}-${suf.value}`;
+
+        const matchedPartNumber = partNumberDB[lookupKey];
+        
+        // --- DYNAMIC FILTERING LOGIC ---
+        let allKeys = Object.keys(partNumberDB);
+        let filteredKeys = allKeys;
+        
+        // ONLY filter by the Region field
+        if (lockRegion) {
+            filteredKeys = allKeys.filter(key => extractFieldFromKey(key, 'region') === reg.value);
+            if (filteredKeys.length === 0) filteredKeys = allKeys; // Fallback
+        }
+
+        populateReverseSearch(filteredKeys);
+
+        if (matchedPartNumber) {
+            partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+            reverseSearchSelect.value = lookupKey; // Sync top box
+        } else {
+            partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom</span>`;
+            reverseSearchSelect.value = ""; 
+        }
+
+        // Construct Specifications List
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> Smart-Ex 03</li>`;
+        specsHTML += `<li><strong class="color-prot">Explosion Protection:</strong> ${prot.options[prot.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-reg">Region:</strong> ${reg.options[reg.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-cam">Camera/Storage:</strong> ${cam.options[cam.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-cust">Customization:</strong> ${cust.options[cust.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-suf">Suffix:</strong> ${suf.options[suf.selectedIndex].text.split(' - ')[1]}</li>`;
+        
+        specsOutput.innerHTML = specsHTML;
+    }
+
+    // Attach event listeners to the grid dropdowns
+    selects.forEach(select => {
+        select.addEventListener('change', (e) => {
+            if (e.target.id === 'region') lockRegion = true; 
+            updateDecoder();
+        });
+    });
+
+    // Handle Top Search Selection
+    reverseSearchSelect.addEventListener('change', (e) => {
+        const selectedNom = e.target.value;
+        if (!selectedNom) {
+            lockRegion = false; // Reset to show all parts if placeholder is chosen
+            updateDecoder();
+            return; 
+        }
+
+        document.getElementById('protection').value = extractFieldFromKey(selectedNom, 'protection'); 
+        document.getElementById('region').value     = extractFieldFromKey(selectedNom, 'region'); 
+        document.getElementById('camera').value     = extractFieldFromKey(selectedNom, 'camera'); 
+        document.getElementById('custom').value     = extractFieldFromKey(selectedNom, 'custom'); 
+        document.getElementById('suffix').value     = extractFieldFromKey(selectedNom, 'suffix'); 
+
+        lockRegion = true;
+        updateDecoder();
+    });
+
+    // Run setup on load
+    updateDecoder();
+});
+</script>
+
+</body>
+</html>
