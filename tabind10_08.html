@@ -89,6 +89,7 @@
         .color-plat { color: #00838F; } /* Cyan/Teal */
         .color-scan { color: #7B1FA2; } /* Purple */
         .color-fixed{ color: #c4c4c4; } /* Light Grey */
+        .color-alert{ color: #e53935; font-weight: bold; } /* Alert for missing accessories */
 
         .output-section {
             background: #f8f9fa;
@@ -252,6 +253,15 @@ document.addEventListener('DOMContentLoaded', () => {
         "TAB-IND08WIUAB1F2XXMW.1": "480993-100014"
     };
 
+    // Parts that do not include charger and cable
+    const missingChargerParts = [
+        "480993-100014",
+        "480993-100015",
+        "480993-100016",
+        "480993-100017",
+        "480993-100018"
+    ];
+
     let lockConnectivity = false;
     let dirtyFields = new Set();
 
@@ -346,9 +356,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         populateReverseSearch(filteredKeys);
 
+        let notes = "";
         if (matchedPartNumber) {
             partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
             reverseSearchSelect.value = rawModelString; // Sync top box
+            
+            if (missingChargerParts.includes(matchedPartNumber)) {
+                notes = "<span class='color-alert'>No charger and cable</span>";
+            }
         } else {
             partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom</span>`;
             reverseSearchSelect.value = ""; 
@@ -363,6 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
         specsHTML += `<li><strong class="color-os">OS:</strong> ${os.options[os.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-plat">Region:</strong> ${region.options[region.selectedIndex].text.split(' - ')[1]}</li>`;
         specsHTML += `<li><strong class="color-scan">Scanner:</strong> ${scan.options[scan.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-fixed">Notes:</strong> ${notes}</li>`;
         
         specsOutput.innerHTML = specsHTML;
     }
