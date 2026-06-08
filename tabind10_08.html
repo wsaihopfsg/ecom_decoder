@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAB-IND10 & 08 Nomenclature Decoder</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        /* Search Section Styling */
+        .reverse-search-box {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .reverse-search-box label {
+            font-size: 1.1rem;
+            color: #1565c0;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .reverse-search-box select {
+            border-color: #90caf9;
+            font-weight: bold;
+            color: #1565c0;
+            flex-grow: 1;
+            max-width: 300px;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .model-select {
+            background-color: #fff;
+            max-width: 150px !important;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+        
+        /* Color Palette for distinct segments */
+        .color-conn { color: #D32F2F; } /* Red */
+        .color-proc { color: #388E3C; } /* Green */
+        .color-bio  { color: #F57C00; } /* Orange */
+        .color-os   { color: #1976D2; } /* Blue */
+        .color-plat { color: #00838F; } /* Cyan/Teal */
+        .color-scan { color: #7B1FA2; } /* Purple */
+        .color-fixed{ color: #c4c4c4; } /* Light Grey */
+
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .part-number {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .part-number span {
+            color: #1976D2;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 140px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>TAB-IND Decoder</h1>
+    
+    <div class="reverse-search-box">
+        <select id="modelFamily" class="model-select">
+            <option value="10" selected>TAB-IND10</option>
+            <option value="08">TAB-IND08</option>
+        </select>
+        <label for="reverseSearch" id="prefixLabel">🔍 Part # Search: <strong>480993 -</strong></label>
+        <select id="reverseSearch">
+            <option value="">-- Select or Build Below --</option>
+            </select>
+    </div>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="connectivity" class="color-conn">Connectivity & Audio</label>
+            <select id="connectivity">
+                <option value="WIE">WIE - Wi-Fi (Intel), Global, Non-GNSS (inc. PWBA Audio)</option>
+                <option value="WIN" selected>WIN - Wi-Fi (Global), Non-GNSS (No PWBA Audio)</option>
+                <option value="WIU">WIU - Wi-Fi (Intel), Global, with GNSS</option>
+                <option value="LTC">LTC - 4G LTE, Global Antenna (inc. PWBA Audio)</option>
+                <option value="T5G">T5G - 5G WWAN, Wi-Fi 6E, with GNSS</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="configuration" class="color-proc">Configuration</label>
+            <select id="configuration">
+                <option value="AA1">AA1 - QCS6490 | 8GB RAM | 128GB</option>
+                <option value="AB1" selected>AB1 - Intel N100 | 8GB RAM | 128GB</option>
+                <option value="AC1">AC1 - Intel N100 | 16GB RAM | 256GB</option>
+                <option value="C8">C8 - Intel Atom x7 | 8GB RAM | 128GB</option>
+                <option value="C4">C4 - Intel Atom x7 | 4GB RAM | 64GB</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sensor" class="color-bio">Sensor</label>
+            <select id="sensor">
+                <option value="F">F - Fingerprint</option>
+                <option value="C">C - Standard Variant (Atom 8GB)</option>
+                <option value="N" selected>N - No Fingerprint</option>
+                <option value="A">A - Fingerprint (Android)</option>
+                <option value="B">B - Standard Variant (Atom 4GB)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="os" class="color-os">Operating System</label>
+            <select id="os">
+                <option value="4">4 - WIN 10 LTSC 21H2</option>
+                <option value="2" selected>2 - Windows 11 IoT Enterprise LTSC</option>
+                <option value="1">1 - WIN 10 64-Bit</option>
+                <option value="3">3 - Android 15 GMS</option>
+                <option value="B">B - ThinManager Ready</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="region" class="color-plat">Region</label>
+            <select id="region">
+                <option value="K">K - EU/UK/US/CA/AU + Middle East</option>
+                <option value="L">L - EU/UK/US/CA/AU/NZ + Global Certs</option>
+                <option value="J" selected>J - EU/UK/US/CA/AU/JP/MX</option>
+                <option value="M">M - EU/US/CA/AU/NZ</option>
+                <option value="N">N - EU/US/CA/AU/NZ/JP</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="scanner" class="color-scan">Add-on Frame</label>
+            <select id="scanner">
+                <option value="W" selected>W - Standard (No Scanner)</option>
+                <option value="X">X - Scanner frame mounted</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="model-number" id="modelOutput"></div>
+        <div class="part-number" id="partNumberOutput"></div>
+        
+        <ul class="specs-list" id="specsOutput">
+        </ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const selects = document.querySelectorAll('.grid select');
+    const reverseSearchSelect = document.getElementById('reverseSearch');
+    const modelOutput = document.getElementById('modelOutput');
+    const partNumberOutput = document.getElementById('partNumberOutput');
+    const specsOutput = document.getElementById('specsOutput');
+    const modelFamily = document.getElementById('modelFamily');
+
+    // Database containing both TAB-IND10 and TAB-IND08
+    const partNumberDB = {
+        // TAB-IND10
+        "TAB-IND10T5GAA1A3XXLW.1": "480993-100018",
+        "TAB-IND10WINAA1A3XXNW.1": "480993-100017",
+        "TAB-IND10WINAB1NBXXJW.1": "480993-100012",
+        "TAB-IND10WINAB1N1XXJX.1": "480993-100007",
+        "TAB-IND10WIUAB1F1XXJW.1": "480993-100003",
+        "TAB-IND10WIUAB1F1XXJX.1": "480993-100008",
+        "TAB-IND10WIUAB1F2XXJW.1": "480993-100015",
+        "TAB-IND10WIUAC1F2XXJW.1": "480993-100016",
+        
+        // TAB-IND08
+        "TAB-IND08LTCC4B4XXLW.1": "480993-100010",
+        "TAB-IND08LTCC8C4XXLW.1": "480993-100001",
+        "TAB-IND08LTCC8C4XXLX.1": "480993-100006",
+        "TAB-IND08WIEC8CBXXKW.1": "480993-100011",
+        "TAB-IND08WIEC8C4XXKW.1": "480993-100000",
+        "TAB-IND08WIEC8C4XXKX.1": "480993-100005",
+        "TAB-IND08WIUAB1F2XXMW.1": "480993-100014"
+    };
+
+    let lockConnectivity = false;
+    let dirtyFields = new Set();
+
+    // Advanced extractor adapting to the Configuration string lengths (2 vs 3 chars)
+    function extractFieldFromKey(key, fieldId) {
+        let xxIdx = key.indexOf("XX");
+        let conn = key.substring(9, 12);
+        let config, sensor, os, region, scan;
+
+        if (xxIdx === 17) { 
+            // 3-char config (e.g., AA1, AB1)
+            config = key.substring(12, 15);
+            sensor = key.substring(15, 16);
+            os = key.substring(16, 17);
+            region = key.substring(19, 20);
+            scan = key.substring(20, 21);
+        } else if (xxIdx === 16) { 
+            // 2-char config (e.g., C4, C8)
+            config = key.substring(12, 14);
+            sensor = key.substring(14, 15);
+            os = key.substring(15, 16);
+            region = key.substring(18, 19);
+            scan = key.substring(19, 20);
+        }
+
+        switch(fieldId) {
+            case 'connectivity': return conn;
+            case 'configuration': return config;
+            case 'sensor': return sensor;
+            case 'os': return os;
+            case 'region': return region;
+            case 'scanner': return scan;
+            default: return "";
+        }
+    }
+
+    // Safely repopulates the Part Number dropdown
+    function populateReverseSearch(keysToInclude) {
+        const currentVal = reverseSearchSelect.value;
+        
+        reverseSearchSelect.innerHTML = '<option value="">-- Select or Build Below --</option>';
+
+        const entries = keysToInclude.map(nom => {
+            const fullPN = partNumberDB[nom];
+            return { nom: nom, suffix: fullPN.replace("480993-", "") };
+        });
+
+        // Sort numerically by suffix
+        entries.sort((a, b) => a.suffix.localeCompare(b.suffix));
+
+        entries.forEach(entry => {
+            const newOption = new Option(entry.suffix, entry.nom);
+            reverseSearchSelect.add(newOption);
+        });
+
+        if (keysToInclude.includes(currentVal)) {
+            reverseSearchSelect.value = currentVal;
+        }
+    }
+
+    function updateDecoder() {
+        const family = modelFamily.value;
+        const conn = document.getElementById('connectivity');
+        const config = document.getElementById('configuration');
+        const sensor = document.getElementById('sensor');
+        const os = document.getElementById('os');
+        const region = document.getElementById('region');
+        const scan = document.getElementById('scanner');
+
+        // Construct visually clean HTML string for UI
+        const modelHTML = `
+            <span class="color-fixed">TAB-IND${family}</span><span class="color-conn">${conn.value}</span><span class="color-proc">${config.value}</span><span class="color-bio">${sensor.value}</span><span class="color-os">${os.value}</span><span class="color-fixed">XX</span><span class="color-plat">${region.value}</span><span class="color-scan">${scan.value}</span><span class="color-fixed">.1</span>
+        `;
+        modelOutput.innerHTML = modelHTML;
+
+        // Construct raw theoretical string
+        const prefixStr = `TAB-IND${family}`;
+        const rawModelString = `${prefixStr}${conn.value}${config.value}${sensor.value}${os.value}XX${region.value}${scan.value}.1`;
+        
+        const matchedPartNumber = partNumberDB[rawModelString];
+        
+        // --- DYNAMIC FILTERING LOGIC ---
+        // Only look at keys belonging to the currently selected model family
+        let allKeys = Object.keys(partNumberDB).filter(k => k.startsWith(prefixStr));
+        let filteredKeys = allKeys;
+        
+        // ONLY filter by the Connectivity & GNSS field
+        if (lockConnectivity) {
+            filteredKeys = allKeys.filter(key => extractFieldFromKey(key, 'connectivity') === conn.value);
+            if (filteredKeys.length === 0) filteredKeys = allKeys; // Fallback
+        }
+
+        populateReverseSearch(filteredKeys);
+
+        if (matchedPartNumber) {
+            partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+            reverseSearchSelect.value = rawModelString; // Sync top box
+        } else {
+            partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom</span>`;
+            reverseSearchSelect.value = ""; 
+        }
+
+        // Construct Specifications List
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> TAB-IND${family}</li>`;
+        specsHTML += `<li><strong class="color-fixed">Screen Size:</strong> ${family === "10" ? '10.1" (WUXGA 1920 x 1200)' : '8.4" (WQXGA 2560 x 1600)'}</li>`;
+        specsHTML += `<li><strong class="color-conn">Connectivity:</strong> ${conn.options[conn.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-proc">Config:</strong> ${config.options[config.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-bio">Sensor:</strong> ${sensor.options[sensor.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-os">OS:</strong> ${os.options[os.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-plat">Region:</strong> ${region.options[region.selectedIndex].text.split(' - ')[1]}</li>`;
+        specsHTML += `<li><strong class="color-scan">Scanner:</strong> ${scan.options[scan.selectedIndex].text.split(' - ')[1]}</li>`;
+        
+        specsOutput.innerHTML = specsHTML;
+    }
+
+    // Handle Model Family Change
+    modelFamily.addEventListener('change', () => {
+        lockConnectivity = false;
+        dirtyFields.clear();
+        reverseSearchSelect.value = "";
+        updateDecoder();
+    });
+
+    // Attach event listeners to the grid dropdowns
+    selects.forEach(select => {
+        if (select.id === 'modelFamily') return; 
+
+        select.addEventListener('change', (e) => {
+            if (e.target.id === 'connectivity') {
+                lockConnectivity = true; 
+            }
+            updateDecoder();
+        });
+    });
+
+    // Handle Top Search Selection
+    reverseSearchSelect.addEventListener('change', (e) => {
+        const selectedNom = e.target.value;
+        if (!selectedNom) {
+            lockConnectivity = false; // Reset to show all parts if placeholder is chosen
+            updateDecoder();
+            return; 
+        }
+
+        document.getElementById('connectivity').value  = extractFieldFromKey(selectedNom, 'connectivity'); 
+        document.getElementById('configuration').value = extractFieldFromKey(selectedNom, 'configuration'); 
+        document.getElementById('sensor').value        = extractFieldFromKey(selectedNom, 'sensor'); 
+        document.getElementById('os').value            = extractFieldFromKey(selectedNom, 'os'); 
+        document.getElementById('region').value        = extractFieldFromKey(selectedNom, 'region'); 
+        document.getElementById('scanner').value       = extractFieldFromKey(selectedNom, 'scanner'); 
+
+        lockConnectivity = true;
+        updateDecoder();
+    });
+
+    // Run setup on load
+    updateDecoder();
+});
+</script>
+
+</body>
+</html>
