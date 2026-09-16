@@ -9,7 +9,7 @@
             font-family: system-ui, -apple-system, sans-serif;
             background-color: #f4f4f9;
             color: #333;
-            max-width: 850px;
+            max-width: 1000px; /* Increased to comfortably fit 3 columns */
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -57,13 +57,34 @@
             background-color: #fff;
             max-width: 150px !important;
         }
+        .reset-btn {
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .reset-btn:hover {
+            background-color: #0d47a1;
+        }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr); /* Explicitly locked to 3 columns */
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
+        
+        /* Responsive fallback for smaller screens */
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
@@ -79,17 +100,18 @@
             border-radius: 4px;
             font-size: 1rem;
             background-color: #fff;
+            width: 100%;
         }
         
-        /* Color Palette for distinct segments */
-        .color-conn { color: #D32F2F; } /* Red */
-        .color-proc { color: #388E3C; } /* Green */
-        .color-bio  { color: #F57C00; } /* Orange */
-        .color-os   { color: #1976D2; } /* Blue */
-        .color-plat { color: #00838F; } /* Cyan/Teal */
-        .color-scan { color: #7B1FA2; } /* Purple */
-        .color-fixed{ color: #c4c4c4; } /* Light Grey */
-        .color-alert{ color: #e53935; font-weight: bold; } /* Alert for missing accessories */
+        /* Color Palette */
+        .color-conn { color: #D32F2F; } 
+        .color-proc { color: #388E3C; } 
+        .color-bio  { color: #F57C00; } 
+        .color-os   { color: #1976D2; } 
+        .color-plat { color: #00838F; } 
+        .color-scan { color: #7B1FA2; } 
+        .color-fixed{ color: #c4c4c4; } 
+        .color-alert{ color: #e53935; font-weight: bold; } 
 
         .output-section {
             background: #f8f9fa;
@@ -139,23 +161,24 @@
     
     <div class="reverse-search-box">
         <select id="modelFamily" class="model-select">
-            <option value="10" selected>TAB-IND10</option>
+            <option value="UNSELECTED" selected>-- Screen Size --</option>
+            <option value="10">TAB-IND10</option>
             <option value="08">TAB-IND08</option>
         </select>
-        <label for="reverseSearch" id="prefixLabel">🔍 Part # Search: <strong>480993 -</strong></label>
+        <label for="reverseSearch" id="prefixLabel">🔍 Part # Search:</label>
         <select id="reverseSearch">
             <option value="">-- Select or Build Below --</option>
-            </select>
+        </select>
+        <button id="resetFiltersBtn" class="reset-btn">Reset Filters</button>
     </div>
     
     <div class="grid">
         <div class="form-group">
             <label for="connectivity" class="color-conn">Connectivity & Audio</label>
             <select id="connectivity">
-                <option value="WIE">WIE - Wi-Fi (Intel), Global, Non-GNSS (inc. PWBA Audio)</option>
-                <option value="WIN" selected>WIN - Wi-Fi (Global), Non-GNSS (No PWBA Audio)</option>
+                <option value="UNSELECTED" selected>-- Please Select --</option>
+                <option value="WIN">WIN - Wi-Fi (Global), Non-GNSS</option>
                 <option value="WIU">WIU - Wi-Fi (Intel), Global, with GNSS</option>
-                <option value="LTC">LTC - 4G LTE, Global Antenna (inc. PWBA Audio)</option>
                 <option value="T5G">T5G - 5G WWAN, Wi-Fi 6E, with GNSS</option>
             </select>
         </div>
@@ -163,31 +186,29 @@
         <div class="form-group">
             <label for="configuration" class="color-proc">Configuration</label>
             <select id="configuration">
+                <option value="UNSELECTED" selected>-- Please Select --</option>
                 <option value="AA1">AA1 - QCS6490 | 8GB RAM | 128GB</option>
-                <option value="AB1" selected>AB1 - Intel N100 | 8GB RAM | 128GB</option>
+                <option value="AB1">AB1 - Intel N100 | 8GB RAM | 128GB</option>
                 <option value="AC1">AC1 - Intel N100 | 16GB RAM | 256GB</option>
-                <option value="C8">C8 - Intel Atom x7 | 8GB RAM | 128GB</option>
-                <option value="C4">C4 - Intel Atom x7 | 4GB RAM | 64GB</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="sensor" class="color-bio">Sensor</label>
             <select id="sensor">
+                <option value="UNSELECTED" selected>-- Please Select --</option>
                 <option value="F">F - Fingerprint</option>
-                <option value="C">C - Standard Variant (Atom 8GB)</option>
-                <option value="N" selected>N - No Fingerprint</option>
+                <option value="N">N - No Fingerprint</option>
                 <option value="A">A - Fingerprint (Android)</option>
-                <option value="B">B - Standard Variant (Atom 4GB)</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="os" class="color-os">Operating System</label>
             <select id="os">
-                <option value="4">4 - WIN 10 LTSC 21H2</option>
-                <option value="2" selected>2 - Windows 11 IoT Enterprise LTSC</option>
-                <option value="1">1 - WIN 10 64-Bit</option>
+                <option value="UNSELECTED" selected>-- Please Select --</option>
+                <option value="0">0 - No OS</option>
+                <option value="2">2 - Windows 11 IoT Enterprise LTSC</option>
                 <option value="3">3 - Android 15 GMS</option>
                 <option value="B">B - ThinManager Ready</option>
             </select>
@@ -196,19 +217,29 @@
         <div class="form-group">
             <label for="region" class="color-plat">Region</label>
             <select id="region">
-                <option value="K">K - EU/UK/US/CA/AU + Middle East</option>
+                <option value="UNSELECTED" selected>-- Please Select --</option>
+                <option value="none">Blank - Not Applicable</option>
+                <option value="1">1 - Special / Custom (BU)</option>
                 <option value="L">L - EU/UK/US/CA/AU/NZ + Global Certs</option>
-                <option value="J" selected>J - EU/UK/US/CA/AU/JP/MX</option>
+                <option value="J">J - EU/UK/US/CA/AU/JP/MX</option>
                 <option value="M">M - EU/US/CA/AU/NZ</option>
                 <option value="N">N - EU/US/CA/AU/NZ/JP</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="scanner" class="color-scan">Add-on Frame</label>
-            <select id="scanner">
-                <option value="W" selected>W - Standard (No Scanner)</option>
-                <option value="X">X - Scanner frame mounted</option>
+            <label for="country" class="color-scan">Country</label>
+            <select id="country">
+                <option value="UNSELECTED" selected>-- Please Select --</option>
+                <option value="US">US - United States</option>
+                <option value="EU">EU - Europe</option>
+                <option value="UK">UK - United Kingdom</option>
+                <option value="CA">CA - Canada</option>
+                <option value="AU">AU - Australia</option>
+                <option value="NZ">NZ - New Zealand</option>
+                <option value="JP">JP - Japan</option>
+                <option value="MX">MX - Mexico</option>
+                <option value="ME">ME - Middle East</option>
             </select>
         </div>
     </div>
@@ -230,201 +261,305 @@ document.addEventListener('DOMContentLoaded', () => {
     const partNumberOutput = document.getElementById('partNumberOutput');
     const specsOutput = document.getElementById('specsOutput');
     const modelFamily = document.getElementById('modelFamily');
+    const resetBtn = document.getElementById('resetFiltersBtn');
 
-    // Database containing both TAB-IND10 and TAB-IND08
+    // Filtered Database based on explicit instructions
     const partNumberDB = {
-        // TAB-IND10
-        "TAB-IND10T5GAA1A3XXLW.1": "480993-100018",
-        "TAB-IND10WINAA1A3XXNW.1": "480993-100017",
         "TAB-IND10WINAB1NBXXJW.1": "480993-100012",
-        "TAB-IND10WINAB1N1XXJX.1": "480993-100007",
-        "TAB-IND10WIUAB1F1XXJW.1": "480993-100003",
-        "TAB-IND10WIUAB1F1XXJX.1": "480993-100008",
+        "TAB-IND08WIUAB1F2XXMW.1": "480993-100014",
         "TAB-IND10WIUAB1F2XXJW.1": "480993-100015",
         "TAB-IND10WIUAC1F2XXJW.1": "480993-100016",
-        
-        // TAB-IND08
-        "TAB-IND08LTCC4B4XXLW.1": "480993-100010",
-        "TAB-IND08LTCC8C4XXLW.1": "480993-100001",
-        "TAB-IND08LTCC8C4XXLX.1": "480993-100006",
-        "TAB-IND08WIEC8CBXXKW.1": "480993-100011",
-        "TAB-IND08WIEC8C4XXKW.1": "480993-100000",
-        "TAB-IND08WIEC8C4XXKX.1": "480993-100005",
-        "TAB-IND08WIUAB1F2XXMW.1": "480993-100014"
+        "TAB-IND10WINAA1A3XXNW.1": "480993-100017",
+        "TAB-IND10T5GAA1A3XXLW.1": "480993-100018",
+        "TAB-IND10WINAB1N0XXJW.1": "70182332",
+        "TAB-IND10WINAB1N2XXJW.1": "70212390",
+        "TAB-IND10WINAB1N2XX.1":   "589781",
+        "TAB-IND08WINAB1N0XXMW.1": "589778",
+        "TAB-IND10WINAB1N0BU10.3": "70200401"
     };
 
     // Parts that do not include charger and cable
     const missingChargerParts = [
-        "480993-100014",
-        "480993-100015",
-        "480993-100016",
-        "480993-100017",
+        "480993-100014", 
+        "480993-100015", 
+        "480993-100016", 
+        "480993-100017", 
         "480993-100018"
     ];
 
-    let lockConnectivity = false;
+    // Map countries to their supported regions (plus "1" and "" which act as wildcard/custom bases)
+    const countryMap = {
+        "US": ["K", "L", "J", "M", "N", "1", ""],
+        "EU": ["K", "L", "J", "M", "N", "1", ""],
+        "UK": ["K", "L", "J", "1", ""],
+        "CA": ["K", "L", "J", "M", "N", "1", ""],
+        "AU": ["K", "L", "J", "M", "N", "1", ""],
+        "NZ": ["L", "M", "N", "1", ""],
+        "JP": ["J", "N", "1", ""],
+        "MX": ["J", "1", ""],
+        "ME": ["K", "1", ""]
+    };
+
     let dirtyFields = new Set();
 
-    // Advanced extractor adapting to the Configuration string lengths (2 vs 3 chars)
-    function extractFieldFromKey(key, fieldId) {
-        let xxIdx = key.indexOf("XX");
-        let conn = key.substring(9, 12);
-        let config, sensor, os, region, scan;
-
-        if (xxIdx === 17) { 
-            // 3-char config (e.g., AA1, AB1)
-            config = key.substring(12, 15);
-            sensor = key.substring(15, 16);
-            os = key.substring(16, 17);
-            region = key.substring(19, 20);
-            scan = key.substring(20, 21);
-        } else if (xxIdx === 16) { 
-            // 2-char config (e.g., C4, C8)
-            config = key.substring(12, 14);
-            sensor = key.substring(14, 15);
-            os = key.substring(15, 16);
-            region = key.substring(18, 19);
-            scan = key.substring(19, 20);
+    // Regex Extractor
+    function parseKey(key) {
+        const regex = /^TAB-IND(10|08)(WIE|WIN|WIU|LTC|T5G)(AA1|AB1|AC1|C8|C4)([FCNAB])([4213B0])(XX|BU)?([KLJMN1])?([WX0])?(?:\.\d+)?$/;
+        const match = key.match(regex);
+        if (match) {
+            return {
+                size: match[1] || "",
+                conn: match[2] || "",
+                config: match[3] || "",
+                sensor: match[4] || "",
+                os: match[5] || "",
+                fixed: match[6] || "XX",
+                region: match[7] || "",
+                scanner: match[8] || ""
+            };
         }
-
-        switch(fieldId) {
-            case 'connectivity': return conn;
-            case 'configuration': return config;
-            case 'sensor': return sensor;
-            case 'os': return os;
-            case 'region': return region;
-            case 'scanner': return scan;
-            default: return "";
-        }
+        return {};
     }
 
-    // Safely repopulates the Part Number dropdown
+    // Utility to extract text for specs
+    function getOptText(selObj) {
+        if (selObj.value === "UNSELECTED") return "<em>-- Please Select --</em>";
+        if (selObj.value === "none") return "Blank - Not Applicable";
+        const textParts = selObj.options[selObj.selectedIndex].text.split(' - ');
+        return textParts.length > 1 ? textParts[1] : textParts[0];
+    }
+
+    // Safely repopulates the Part Number dropdown based on active filters
     function populateReverseSearch(keysToInclude) {
         const currentVal = reverseSearchSelect.value;
-        
         reverseSearchSelect.innerHTML = '<option value="">-- Select or Build Below --</option>';
 
         const entries = keysToInclude.map(nom => {
-            const fullPN = partNumberDB[nom];
-            return { nom: nom, suffix: fullPN.replace("480993-", "") };
+            return { nom: nom, pn: partNumberDB[nom] };
         });
 
-        // Sort numerically by suffix
-        entries.sort((a, b) => a.suffix.localeCompare(b.suffix));
+        // Sort numerically/alphabetically by part number
+        entries.sort((a, b) => a.pn.localeCompare(b.pn));
 
         entries.forEach(entry => {
-            const newOption = new Option(entry.suffix, entry.nom);
+            const newOption = new Option(entry.pn, entry.pn);
+            newOption.dataset.nom = entry.nom; 
             reverseSearchSelect.add(newOption);
         });
 
-        if (keysToInclude.includes(currentVal)) {
-            reverseSearchSelect.value = currentVal;
-        }
+        // Keep selection if it is still in the filtered list
+        Array.from(reverseSearchSelect.options).forEach(opt => {
+            if (opt.value === currentVal && currentVal !== "") {
+                reverseSearchSelect.value = currentVal;
+            }
+        });
     }
 
-    function updateDecoder() {
+    function updateDecoder(skipDropdownUpdate = false) {
         const family = modelFamily.value;
         const conn = document.getElementById('connectivity');
         const config = document.getElementById('configuration');
         const sensor = document.getElementById('sensor');
         const os = document.getElementById('os');
         const region = document.getElementById('region');
-        const scan = document.getElementById('scanner');
+        const country = document.getElementById('country');
 
-        // Construct visually clean HTML string for UI
-        const modelHTML = `
-            <span class="color-fixed">TAB-IND${family}</span><span class="color-conn">${conn.value}</span><span class="color-proc">${config.value}</span><span class="color-bio">${sensor.value}</span><span class="color-os">${os.value}</span><span class="color-fixed">XX</span><span class="color-plat">${region.value}</span><span class="color-scan">${scan.value}</span><span class="color-fixed">.1</span>
-        `;
-        modelOutput.innerHTML = modelHTML;
+        // Check if the base part components are complete
+        const isComplete = ![family, conn.value, config.value, sensor.value, os.value, region.value].includes("UNSELECTED");
 
-        // Construct raw theoretical string
-        const prefixStr = `TAB-IND${family}`;
-        const rawModelString = `${prefixStr}${conn.value}${config.value}${sensor.value}${os.value}XX${region.value}${scan.value}.1`;
-        
-        const matchedPartNumber = partNumberDB[rawModelString];
-        
-        // --- DYNAMIC FILTERING LOGIC ---
-        // Only look at keys belonging to the currently selected model family
-        let allKeys = Object.keys(partNumberDB).filter(k => k.startsWith(prefixStr));
-        let filteredKeys = allKeys;
-        
-        // ONLY filter by the Connectivity & GNSS field
-        if (lockConnectivity) {
-            filteredKeys = allKeys.filter(key => extractFieldFromKey(key, 'connectivity') === conn.value);
-            if (filteredKeys.length === 0) filteredKeys = allKeys; // Fallback
+        // Real values converting "none" back to empty strings for lookup
+        const rVal = region.value === "none" ? "" : region.value;
+
+        // --- GLOBAL MULTI-FIELD FILTERING LOGIC ---
+        let filteredKeys = Object.keys(partNumberDB).filter(key => {
+            const parsed = parseKey(key);
+            let match = true;
+            if (dirtyFields.has('modelFamily') && family !== "UNSELECTED" && parsed.size !== family) match = false;
+            if (dirtyFields.has('connectivity') && conn.value !== "UNSELECTED" && parsed.conn !== conn.value) match = false;
+            if (dirtyFields.has('configuration') && config.value !== "UNSELECTED" && parsed.config !== config.value) match = false;
+            if (dirtyFields.has('sensor') && sensor.value !== "UNSELECTED" && parsed.sensor !== sensor.value) match = false;
+            if (dirtyFields.has('os') && os.value !== "UNSELECTED" && parsed.os !== os.value) match = false;
+            if (dirtyFields.has('region') && region.value !== "UNSELECTED" && parsed.region !== rVal) match = false;
+            
+            // Country is applied as a filter over the region character 
+            if (dirtyFields.has('country') && country.value !== "UNSELECTED" && !countryMap[country.value].includes(parsed.region)) match = false;
+            
+            return match;
+        });
+
+        // Try to securely infer the hidden scanner code based on remaining possibilities
+        let inferredScanner = "_";
+        if (filteredKeys.length > 0) {
+            let firstScan = parseKey(filteredKeys[0]).scanner;
+            let allSame = filteredKeys.every(k => parseKey(k).scanner === firstScan);
+            if(allSame) inferredScanner = firstScan;
         }
 
-        populateReverseSearch(filteredKeys);
+        // Construct theoretical string based on current dropdown states (only if complete to avoid premature false matching)
+        let rawModelString = "INCOMPLETE";
+        if (isComplete) {
+            let sVal = inferredScanner === "_" ? "W" : inferredScanner; // Best guess fallback if perfectly ambiguous
+            rawModelString = `TAB-IND${family}${conn.value}${config.value}${sensor.value}${os.value}`;
+            
+            if (rVal === '1' || sVal === '0') {
+                rawModelString += `BU${rVal}${sVal}.3`;
+            } else if (rVal === '' && sVal === '') {
+                rawModelString += `XX.1`;
+            } else {
+                rawModelString += `XX${rVal}${sVal}.1`;
+            }
+        }
 
+        // --- AUTO-COMPLETE LOGIC ---
+        if (!skipDropdownUpdate) {
+            if (filteredKeys.length === 1 && rawModelString !== filteredKeys[0] && isComplete) {
+                const exactKey = filteredKeys[0];
+                const parsed = parseKey(exactKey);
+                
+                if (parsed.size !== undefined) modelFamily.value = parsed.size;
+                if (parsed.conn !== undefined) conn.value = parsed.conn;
+                if (parsed.config !== undefined) config.value = parsed.config;
+                if (parsed.sensor !== undefined) sensor.value = parsed.sensor;
+                if (parsed.os !== undefined) os.value = parsed.os;
+                if (parsed.region !== undefined) region.value = parsed.region === "" ? "none" : parsed.region;
+
+                updateDecoder(false);
+                return;
+            }
+            populateReverseSearch(filteredKeys);
+        }
+
+        // --- UI & HTML STRING GENERATION ---
+        let htmlString = `<span class="color-fixed">TAB-IND${family === "UNSELECTED" ? "___" : family}</span>`;
+        htmlString += `<span class="color-conn">${conn.value === "UNSELECTED" ? "___" : conn.value}</span>`;
+        htmlString += `<span class="color-proc">${config.value === "UNSELECTED" ? "___" : config.value}</span>`;
+        htmlString += `<span class="color-bio">${sensor.value === "UNSELECTED" ? "_" : sensor.value}</span>`;
+        htmlString += `<span class="color-os">${os.value === "UNSELECTED" ? "_" : os.value}</span>`;
+        
+        let rValHtml = region.value === "UNSELECTED" ? "_" : rVal;
+
+        if (rValHtml === '1' || inferredScanner === '0') {
+            htmlString += `<span class="color-fixed">BU</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">.3</span>`;
+        } else if ((region.value === "none" || rValHtml === "") && inferredScanner === "") {
+            htmlString += `<span class="color-fixed">XX</span><span class="color-fixed">.1</span>`;
+        } else {
+            htmlString += `<span class="color-fixed">XX</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">.1</span>`;
+        }
+
+        modelOutput.innerHTML = htmlString;
+
+        // Verify exact match for Part Number output
+        const matchedPartNumber = partNumberDB[rawModelString];
         let notes = "";
-        if (matchedPartNumber) {
+        
+        if (matchedPartNumber && isComplete) {
+            // Success: Valid configuration found
             partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
-            reverseSearchSelect.value = rawModelString; // Sync top box
+            reverseSearchSelect.value = matchedPartNumber; 
             
             if (missingChargerParts.includes(matchedPartNumber)) {
                 notes = "<span class='color-alert'>No charger and cable</span>";
             }
         } else {
-            partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom</span>`;
+            // Failure: Incomplete or multiple choices
+            if (filteredKeys.length > 1) {
+                partNumberOutput.innerHTML = `Part Number: <span>Filtering... (${filteredKeys.length} matches possible)</span>`;
+            } else if (filteredKeys.length === 1 && !isComplete) {
+                partNumberOutput.innerHTML = `Part Number: <span>Filtering... (1 match found, complete selection)</span>`;
+            } else {
+                partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom Build</span>`;
+            }
             reverseSearchSelect.value = ""; 
         }
 
-        // Construct Specifications List
-        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> TAB-IND${family}</li>`;
-        specsHTML += `<li><strong class="color-fixed">Screen Size:</strong> ${family === "10" ? '10.1" (WUXGA 1920 x 1200)' : '8.4" (WQXGA 2560 x 1600)'}</li>`;
-        specsHTML += `<li><strong class="color-conn">Connectivity:</strong> ${conn.options[conn.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-proc">Config:</strong> ${config.options[config.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-bio">Sensor:</strong> ${sensor.options[sensor.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-os">OS:</strong> ${os.options[os.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-plat">Region:</strong> ${region.options[region.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-scan">Scanner:</strong> ${scan.options[scan.selectedIndex].text.split(' - ')[1]}</li>`;
-        specsHTML += `<li><strong class="color-fixed">Notes:</strong> ${notes}</li>`;
+        // Output logic for inferred scanner frame
+        let frameText = "Unresolved";
+        if (inferredScanner === "W") frameText = "W - Standard (No Scanner)";
+        if (inferredScanner === "X") frameText = "X - Scanner frame mounted";
+        if (inferredScanner === "0") frameText = "0 - Special / Custom";
+        if (inferredScanner === "") frameText = "Blank - Not Applicable";
+        
+        // Output logic for Family size text
+        let familyText = getOptText(modelFamily);
+        if (family === "10") familyText = 'TAB-IND10 (10.1")';
+        if (family === "08") familyText = 'TAB-IND08 (8.4")';
+
+        // Construct Specifications List dynamically
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> ${familyText}</li>`;
+        specsHTML += `<li><strong class="color-conn">Connectivity:</strong> ${getOptText(conn)}</li>`;
+        specsHTML += `<li><strong class="color-proc">Config:</strong> ${getOptText(config)}</li>`;
+        specsHTML += `<li><strong class="color-bio">Sensor:</strong> ${getOptText(sensor)}</li>`;
+        specsHTML += `<li><strong class="color-os">OS:</strong> ${getOptText(os)}</li>`;
+        specsHTML += `<li><strong class="color-plat">Region:</strong> ${getOptText(region)}</li>`;
+        
+        // Push filter states and inferred backend strings
+        if (country.value !== "UNSELECTED") {
+            specsHTML += `<li><strong class="color-scan">Country Filter:</strong> ${getOptText(country)}</li>`;
+        }
+        if (inferredScanner !== "_") {
+            specsHTML += `<li><strong class="color-fixed">Add-on Frame:</strong> ${frameText}</li>`;
+        }
+        
+        if (notes !== "") {
+            specsHTML += `<li><strong class="color-fixed">Notes:</strong> ${notes}</li>`;
+        }
         
         specsOutput.innerHTML = specsHTML;
     }
 
-    // Handle Model Family Change
-    modelFamily.addEventListener('change', () => {
-        lockConnectivity = false;
-        dirtyFields.clear();
-        reverseSearchSelect.value = "";
-        updateDecoder();
-    });
-
-    // Attach event listeners to the grid dropdowns
-    selects.forEach(select => {
-        if (select.id === 'modelFamily') return; 
-
+    // Attach event listeners to all grid dropdowns AND the family select
+    [modelFamily, ...selects].forEach(select => {
         select.addEventListener('change', (e) => {
-            if (e.target.id === 'connectivity') {
-                lockConnectivity = true; 
-            }
-            updateDecoder();
+            dirtyFields.add(e.target.id);
+            updateDecoder(false);
         });
     });
 
     // Handle Top Search Selection
     reverseSearchSelect.addEventListener('change', (e) => {
-        const selectedNom = e.target.value;
+        const selectedOption = e.target.options[e.target.selectedIndex];
+        const selectedNom = selectedOption.dataset.nom;
+        
         if (!selectedNom) {
-            lockConnectivity = false; // Reset to show all parts if placeholder is chosen
-            updateDecoder();
+            updateDecoder(true);
             return; 
         }
 
-        document.getElementById('connectivity').value  = extractFieldFromKey(selectedNom, 'connectivity'); 
-        document.getElementById('configuration').value = extractFieldFromKey(selectedNom, 'configuration'); 
-        document.getElementById('sensor').value        = extractFieldFromKey(selectedNom, 'sensor'); 
-        document.getElementById('os').value            = extractFieldFromKey(selectedNom, 'os'); 
-        document.getElementById('region').value        = extractFieldFromKey(selectedNom, 'region'); 
-        document.getElementById('scanner').value       = extractFieldFromKey(selectedNom, 'scanner'); 
+        const parsed = parseKey(selectedNom);
+        
+        // Push the values into the UI (converting empty DB strings to "none" for UI)
+        if(parsed.size !== undefined) modelFamily.value = parsed.size;
+        if(parsed.conn !== undefined) document.getElementById('connectivity').value = parsed.conn;
+        if(parsed.config !== undefined) document.getElementById('configuration').value = parsed.config;
+        if(parsed.sensor !== undefined) document.getElementById('sensor').value = parsed.sensor;
+        if(parsed.os !== undefined) document.getElementById('os').value = parsed.os;
+        if(parsed.region !== undefined) document.getElementById('region').value = parsed.region === "" ? "none" : parsed.region;
+        
+        // Note: We deliberately do NOT auto-assign the "Country" dropdown because a single region (like 'J') applies to multiple countries.
+        document.getElementById('country').value = "UNSELECTED";
 
-        lockConnectivity = true;
-        updateDecoder();
+        updateDecoder(true);
+    });
+
+    // Reset Button Logic
+    resetBtn.addEventListener('click', () => {
+        dirtyFields.clear();
+        reverseSearchSelect.value = "";
+        
+        // Reset to default UNSELECTED state
+        modelFamily.value = "UNSELECTED";
+        document.getElementById('connectivity').value = "UNSELECTED";
+        document.getElementById('configuration').value = "UNSELECTED";
+        document.getElementById('sensor').value = "UNSELECTED";
+        document.getElementById('os').value = "UNSELECTED";
+        document.getElementById('region').value = "UNSELECTED";
+        document.getElementById('country').value = "UNSELECTED";
+        
+        updateDecoder(false);
     });
 
     // Run setup on load
-    updateDecoder();
+    updateDecoder(false);
 });
 </script>
 
