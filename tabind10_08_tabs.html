@@ -9,7 +9,7 @@
             font-family: system-ui, -apple-system, sans-serif;
             background-color: #f4f4f9;
             color: #333;
-            max-width: 1000px;
+            max-width: 1100px; /* Widened slightly to accommodate the side-by-side view */
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -207,13 +207,24 @@
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px dashed #ccc;
+            font-weight: bold;
+            color: #7B1FA2;
         }
 
-        /* --- Accessory Table Styling --- */
+        /* --- Accessory Table & Image Layout Styling --- */
+        .acc-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 1rem;
+        }
+        .acc-table-wrapper {
+            flex: 1;
+            overflow-x: auto;
+        }
         .acc-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
             font-size: 0.95rem;
         }
         .acc-table th, .acc-table td {
@@ -225,16 +236,68 @@
             background-color: #1565c0;
             color: white;
         }
-        .acc-table tr:nth-child(even) {
+        .acc-table tr:not(.acc-category):nth-child(even) {
             background-color: #f9f9f9;
         }
-        .acc-table tr:hover {
-            background-color: #f1f1f1;
+        .acc-table tr:not(.acc-category) {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .acc-table tr:not(.acc-category):hover {
+            background-color: #e3f2fd !important; /* Highlights on hover */
         }
         .acc-category {
             font-weight: bold;
             background-color: #e3f2fd !important;
             color: #1565c0;
+        }
+        
+        /* The sticky preview pane on the right */
+        .acc-preview-pane {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 20px;
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+        #accPreviewImg {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #accPreviewCaption {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+            color: #1565c0;
+            font-size: 0.9rem;
+        }
+        .acc-preview-placeholder {
+            padding: 40px 20px;
+            color: #999;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 850px) {
+            .acc-layout {
+                flex-direction: column;
+            }
+            .acc-preview-pane {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -356,211 +419,223 @@
             
             <ul class="specs-list" id="specsOutput">
             </ul>
-            
-            <div id="scannerFrameOutput"></div>
         </div>
     </div>
 
     <!-- TAB 2: ACCESSORIES -->
     <div id="accessoriesTab" class="tab-content">
-        <p>The following accessories dynamically filter based on your configurations in the Decoder tab.</p>
-        <table class="acc-table">
-            <thead>
-                <tr>
-                    <th>Art.-No.</th>
-                    <th>Model Designation</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-			    <!-- Charging -->
-                <tr class="acc-category"><td colspan="3">Charging</td></tr>
-                <tr id="acc-70177196">
-                    <td>70177196</td>
-                    <td>SINGLE-CHARGER-SET-EU</td>
-                    <td>Single Charger Set EU (24W) for Tab-IND Series</td>
-                </tr>
-                <tr id="acc-70177198">
-                    <td>70177198</td>
-                    <td>SINGLE-CHARGER-SET-US</td>
-                    <td>Single Charger Set US (24W) for Tab-IND Series</td>
-                </tr>
-                <tr id="acc-70177200">
-                    <td>70177200</td>
-                    <td>5-CHARGER-SET-EU</td>
-                    <td>5 Charger Set EU (120W) for Tab-IND Series</td>
-                </tr>
-                <tr id="acc-70177202">
-                    <td>70177202</td>
-                    <td>5-CHARGER-SET-US</td>
-                    <td>5 Charger Set US (120W) for Tab-IND Series</td>
-                </tr>
-                <tr id="acc-589656">
-                    <td>589656</td>
-                    <td>TC TAB-IND 27W US USB-C</td>
-                    <td>AC/DC Adapter for USB-C 27W, US version</td>
-                </tr>
-                <tr id="acc-589657">
-                    <td>589657</td>
-                    <td>TC TAB-IND 27W EU USB-C</td>
-                    <td>AC/DC Adapter for USB-C 27W, EU version</td>
-                </tr>
-                <tr id="acc-589658">
-                    <td>589658</td>
-                    <td>TC TAB-IND 27W UK USB-C</td>
-                    <td>AC/DC Adapter for USB-C 27W, UK version</td>
-                </tr>
+        <p>The following accessories dynamically filter based on your configurations in the Decoder tab. Hover over an item to view its image.</p>
+        
+        <div class="acc-layout">
+            <div class="acc-table-wrapper">
+                <table class="acc-table">
+                    <thead>
+                        <tr>
+                            <th>Art.-No.</th>
+                            <th>Model Designation</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Charging -->
+                        <tr class="acc-category"><td colspan="3">Charging</td></tr>
+                        <tr id="acc-70177196" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger1a.png">
+                            <td>70177196</td>
+                            <td>SINGLE-CHARGER-SET-EU</td>
+                            <td>Single Charger Set EU (24W) for Tab-IND Series</td>
+                        </tr>
+                        <tr id="acc-70177198" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger1a.png">
+                            <td>70177198</td>
+                            <td>SINGLE-CHARGER-SET-US</td>
+                            <td>Single Charger Set US (24W) for Tab-IND Series</td>
+                        </tr>
+                        <tr id="acc-70177200" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger5a.png">
+                            <td>70177200</td>
+                            <td>5-CHARGER-SET-EU</td>
+                            <td>5 Charger Set EU (120W) for Tab-IND Series</td>
+                        </tr>
+                        <tr id="acc-70177202" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger5a.png">
+                            <td>70177202</td>
+                            <td>5-CHARGER-SET-US</td>
+                            <td>5 Charger Set US (120W) for Tab-IND Series</td>
+                        </tr>
+                        <tr id="acc-589656" data-img="PLACEHOLDER_URL">
+                            <td>589656</td>
+                            <td>TC TAB-IND 27W US USB-C</td>
+                            <td>AC/DC Adapter for USB-C 27W, US version</td>
+                        </tr>
+                        <tr id="acc-589657" data-img="PLACEHOLDER_URL">
+                            <td>589657</td>
+                            <td>TC TAB-IND 27W EU USB-C</td>
+                            <td>AC/DC Adapter for USB-C 27W, EU version</td>
+                        </tr>
+                        <tr id="acc-589658" data-img="PLACEHOLDER_URL">
+                            <td>589658</td>
+                            <td>TC TAB-IND 27W UK USB-C</td>
+                            <td>AC/DC Adapter for USB-C 27W, UK version</td>
+                        </tr>
 
-                <!-- Docking -->
-                <tr class="acc-category"><td colspan="3">Docking Stations</td></tr>
-                <tr id="acc-70177191">
-                    <td>70177191</td>
-                    <td>FULL-DS-STATION-EU FOR TAB-IND</td>
-                    <td>Full docking station EU for Tab-IND</td>
-                </tr>
-                <tr id="acc-70177192">
-                    <td>70177192</td>
-                    <td>FULL-DS-STATION-US FOR TAB-IND</td>
-                    <td>Full docking station US for Tab-IND</td>
-                </tr>
-                <tr id="acc-70177193">
-                    <td>70177193</td>
-                    <td>SCANNER-FRAME-FULL-DS-EU</td>
-                    <td>Docking Station with EU cable for Tab-IND Series with Scanner Frame</td>
-                </tr>
-                <tr id="acc-70177194">
-                    <td>70177194</td>
-                    <td>SCANNER-FRAME-FULL-DS-US</td>
-                    <td>Docking Station with US cable for Tab-IND Series with Scanner Frame</td>
-                </tr>
+                        <!-- Docking -->
+                        <tr class="acc-category"><td colspan="3">Docking Stations</td></tr>
+                        <tr id="acc-70177191" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Dock1.png">
+                            <td>70177191</td>
+                            <td>FULL-DS-STATION-EU FOR TAB-IND</td>
+                            <td>Full docking station EU for Tab-IND</td>
+                        </tr>
+                        <tr id="acc-70177192" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Dock1.png">
+                            <td>70177192</td>
+                            <td>FULL-DS-STATION-US FOR TAB-IND</td>
+                            <td>Full docking station US for Tab-IND</td>
+                        </tr>
+                        <tr id="acc-70177193" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/DockwScanner1.png">
+                            <td>70177193</td>
+                            <td>SCANNER-FRAME-FULL-DS-EU</td>
+                            <td>Docking Station with EU cable for Tab-IND Series with Scanner Frame</td>
+                        </tr>
+                        <tr id="acc-70177194" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/DockwScanner1.png">
+                            <td>70177194</td>
+                            <td>SCANNER-FRAME-FULL-DS-US</td>
+                            <td>Docking Station with US cable for Tab-IND Series with Scanner Frame</td>
+                        </tr>
+					
+                        <!-- Batteries -->
+                        <tr class="acc-category"><td colspan="3">Battery Packs</td></tr>
+                        <tr id="acc-70177188" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt10.png">
+                            <td>70177188</td>
+                            <td>BP 10" WIN TAB-IND10</td>
+                            <td>Spare battery pack for Tab-IND 10" WIN</td>
+                        </tr>
+                        <tr id="acc-589651" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt10.png">
+                            <td>589651</td>
+                            <td>BP 10" AND TAB-IND10</td>
+                            <td>Spare Battery Pack for Tab-IND 10" AND</td>
+                        </tr>				
+                        <tr id="acc-70177187" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt08.png">
+                            <td>70177187</td>
+                            <td>BP 8" WIN TAB-IND08</td>
+                            <td>Spare Battery Pack for Tab-IND 8" WIN</td>
+                        </tr>
 
-                <!-- Batteries -->
-                <tr class="acc-category"><td colspan="3">Battery Packs</td></tr>
-                <tr id="acc-70177188">
-                    <td>70177188</td>
-                    <td>BP 10" WIN TAB-IND10</td>
-                    <td>Spare battery pack for Tab-IND 10" WIN</td>
-                </tr>
-                <tr id="acc-589651">
-                    <td>589651</td>
-                    <td>BP 10" AND TAB-IND10</td>
-                    <td>Spare Battery Pack for Tab-IND 10" AND</td>
-                </tr>				
-                <tr id="acc-70177187">
-                    <td>70177187</td>
-                    <td>BP 8" WIN TAB-IND08</td>
-                    <td>Spare Battery Pack for Tab-IND 8" WIN</td>
-                </tr>
-				
-                <!-- Rugged Frames -->
-                <tr class="acc-category"><td colspan="3">Rugged Frames</td></tr>
-                <tr id="acc-70177206">
-                    <td>70177206</td>
-                    <td>RUGGED-FRAME-10"-BLACK</td>
-                    <td>Rugged Frame 10" for Tab-IND10 Series</td>
-                </tr>
-                <tr id="acc-70177204">
-                    <td>70177204</td>
-                    <td>RUGGED-FRAME-8"-BLACK</td>
-                    <td>Rugged Frame 8" for Tab-IND08 Series</td>
-                </tr>
-                <tr>
-                    <td>70177207</td>
-                    <td>RUGGED FRAME IO ADAPTER</td>
-                    <td>Adapter for enabling use of device in rugged frame with the dock</td>
-                </tr>
+                        <!-- Carrying -->
+                        <tr class="acc-category"><td colspan="3">Carrying Accessories</td></tr>
+                        <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Nylon.png">
+                            <td>70177209</td>
+                            <td>HA TAB-IND NYLON ADJUST.</td>
+                            <td>Nylon Hand Strap, adjustable for Tab-IND Series</td>
+                        </tr>
+                        <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/HandStrap.png">
+                            <td>70177208</td>
+                            <td>HA TAB-IND TPE ADJUST.</td>
+                            <td>TPE Hand Strap, adjustable for Tab-IND Series</td>
+                        </tr>
+                        <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ShoulderStrap.png">
+                            <td>70177210</td>
+                            <td>SHOULDER STRAP FOR TAB-IND</td>
+                            <td>Shoulder strap, length adjustable for Tab-IND Series</td>
+                        </tr>
 
-				<!-- SmartBack -->
-                <tr class="acc-category"><td colspan="3">Smart-Back</td></tr>
-                <tr id="acc-70177190">
-					<td>70177190</td>
-                    <td>PP SMARTBACK FOR TAB-IND08</td>
-                    <td>8" Power Pack Smart-Back for both WIN & AND</td>
-                </tr>
-                <tr id="acc-589162">
-                    <td>589162</td>
-                    <td>PP SMARTBACK FOR TAB-IND10</td>
-                    <td>10" Power Pack Smart-Back for both WIN & AND</td>
-                </tr>
-                <tr id="acc-589749">
-                    <td>589749</td>
-                    <td>VESA 75/100 SmartBack for 10" Tab-IND with EU AC adapter</td>
-                    <td>VESA Smartback 10" (EU AC adapter)</td>
-                </tr>
-                <tr id="acc-590105">
-                    <td>590105</td>
-                    <td>VESA 75 SmartBack for 10", US AC adapter</td>
-                    <td>VESA Smartback 10" (US AC adapter)</td>
-                </tr>
-                <tr id="acc-590329">
-                    <td>590329</td>
-                    <td>VESA 75 SmartBack for 10", UK AC adapter</td>
-                    <td>VESA Smartback 10" (UK AC adapter)</td>
-                </tr>
-                <tr>
-                    <td>570007</td>
-                    <td>Payment Smartback 8" Link2500i</td>
-					<td>8-inch SmartBack for payment terminal</td>
-                </tr>
-                <tr>
-                    <td>570017</td>
-                    <td>Payment Smartback 8" Equinox 6200m MSR</td>
-					<td>8-inch SmartBack for Equinox Luxe 6200m mobile payment terminal</td>
-                </tr>
-                <tr>
-                    <td>589351</td>
-					<td>Payment Smartback 8" Verifone e235</td>
-                    <td>8-inch SmartBack for Verifone e235 mobile payment terminal</td>
-                </tr>
-                <tr>
-                    <td>589519</td>
-					<td>Payment Smartback 8" Moby5500m</td>
-                    <td>8-inch SmartBack for Moby/5500M compact mobile card reader</td>
-                </tr>
-                <tr>
-                    <td>570492</td>
-					<td>Payment Smartback 8" MSR non-encrypting</td>
-                    <td>8-inch SmartBack for specialized POS hardware</td>
-                </tr>
-                <tr id="acc-70198483">
-                    <td>70198483</td>
-                    <td>8-inch to 10" adapter</td>
-                    <td>Smartback Adapter 8" on 10"</td>
-                </tr>
+                        <!-- Rugged Frames -->
+                        <tr class="acc-category"><td colspan="3">Rugged Frames</td></tr>
+                        <tr id="acc-70177206" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/rugged10.png">
+                            <td>70177206</td>
+                            <td>RUGGED-FRAME-10"-BLACK</td>
+                            <td>Rugged Frame 10" for Tab-IND10 Series</td>
+                        </tr>
+                        <tr id="acc-70177204" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/rugged08.png">
+                            <td>70177204</td>
+                            <td>RUGGED-FRAME-8"-BLACK</td>
+                            <td>Rugged Frame 8" for Tab-IND08 Series</td>
+                        </tr>
+                        <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ruggedIO.png">
+                            <td>70177207</td>
+                            <td>RUGGED FRAME IO ADAPTER</td>
+                            <td>Adapter for enabling use of device in rugged frame with the dock</td>
+                        </tr>
 
-                <!-- Carrying -->
-                <tr class="acc-category"><td colspan="3">Carrying Accessories</td></tr>
-                <tr>
-                    <td>70177209</td>
-                    <td>HA TAB-IND NYLON ADJUST.</td>
-                    <td>Nylon Hand Strap, adjustable for Tab-IND Series</td>
-                </tr>
-                <tr>
-                    <td>70177208</td>
-                    <td>HA TAB-IND TPE ADJUST.</td>
-                    <td>TPE Hand Strap, adjustable for Tab-IND Series</td>
-                </tr>
-                <tr>
-                    <td>70177210</td>
-                    <td>SHOULDER STRAP FOR TAB-IND</td>
-                    <td>Shoulder strap, length adjustable for Tab-IND Series</td>
-                </tr>
+                        <!-- SmartBack -->
+                        <tr class="acc-category"><td colspan="3">Smart-Back</td></tr>
+                        <tr id="acc-70177190" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt08.png">
+                            <td>70177190</td>
+                            <td>PP SMARTBACK FOR TAB-IND08</td>
+                            <td>8" Power Pack Smart-Back for both WIN & AND</td>
+                        </tr>
+                        <tr id="acc-589162" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt10.png">
+                            <td>589162</td>
+                            <td>PP SMARTBACK FOR TAB-IND10</td>
+                            <td>10" Power Pack Smart-Back for both WIN & AND</td>
+                        </tr>
+                        <tr id="acc-589749" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/vesa75_10.png">
+                            <td>589749</td>
+                            <td>VESA 75/100 SmartBack for 10" Tab-IND with EU AC adapter</td>
+                            <td>VESA Smartback 10" (EU AC adapter)</td>
+                        </tr>
+                        <tr id="acc-590105" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/vesa75_10.png">
+                            <td>590105</td>
+                            <td>VESA 75 SmartBack for 10", US AC adapter</td>
+                            <td>VESA Smartback 10" (US AC adapter)</td>
+                        </tr>
+                        <tr id="acc-590329" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/vesa75_10.png">
+                            <td>590329</td>
+                            <td>VESA 75 SmartBack for 10", UK AC adapter</td>
+                            <td>VESA Smartback 10" (UK AC adapter)</td>
+                        </tr>
+                        <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Link2500i.png">
+                            <td>570007</td>
+                            <td>8-inch SmartBack for payment terminal</td>
+                            <td>Payment Smartback 8" Link2500i</td>
+                        </tr>
+                        <tr data-img="PLACEHOLDER_URL">
+                            <td>570017</td>
+                            <td>8-inch SmartBack for Equinox Luxe 6200m mobile payment terminal</td>
+                            <td>Payment Smartback 8" Equinox 6200m MSR</td>
+                        </tr>
+                        <tr data-img="PLACEHOLDER_URL">
+                            <td>589351</td>
+                            <td>8-inch SmartBack for Verifone e235 mobile payment terminal</td>
+                            <td>Payment Smartback 8" Verifone e235</td>
+                        </tr>
+                        <tr data-img="PLACEHOLDER_URL">
+                            <td>589519</td>
+                            <td>8-inch SmartBack for Moby/5500M compact mobile card reader</td>
+                            <td>Payment Smartback 8" Moby5500m</td>
+                        </tr>
+                        <tr data-img="PLACEHOLDER_URL">
+                            <td>570492</td>
+                            <td>8-inch SmartBack for specialized POS hardware</td>
+                            <td>Payment Smartback 8" MSR non-encrypting</td>
+                        </tr>
+                        <tr id="acc-70198483" data-img="PLACEHOLDER_URL">
+                            <td>70198483</td>
+                            <td>8-inch to 10" adapter</td>
+                            <td>Smartback Adapter 8" on 10"</td>
+                        </tr>
 
-				<!-- Add-ons -->
-                <tr class="acc-category"><td colspan="3">Other Add-ons</td></tr>
-                <tr>
-                    <td>570157</td>
-                    <td>USB CABLE C TO C, 1M</td>
-                    <td>USB-C to USB-C cable, 1m</td>
-                </tr>
-                <tr>
-                    <td>70154951</td>
-                    <td>ST 02 STYLUS WITH TETHER </td>
-                    <td>Passive stylus, 6mm tip, ECOM branded</td>
-                </tr>
+                        <!-- Add-ons -->
+                        <tr class="acc-category"><td colspan="3">Other Add-ons</td></tr>
+                        <tr data-img="PLACEHOLDER_URL">
+                            <td>570157</td>
+                            <td>USB CABLE C TO C, 1M</td>
+                            <td>USB-C to USB-C cable, 1m</td>
+                        </tr>
+                        <tr data-img="PLACEHOLDER_URL">
+                            <td>70154951</td>
+                            <td>ST 02 STYLUS WITH TETHER </td>
+                            <td>Passive stylus, 6mm tip, ECOM branded</td>
+                        </tr>
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sticky Image Preview Pane -->
+            <div class="acc-preview-pane">
+                <div id="accPreviewPlaceholder" class="acc-preview-placeholder">
+                    Hover over an accessory<br>in the list to view its picture here.
+                </div>
+                <img id="accPreviewImg" src="" alt="Accessory Image" style="display: none;">
+                <div id="accPreviewCaption"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -582,6 +657,33 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
+// --- Hover Logic for Accessory Pictures ---
+document.addEventListener('DOMContentLoaded', () => {
+    const accRows = document.querySelectorAll('.acc-table tbody tr:not(.acc-category)');
+    const previewImg = document.getElementById('accPreviewImg');
+    const previewPlaceholder = document.getElementById('accPreviewPlaceholder');
+    const previewCaption = document.getElementById('accPreviewCaption');
+
+    accRows.forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            const imgSrc = row.getAttribute('data-img');
+            const artNo = row.cells[0].innerText;
+            const model = row.cells[1].innerText;
+
+            if (imgSrc && imgSrc !== "PLACEHOLDER_URL") {
+                previewImg.src = imgSrc;
+                previewImg.style.display = 'block';
+                previewPlaceholder.style.display = 'none';
+            } else {
+                previewImg.style.display = 'none';
+                previewPlaceholder.style.display = 'block';
+                previewPlaceholder.innerHTML = `<strong>Image Placeholder</strong><br><br><small>Add URL in code for:<br>${artNo}</small>`;
+            }
+            previewCaption.innerText = `${artNo} - ${model}`;
+        });
+    });
+});
+
 // --- Decoder Logic ---
 document.addEventListener('DOMContentLoaded', () => {
     const selects = document.querySelectorAll('.grid select');
@@ -589,7 +691,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const modelOutput = document.getElementById('modelOutput');
     const partNumberOutput = document.getElementById('partNumberOutput');
     const specsOutput = document.getElementById('specsOutput');
-    const scannerFrameOutput = document.getElementById('scannerFrameOutput');
     const modelFamily = document.getElementById('modelFamily');
     const resetBtn = document.getElementById('resetFiltersBtn');
     const scannerCheckbox = document.getElementById('scannerCheckbox');
@@ -693,7 +794,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const is10 = (family === "10" || family === "UNSELECTED");
         const is08 = (family === "08" || family === "UNSELECTED");
 
-        // Windows = 1, 2, 4, B | Android = 3
         const isWin = (["1", "2", "4", "B", "UNSELECTED"].includes(osVal));
         const isAnd = (["3", "UNSELECTED"].includes(osVal));
 
@@ -719,10 +819,10 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleRow('589658', showUK);
 
         // Docking
-        toggleRow('70177191', !hasScanner);
-        toggleRow('70177192', !hasScanner);
-        toggleRow('70177193', hasScanner);
-        toggleRow('70177194', hasScanner);
+        toggleRow('70177191', !hasScanner && showEU);
+        toggleRow('70177192', !hasScanner && showUS);
+        toggleRow('70177193', hasScanner && showEU);
+        toggleRow('70177194', hasScanner && showUS);
 
         // Frames
         toggleRow('70177206', is10);
@@ -736,7 +836,6 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleRow('590105', is10 && showUS);
         toggleRow('590329', is10 && showUK);
 
-        // 70198483 shown for UNSELECTED or 10-inch tablets (hidden when strictly 08)
         toggleRow('70198483', is10);
     }
 
@@ -794,7 +893,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (stateKeys.length === 1 && dropdownKeys.length > 1) {
                 const parsed = parseKey(stateKeys[0]);
                 
-                // Track changes to prevent infinite recursion loop
                 let changed = false;
                 if (parsed.size !== undefined && modelFamily.value !== parsed.size) { modelFamily.value = parsed.size; changed = true; }
                 if (parsed.conn !== undefined && conn.value !== parsed.conn) { conn.value = parsed.conn; changed = true; }
@@ -831,7 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modelOutput.innerHTML = htmlString;
 
-        // Match lookup internally (using case-insensitive search)
+        // Match lookup internally
         const dbKeys = Object.keys(partNumberDB);
         let matchedPartNumber = null;
         for(let i=0; i<dbKeys.length; i++) {
@@ -929,15 +1027,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(parsed.os !== undefined) document.getElementById('os').value = parsed.os;
         if(parsed.region !== undefined) document.getElementById('region').value = parsed.region === "" ? "none" : parsed.region;
         
-        // Retain country logic only if the new region is compatible with the current country filter
-        const currentCountry = document.getElementById('country').value;
-        if (currentCountry !== "UNSELECTED") {
-            const validRegions = countryMap[currentCountry];
-            if (!validRegions.includes(parsed.region || "")) {
-                document.getElementById('country').value = "UNSELECTED";
-            }
-        }
-
         updateDecoder(true);
     });
 
