@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab-IND10 & 08 Nomenclature Decoder & Accessories</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* --- Tab System Styling --- */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #777;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover {
+            color: #1565c0;
+        }
+        .tab-btn.active {
+            color: #1565c0;
+            border-bottom: 3px solid #1565c0;
+            margin-bottom: -2px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* --- Search Section Styling --- */
+        .reverse-search-box {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .reverse-search-box label {
+            font-size: 1.1rem;
+            color: #1565c0;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .reverse-search-box select {
+            border-color: #90caf9;
+            font-weight: bold;
+            color: #1565c0;
+            flex-grow: 1;
+            max-width: 300px;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .model-select {
+            background-color: #fff;
+            max-width: 150px !important;
+        }
+        .reset-btn {
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .reset-btn:hover {
+            background-color: #0d47a1;
+        }
+
+        /* --- Grid & Form Styling --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        select {
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fff;
+            width: 100%;
+        }
+
+        /* --- Checkbox Styling --- */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        .checkbox-container input[type="checkbox"]:disabled {
+            cursor: not-allowed;
+        }
+        .checkbox-container label {
+            margin-bottom: 0;
+            cursor: pointer;
+            color: #7B1FA2; 
+            font-weight: bold;
+        }
+        
+        /* --- Color Palette --- */
+        .color-conn { color: #D32F2F; } 
+        .color-proc { color: #388E3C; } 
+        .color-bio  { color: #F57C00; } 
+        .color-os   { color: #1976D2; } 
+        .color-plat { color: #00838F; } 
+        .color-scan { color: #7B1FA2; } 
+        .color-fixed{ color: #c4c4c4; } 
+        .color-alert{ color: #e53935; font-weight: bold; } 
+
+        /* --- Output Section Styling --- */
+        .output-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .model-number {
+            font-size: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            word-break: break-all;
+        }
+        .part-number {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .part-number span {
+            color: #1976D2;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .specs-list {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .specs-list strong {
+            display: inline-block;
+            width: 140px;
+        }
+        .scanner-frame-note {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ccc;
+        }
+
+        /* --- Accessory Table Styling --- */
+        .acc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        .acc-table th, .acc-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .acc-table th {
+            background-color: #1565c0;
+            color: white;
+        }
+        .acc-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .acc-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .acc-category {
+            font-weight: bold;
+            background-color: #e3f2fd !important;
+            color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tab-IND Configuration & Accessories</h1>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'decoderTab')">Decoder Tool</button>
+        <button class="tab-btn" onclick="openTab(event, 'accessoriesTab')">Accessories List</button>
+    </div>
+
+    <!-- TAB 1: DECODER -->
+    <div id="decoderTab" class="tab-content active">
+        <div class="reverse-search-box">
+            <select id="modelFamily" class="model-select">
+                <option value="UNSELECTED" selected>-- Screen Size --</option>
+                <option value="10">Tab-IND10</option>
+                <option value="08">Tab-IND08</option>
+            </select>
+            <label for="reverseSearch" id="prefixLabel">🔍 Part # Search:</label>
+            <select id="reverseSearch">
+                <option value="">-- Select or Build Below --</option>
+            </select>
+            <button id="resetFiltersBtn" class="reset-btn">Reset Filters</button>
+        </div>
+        
+        <div class="grid">
+            <div class="form-group">
+                <label for="connectivity" class="color-conn">Connectivity & Audio</label>
+                <select id="connectivity">
+                    <option value="UNSELECTED" selected>-- Please Select --</option>
+                    <option value="WIE">WIE - Wi-Fi (Intel), Global, Non-GNSS (inc. PWBA Audio)</option>
+                    <option value="WIN">WIN - Wi-Fi (Global), Non-GNSS (No PWBA Audio)</option>
+                    <option value="WIU">WIU - Wi-Fi (Intel), Global, with GNSS</option>
+                    <option value="LTC">LTC - 4G LTE, Global Antenna (inc. PWBA Audio)</option>
+                    <option value="T5G">T5G - 5G WWAN, Wi-Fi 6E, with GNSS</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="configuration" class="color-proc">Configuration</label>
+                <select id="configuration">
+                    <option value="UNSELECTED" selected>-- Please Select --</option>
+                    <option value="AA1">AA1 - QCS6490 | 8GB RAM | 128GB</option>
+                    <option value="AB1">AB1 - Intel N100 | 8GB RAM | 128GB</option>
+                    <option value="AC1">AC1 - Intel N100 | 16GB RAM | 256GB</option>
+                    <option value="C8">C8 - Intel Atom x7 | 8GB RAM | 128GB</option>
+                    <option value="C4">C4 - Intel Atom x7 | 4GB RAM | 64GB</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sensor" class="color-bio">Sensor</label>
+                <select id="sensor">
+                    <option value="UNSELECTED" selected>-- Please Select --</option>
+                    <option value="F">F - Fingerprint</option>
+                    <option value="C">C - Standard Variant (Atom 8GB)</option>
+                    <option value="N">N - No Fingerprint</option>
+                    <option value="A">A - Fingerprint (Android)</option>
+                    <option value="B">B - Standard Variant (Atom 4GB)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="os" class="color-os">Operating System</label>
+                <select id="os">
+                    <option value="UNSELECTED" selected>-- Please Select --</option>
+                    <option value="0">0 - No OS</option>
+                    <option value="4">4 - WIN 10 LTSC 21H2</option>
+                    <option value="2">2 - Windows 11 IoT Enterprise LTSC</option>
+                    <option value="1">1 - WIN 10 64-Bit</option>
+                    <option value="3">3 - Android 15 GMS</option>
+                    <option value="B">B - ThinManager Ready</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="region" class="color-plat">Region</label>
+                <select id="region">
+                    <option value="UNSELECTED" selected>-- Please Select --</option>
+                    <option value="none">Blank - Not Applicable</option>
+                    <option value="1">1 - Special / Custom (BU)</option>
+                    <option value="K">K - EU/UK/US/CA/AU + Middle East</option>
+                    <option value="L">L - EU/UK/US/CA/AU/NZ + Global Certs</option>
+                    <option value="J">J - EU/UK/US/CA/AU/JP/MX</option>
+                    <option value="M">M - EU/US/CA/AU/NZ</option>
+                    <option value="N">N - EU/US/CA/AU/NZ/JP</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="country" class="color-scan">Country</label>
+                <select id="country">
+                    <option value="UNSELECTED" selected>-- Please Select --</option>
+                    <option value="US">US - United States</option>
+                    <option value="EU">EU - Europe</option>
+                    <option value="UK">UK - United Kingdom</option>
+                    <option value="CA">CA - Canada</option>
+                    <option value="AU">AU - Australia</option>
+                    <option value="NZ">NZ - New Zealand</option>
+                    <option value="JP">JP - Japan</option>
+                    <option value="MX">MX - Mexico</option>
+                    <option value="ME">ME - Middle East</option>
+                </select>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="scannerCheckbox" disabled>
+                    <label for="scannerCheckbox">Include Scanner Frame Details</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <div class="model-number" id="modelOutput"></div>
+            <div class="part-number" id="partNumberOutput"></div>
+            
+            <ul class="specs-list" id="specsOutput">
+            </ul>
+            
+            <div id="scannerFrameOutput"></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: ACCESSORIES -->
+    <div id="accessoriesTab" class="tab-content">
+        <p>The following accessories dynamically filter based on your configurations in the Decoder tab.</p>
+        <table class="acc-table">
+            <thead>
+                <tr>
+                    <th>Art.-No.</th>
+                    <th>Model Designation</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+			    <!-- Charging -->
+                <tr class="acc-category"><td colspan="3">Charging</td></tr>
+                <tr id="acc-70177196">
+                    <td>70177196</td>
+                    <td>SINGLE-CHARGER-SET-EU</td>
+                    <td>Single Charger Set EU (24W) for Tab-IND Series</td>
+                </tr>
+                <tr id="acc-70177198">
+                    <td>70177198</td>
+                    <td>SINGLE-CHARGER-SET-US</td>
+                    <td>Single Charger Set US (24W) for Tab-IND Series</td>
+                </tr>
+                <tr id="acc-70177200">
+                    <td>70177200</td>
+                    <td>5-CHARGER-SET-EU</td>
+                    <td>5 Charger Set EU (120W) for Tab-IND Series</td>
+                </tr>
+                <tr id="acc-70177202">
+                    <td>70177202</td>
+                    <td>5-CHARGER-SET-US</td>
+                    <td>5 Charger Set US (120W) for Tab-IND Series</td>
+                </tr>
+                <tr id="acc-589656">
+                    <td>589656</td>
+                    <td>TC TAB-IND 27W US USB-C</td>
+                    <td>AC/DC Adapter for USB-C 27W, US version</td>
+                </tr>
+                <tr id="acc-589657">
+                    <td>589657</td>
+                    <td>TC TAB-IND 27W EU USB-C</td>
+                    <td>AC/DC Adapter for USB-C 27W, EU version</td>
+                </tr>
+                <tr id="acc-589658">
+                    <td>589658</td>
+                    <td>TC TAB-IND 27W UK USB-C</td>
+                    <td>AC/DC Adapter for USB-C 27W, UK version</td>
+                </tr>
+
+                <!-- Docking -->
+                <tr class="acc-category"><td colspan="3">Docking Stations</td></tr>
+                <tr id="acc-70177191">
+                    <td>70177191</td>
+                    <td>FULL-DS-STATION-EU FOR TAB-IND</td>
+                    <td>Full docking station EU for Tab-IND</td>
+                </tr>
+                <tr id="acc-70177192">
+                    <td>70177192</td>
+                    <td>FULL-DS-STATION-US FOR TAB-IND</td>
+                    <td>Full docking station US for Tab-IND</td>
+                </tr>
+                <tr id="acc-70177193">
+                    <td>70177193</td>
+                    <td>SCANNER-FRAME-FULL-DS-EU</td>
+                    <td>Docking Station with EU cable for Tab-IND Series with Scanner Frame</td>
+                </tr>
+                <tr id="acc-70177194">
+                    <td>70177194</td>
+                    <td>SCANNER-FRAME-FULL-DS-US</td>
+                    <td>Docking Station with US cable for Tab-IND Series with Scanner Frame</td>
+                </tr>
+
+                <!-- Batteries -->
+                <tr class="acc-category"><td colspan="3">Battery Packs</td></tr>
+                <tr id="acc-70177188">
+                    <td>70177188</td>
+                    <td>BP 10" WIN TAB-IND10</td>
+                    <td>Spare battery pack for Tab-IND 10" WIN</td>
+                </tr>
+                <tr id="acc-589651">
+                    <td>589651</td>
+                    <td>BP 10" AND TAB-IND10</td>
+                    <td>Spare Battery Pack for Tab-IND 10" AND</td>
+                </tr>				
+                <tr id="acc-70177187">
+                    <td>70177187</td>
+                    <td>BP 8" WIN TAB-IND08</td>
+                    <td>Spare Battery Pack for Tab-IND 8" WIN</td>
+                </tr>
+				
+                <!-- Rugged Frames -->
+                <tr class="acc-category"><td colspan="3">Rugged Frames</td></tr>
+                <tr id="acc-70177206">
+                    <td>70177206</td>
+                    <td>RUGGED-FRAME-10"-BLACK</td>
+                    <td>Rugged Frame 10" for Tab-IND10 Series</td>
+                </tr>
+                <tr id="acc-70177204">
+                    <td>70177204</td>
+                    <td>RUGGED-FRAME-8"-BLACK</td>
+                    <td>Rugged Frame 8" for Tab-IND08 Series</td>
+                </tr>
+                <tr>
+                    <td>70177207</td>
+                    <td>RUGGED FRAME IO ADAPTER</td>
+                    <td>Adapter for enabling use of device in rugged frame with the dock</td>
+                </tr>
+
+				<!-- SmartBack -->
+                <tr class="acc-category"><td colspan="3">Smart-Back</td></tr>
+                <tr id="acc-70177190">
+					<td>70177190</td>
+                    <td>PP SMARTBACK FOR TAB-IND08</td>
+                    <td>8" Power Pack Smart-Back for both WIN & AND</td>
+                </tr>
+                <tr id="acc-589162">
+                    <td>589162</td>
+                    <td>PP SMARTBACK FOR TAB-IND10</td>
+                    <td>10" Power Pack Smart-Back for both WIN & AND</td>
+                </tr>
+                <tr id="acc-589749">
+                    <td>589749</td>
+                    <td>VESA 75/100 SmartBack for 10" Tab-IND with EU AC adapter</td>
+                    <td>VESA Smartback 10" (EU AC adapter)</td>
+                </tr>
+                <tr id="acc-590105">
+                    <td>590105</td>
+                    <td>VESA 75 SmartBack for 10", US AC adapter</td>
+                    <td>VESA Smartback 10" (US AC adapter)</td>
+                </tr>
+                <tr id="acc-590329">
+                    <td>590329</td>
+                    <td>VESA 75 SmartBack for 10", UK AC adapter</td>
+                    <td>VESA Smartback 10" (UK AC adapter)</td>
+                </tr>
+                <tr>
+                    <td>570007</td>
+                    <td>Payment Smartback 8" Link2500i</td>
+					<td>8-inch SmartBack for payment terminal</td>
+                </tr>
+                <tr>
+                    <td>570017</td>
+                    <td>Payment Smartback 8" Equinox 6200m MSR</td>
+					<td>8-inch SmartBack for Equinox Luxe 6200m mobile payment terminal</td>
+                </tr>
+                <tr>
+                    <td>589351</td>
+					<td>Payment Smartback 8" Verifone e235</td>
+                    <td>8-inch SmartBack for Verifone e235 mobile payment terminal</td>
+                </tr>
+                <tr>
+                    <td>589519</td>
+					<td>Payment Smartback 8" Moby5500m</td>
+                    <td>8-inch SmartBack for Moby/5500M compact mobile card reader</td>
+                </tr>
+                <tr>
+                    <td>570492</td>
+					<td>Payment Smartback 8" MSR non-encrypting</td>
+                    <td>8-inch SmartBack for specialized POS hardware</td>
+                </tr>
+                <tr id="acc-70198483">
+                    <td>70198483</td>
+                    <td>8-inch to 10" adapter</td>
+                    <td>Smartback Adapter 8" on 10"</td>
+                </tr>
+
+                <!-- Carrying -->
+                <tr class="acc-category"><td colspan="3">Carrying Accessories</td></tr>
+                <tr>
+                    <td>70177209</td>
+                    <td>HA TAB-IND NYLON ADJUST.</td>
+                    <td>Nylon Hand Strap, adjustable for Tab-IND Series</td>
+                </tr>
+                <tr>
+                    <td>70177208</td>
+                    <td>HA TAB-IND TPE ADJUST.</td>
+                    <td>TPE Hand Strap, adjustable for Tab-IND Series</td>
+                </tr>
+                <tr>
+                    <td>70177210</td>
+                    <td>SHOULDER STRAP FOR TAB-IND</td>
+                    <td>Shoulder strap, length adjustable for Tab-IND Series</td>
+                </tr>
+
+				<!-- Add-ons -->
+                <tr class="acc-category"><td colspan="3">Other Add-ons</td></tr>
+                <tr>
+                    <td>570157</td>
+                    <td>USB CABLE C TO C, 1M</td>
+                    <td>USB-C to USB-C cable, 1m</td>
+                </tr>
+                <tr>
+                    <td>70154951</td>
+                    <td>ST 02 STYLUS WITH TETHER </td>
+                    <td>Passive stylus, 6mm tip, ECOM branded</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// --- Tab Switching Logic ---
+function openTab(evt, tabName) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].classList.remove("active");
+    }
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+
+// --- Decoder Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    const selects = document.querySelectorAll('.grid select');
+    const reverseSearchSelect = document.getElementById('reverseSearch');
+    const modelOutput = document.getElementById('modelOutput');
+    const partNumberOutput = document.getElementById('partNumberOutput');
+    const specsOutput = document.getElementById('specsOutput');
+    const scannerFrameOutput = document.getElementById('scannerFrameOutput');
+    const modelFamily = document.getElementById('modelFamily');
+    const resetBtn = document.getElementById('resetFiltersBtn');
+    const scannerCheckbox = document.getElementById('scannerCheckbox');
+
+    const partNumberDB = {
+        "TAB-IND10WINAB1NBXXJW.1": "480993-100012",
+        "TAB-IND08WIUAB1F2XXMW.1": "480993-100014",
+        "TAB-IND10WIUAB1F2XXJW.1": "480993-100015",
+        "TAB-IND10WIUAC1F2XXJW.1": "480993-100016",
+        "TAB-IND10WINAA1A3XXNW.1": "480993-100017",
+        "TAB-IND10T5GAA1A3XXLW.1": "480993-100018",
+        "TAB-IND10WINAB1N0XXJW.1": "70182332",
+        "TAB-IND10WINAB1N2XXJW.1": "70212390",
+        "TAB-IND10WINAB1N2XX.1":   "589781",
+        "TAB-IND08WINAB1N0XXMW.1": "589778",
+        "TAB-IND10WINAB1N0BU10.3": "70200401"
+    };
+
+    const missingChargerParts = [
+        "480993-100014", 
+        "480993-100015", 
+        "480993-100016", 
+        "480993-100017", 
+        "480993-100018"
+    ];
+
+    const countryMap = {
+        "US": ["K", "L", "J", "M", "N", "1", ""],
+        "EU": ["K", "L", "J", "M", "N", "1", ""],
+        "UK": ["K", "L", "J", "1", ""],
+        "CA": ["K", "L", "J", "M", "N", "1", ""],
+        "AU": ["K", "L", "J", "M", "N", "1", ""],
+        "NZ": ["L", "M", "N", "1", ""],
+        "JP": ["J", "N", "1", ""],
+        "MX": ["J", "1", ""],
+        "ME": ["K", "1", ""]
+    };
+
+    let dirtyFields = new Set();
+
+    function parseKey(key) {
+        const regex = /^TAB-IND(10|08)(WIE|WIN|WIU|LTC|T5G)(AA1|AB1|AC1|C8|C4)([FCNAB])([4213B0])(XX|BU)?([KLJMN1])?([WX0])?(?:\.\d+)?$/i;
+        const match = key.match(regex);
+        if (match) {
+            return {
+                size: match[1] || "",
+                conn: match[2] || "",
+                config: match[3] || "",
+                sensor: match[4] || "",
+                os: match[5] || "",
+                fixed: match[6] || "XX",
+                region: match[7] || "",
+                scanner: match[8] || ""
+            };
+        }
+        return {};
+    }
+
+    function getOptText(selObj) {
+        if (selObj.value === "UNSELECTED") return "<em>-- Please Select --</em>";
+        if (selObj.value === "none") return "Blank - Not Applicable";
+        const textParts = selObj.options[selObj.selectedIndex].text.split(' - ');
+        return textParts.length > 1 ? textParts[1] : textParts[0];
+    }
+
+    function populateReverseSearch(keysToInclude) {
+        const currentVal = reverseSearchSelect.value;
+        reverseSearchSelect.innerHTML = '<option value="">-- Select or Build Below --</option>';
+
+        const entries = keysToInclude.map(nom => {
+            return { nom: nom, pn: partNumberDB[nom] };
+        });
+
+        entries.sort((a, b) => a.pn.localeCompare(b.pn));
+
+        entries.forEach(entry => {
+            const newOption = new Option(entry.pn, entry.pn);
+            newOption.dataset.nom = entry.nom; 
+            reverseSearchSelect.add(newOption);
+        });
+
+        Array.from(reverseSearchSelect.options).forEach(opt => {
+            if (opt.value === currentVal && currentVal !== "") {
+                reverseSearchSelect.value = currentVal;
+            }
+        });
+    }
+
+    // --- Dynamic Accessories Filtering ---
+    function filterAccessories() {
+        const family = document.getElementById('modelFamily').value;
+        const osVal = document.getElementById('os').value;
+        const country = document.getElementById('country').value;
+        const hasScanner = document.getElementById('scannerCheckbox').checked;
+
+        const toggleRow = (id, condition) => {
+            const el = document.getElementById('acc-' + id);
+            if (el) el.style.display = condition ? '' : 'none';
+        };
+
+        const is10 = (family === "10" || family === "UNSELECTED");
+        const is08 = (family === "08" || family === "UNSELECTED");
+
+        // Windows = 1, 2, 4, B | Android = 3
+        const isWin = (["1", "2", "4", "B", "UNSELECTED"].includes(osVal));
+        const isAnd = (["3", "UNSELECTED"].includes(osVal));
+
+        const isKnownRegion = ["EU", "US", "UK"].includes(country);
+        const showEU = !isKnownRegion || country === "EU";
+        const showUS = !isKnownRegion || country === "US";
+        const showUK = !isKnownRegion || country === "UK";
+
+        // Batteries
+        toggleRow('70177188', is10 && isWin);
+        toggleRow('589651', is10 && isAnd);
+        toggleRow('70177187', is08 && isWin);
+
+        // Charging
+        toggleRow('70177196', showEU);
+        toggleRow('70177200', showEU);
+        toggleRow('589657', showEU);
+
+        toggleRow('70177198', showUS);
+        toggleRow('70177202', showUS);
+        toggleRow('589656', showUS);
+
+        toggleRow('589658', showUK);
+
+        // Docking
+        toggleRow('70177191', !hasScanner);
+        toggleRow('70177192', !hasScanner);
+        toggleRow('70177193', hasScanner);
+        toggleRow('70177194', hasScanner);
+
+        // Frames
+        toggleRow('70177206', is10);
+        toggleRow('70177204', is08);
+
+        // SmartBack
+        toggleRow('70177190', is08);
+        toggleRow('589162', is10);
+        
+        toggleRow('589749', is10 && showEU);
+        toggleRow('590105', is10 && showUS);
+        toggleRow('590329', is10 && showUK);
+
+        // 70198483 shown for UNSELECTED or 10-inch tablets (hidden when strictly 08)
+        toggleRow('70198483', is10);
+    }
+
+    function updateDecoder(skipDropdownUpdate = false) {
+        const family = modelFamily.value;
+        const conn = document.getElementById('connectivity');
+        const config = document.getElementById('configuration');
+        const sensor = document.getElementById('sensor');
+        const os = document.getElementById('os');
+        const region = document.getElementById('region');
+        const country = document.getElementById('country');
+
+        const isComplete = ![family, conn.value, config.value, sensor.value, os.value, region.value].includes("UNSELECTED");
+        const rVal = region.value === "none" ? "" : region.value;
+
+        // --- FILTER FOR DROPDOWN (Uses dirtyFields) ---
+        let dropdownKeys = Object.keys(partNumberDB).filter(key => {
+            const parsed = parseKey(key);
+            let match = true;
+            if (dirtyFields.has('modelFamily') && family !== "UNSELECTED" && parsed.size !== family) match = false;
+            if (dirtyFields.has('connectivity') && conn.value !== "UNSELECTED" && parsed.conn !== conn.value) match = false;
+            if (dirtyFields.has('configuration') && config.value !== "UNSELECTED" && parsed.config !== config.value) match = false;
+            if (dirtyFields.has('sensor') && sensor.value !== "UNSELECTED" && parsed.sensor !== sensor.value) match = false;
+            if (dirtyFields.has('os') && os.value !== "UNSELECTED" && parsed.os !== os.value) match = false;
+            if (dirtyFields.has('region') && region.value !== "UNSELECTED" && parsed.region !== rVal) match = false;
+            if (dirtyFields.has('country') && country.value !== "UNSELECTED" && !countryMap[country.value].includes(parsed.region)) match = false;
+            return match;
+        });
+
+        // --- STRICT STATE FILTER (Ignores dirtyFields) ---
+        let stateKeys = Object.keys(partNumberDB).filter(key => {
+            const parsed = parseKey(key);
+            if (family !== "UNSELECTED" && parsed.size !== family) return false;
+            if (conn.value !== "UNSELECTED" && parsed.conn !== conn.value) return false;
+            if (config.value !== "UNSELECTED" && parsed.config !== config.value) return false;
+            if (sensor.value !== "UNSELECTED" && parsed.sensor !== sensor.value) return false;
+            if (os.value !== "UNSELECTED" && parsed.os !== os.value) return false;
+            if (region.value !== "UNSELECTED" && parsed.region !== rVal) return false;
+            if (country.value !== "UNSELECTED" && !countryMap[country.value].includes(parsed.region)) return false;
+            return true;
+        });
+
+        let rawModelString = "";
+        let inferredScanner = "_";
+
+        if (stateKeys.length === 1) {
+            rawModelString = stateKeys[0]; 
+            inferredScanner = parseKey(stateKeys[0]).scanner;
+        } else if (stateKeys.length > 1) {
+            let firstScan = parseKey(stateKeys[0]).scanner;
+            if(stateKeys.every(k => parseKey(k).scanner === firstScan)) inferredScanner = firstScan;
+        }
+
+        if (!skipDropdownUpdate) {
+            if (stateKeys.length === 1 && dropdownKeys.length > 1) {
+                const parsed = parseKey(stateKeys[0]);
+                
+                // Track changes to prevent infinite recursion loop
+                let changed = false;
+                if (parsed.size !== undefined && modelFamily.value !== parsed.size) { modelFamily.value = parsed.size; changed = true; }
+                if (parsed.conn !== undefined && conn.value !== parsed.conn) { conn.value = parsed.conn; changed = true; }
+                if (parsed.config !== undefined && config.value !== parsed.config) { config.value = parsed.config; changed = true; }
+                if (parsed.sensor !== undefined && sensor.value !== parsed.sensor) { sensor.value = parsed.sensor; changed = true; }
+                if (parsed.os !== undefined && os.value !== parsed.os) { os.value = parsed.os; changed = true; }
+                let parsedRegion = parsed.region === "" ? "none" : parsed.region;
+                if (parsed.region !== undefined && region.value !== parsedRegion) { region.value = parsedRegion; changed = true; }
+                
+                if (changed) {
+                    updateDecoder(false);
+                    return;
+                }
+            }
+            populateReverseSearch(dropdownKeys);
+        }
+
+        // --- UI & HTML STRING GENERATION ---
+        let htmlString = `<span class="color-fixed">Tab-IND${family === "UNSELECTED" ? "___" : family}</span>`;
+        htmlString += `<span class="color-conn">${conn.value === "UNSELECTED" ? "___" : conn.value}</span>`;
+        htmlString += `<span class="color-proc">${config.value === "UNSELECTED" ? "___" : config.value}</span>`;
+        htmlString += `<span class="color-bio">${sensor.value === "UNSELECTED" ? "_" : sensor.value}</span>`;
+        htmlString += `<span class="color-os">${os.value === "UNSELECTED" ? "_" : os.value}</span>`;
+        
+        let rValHtml = region.value === "UNSELECTED" ? "_" : rVal;
+
+        if (rValHtml === '1' || inferredScanner === '0') {
+            htmlString += `<span class="color-fixed">BU</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">.3</span>`;
+        } else if ((region.value === "none" || rValHtml === "") && inferredScanner === "") {
+            htmlString += `<span class="color-fixed">XX</span><span class="color-fixed">.1</span>`;
+        } else {
+            htmlString += `<span class="color-fixed">XX</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">.1</span>`;
+        }
+
+        modelOutput.innerHTML = htmlString;
+
+        // Match lookup internally (using case-insensitive search)
+        const dbKeys = Object.keys(partNumberDB);
+        let matchedPartNumber = null;
+        for(let i=0; i<dbKeys.length; i++) {
+            if(dbKeys[i].toUpperCase() === rawModelString.toUpperCase()) {
+                matchedPartNumber = partNumberDB[dbKeys[i]];
+                break;
+            }
+        }
+        
+        let notes = "";
+        
+        if (matchedPartNumber) {
+            partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+            reverseSearchSelect.value = matchedPartNumber; 
+            scannerCheckbox.disabled = false;
+            
+            if (missingChargerParts.includes(matchedPartNumber)) {
+                notes = "<span class='color-alert'>No charger and cable</span>";
+            }
+        } else {
+            if (dropdownKeys.length > 1) {
+                partNumberOutput.innerHTML = `Part Number: <span>Filtering... (${dropdownKeys.length} matches possible)</span>`;
+            } else if (dropdownKeys.length === 1 && !isComplete) {
+                partNumberOutput.innerHTML = `Part Number: <span>Filtering... (1 match found, complete selection)</span>`;
+            } else {
+                partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom Build</span>`;
+            }
+            reverseSearchSelect.value = ""; 
+            scannerCheckbox.disabled = true;
+            scannerCheckbox.checked = false;
+        }
+
+        let frameText = "Unresolved";
+        if (inferredScanner === "W") frameText = "W - Standard (No Scanner)";
+        if (inferredScanner === "X") frameText = "X - Scanner frame mounted";
+        if (inferredScanner === "0") frameText = "0 - Special / Custom";
+        if (inferredScanner === "") frameText = "Blank - Not Applicable";
+        
+        let familyText = getOptText(modelFamily);
+        if (family === "10") familyText = 'Tab-IND10 (10.1")';
+        if (family === "08") familyText = 'Tab-IND08 (8.4")';
+
+        let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> ${familyText}</li>`;
+        specsHTML += `<li><strong class="color-conn">Connectivity:</strong> ${getOptText(conn)}</li>`;
+        specsHTML += `<li><strong class="color-proc">Config:</strong> ${getOptText(config)}</li>`;
+        specsHTML += `<li><strong class="color-bio">Sensor:</strong> ${getOptText(sensor)}</li>`;
+        specsHTML += `<li><strong class="color-os">OS:</strong> ${getOptText(os)}</li>`;
+        specsHTML += `<li><strong class="color-plat">Region:</strong> ${getOptText(region)}</li>`;
+        
+        if (country.value !== "UNSELECTED") {
+            specsHTML += `<li><strong class="color-scan">Country Filter:</strong> ${getOptText(country)}</li>`;
+        }
+        
+        if (notes !== "") {
+            specsHTML += `<li><strong class="color-fixed">Notes:</strong> ${notes}</li>`;
+        }
+        
+        if (scannerCheckbox.checked && matchedPartNumber) {
+            let scannerString = family === "08" ? "Tab-IND08 ACSF0801HA00.1 (570024)" : "Tab-IND10 ACSF1001HA00.3 (570026)";
+            specsHTML += `<li class="scanner-frame-note"><strong class="color-scan">Scanner Frame:</strong> ${scannerString}</li>`;
+        }
+        
+        specsOutput.innerHTML = specsHTML;
+
+        // Apply visual updates to the Accessories table based on state
+        filterAccessories();
+    }
+
+    [modelFamily, ...selects].forEach(select => {
+        select.addEventListener('change', (e) => {
+            dirtyFields.add(e.target.id);
+            updateDecoder(false);
+        });
+    });
+
+    scannerCheckbox.addEventListener('change', () => {
+        updateDecoder(true);
+    });
+
+    reverseSearchSelect.addEventListener('change', (e) => {
+        const selectedOption = e.target.options[e.target.selectedIndex];
+        const selectedNom = selectedOption.dataset.nom;
+        
+        if (!selectedNom) {
+            updateDecoder(true);
+            return; 
+        }
+
+        const parsed = parseKey(selectedNom);
+        
+        if(parsed.size !== undefined) modelFamily.value = parsed.size;
+        if(parsed.conn !== undefined) document.getElementById('connectivity').value = parsed.conn;
+        if(parsed.config !== undefined) document.getElementById('configuration').value = parsed.config;
+        if(parsed.sensor !== undefined) document.getElementById('sensor').value = parsed.sensor;
+        if(parsed.os !== undefined) document.getElementById('os').value = parsed.os;
+        if(parsed.region !== undefined) document.getElementById('region').value = parsed.region === "" ? "none" : parsed.region;
+        
+        // Retain country logic only if the new region is compatible with the current country filter
+        const currentCountry = document.getElementById('country').value;
+        if (currentCountry !== "UNSELECTED") {
+            const validRegions = countryMap[currentCountry];
+            if (!validRegions.includes(parsed.region || "")) {
+                document.getElementById('country').value = "UNSELECTED";
+            }
+        }
+
+        updateDecoder(true);
+    });
+
+    resetBtn.addEventListener('click', () => {
+        dirtyFields.clear();
+        reverseSearchSelect.value = "";
+        
+        modelFamily.value = "UNSELECTED";
+        document.getElementById('connectivity').value = "UNSELECTED";
+        document.getElementById('configuration').value = "UNSELECTED";
+        document.getElementById('sensor').value = "UNSELECTED";
+        document.getElementById('os').value = "UNSELECTED";
+        document.getElementById('region').value = "UNSELECTED";
+        document.getElementById('country').value = "UNSELECTED";
+        
+        scannerCheckbox.checked = false;
+        scannerCheckbox.disabled = true;
+        
+        updateDecoder(false);
+    });
+
+    updateDecoder(false);
+});
+</script>
+
+</body>
+</html>
