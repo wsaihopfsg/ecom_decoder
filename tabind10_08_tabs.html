@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tab-IND10 & 08 Nomenclature Decoder & Accessories</title>
     <style>
+        /* --- Corporate Color Guide Variables --- */
+        :root {
+            --pf-green: #00A587;
+            --pf-blue-gray: #425563;
+            --pf-blue-gray-80: #687782;
+            --pf-blue-gray-40: #B3BBC1;
+            --pf-blue-gray-20: #D9DDE0;
+            --pf-black: #2C2A29;
+            --pf-light-blue: #8DC8CA;
+            --pf-light-blue-20: #E8F4FA;
+            --pf-orange: #EAAA00;
+            --pf-orange-red: #FF6A39;
+            --pf-bordeaux: #7D2248;
+            --pf-bg-light: #F4F4F9;
+        }
+
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            max-width: 1100px; /* Widened slightly to accommodate the side-by-side view */
+            background-color: var(--pf-bg-light);
+            color: var(--pf-black);
+            max-width: 1100px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -20,16 +36,16 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #333;
+            color: var(--pf-green);
             margin-top: 0;
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid var(--pf-blue-gray-20);
             padding-bottom: 10px;
         }
 
         /* --- Tab System Styling --- */
         .tabs {
             display: flex;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid var(--pf-blue-gray-20);
             margin-bottom: 2rem;
         }
         .tab-btn {
@@ -38,16 +54,16 @@
             padding: 10px 20px;
             font-size: 1.1rem;
             font-weight: bold;
-            color: #777;
+            color: var(--pf-blue-gray-80);
             cursor: pointer;
             transition: all 0.3s;
         }
         .tab-btn:hover {
-            color: #1565c0;
+            color: var(--pf-green);
         }
         .tab-btn.active {
-            color: #1565c0;
-            border-bottom: 3px solid #1565c0;
+            color: var(--pf-green);
+            border-bottom: 3px solid var(--pf-green);
             margin-bottom: -2px;
         }
         .tab-content {
@@ -59,8 +75,8 @@
         
         /* --- Search Section Styling --- */
         .reverse-search-box {
-            background-color: #e3f2fd;
-            border: 1px solid #90caf9;
+            background-color: var(--pf-light-blue-20);
+            border: 1px solid var(--pf-light-blue);
             border-radius: 6px;
             padding: 1.5rem;
             margin-bottom: 2rem;
@@ -71,14 +87,15 @@
         }
         .reverse-search-box label {
             font-size: 1.1rem;
-            color: #1565c0;
+            color: var(--pf-blue-gray);
             margin: 0;
             white-space: nowrap;
+            font-weight: bold;
         }
         .reverse-search-box select {
-            border-color: #90caf9;
+            border-color: var(--pf-light-blue);
             font-weight: bold;
-            color: #1565c0;
+            color: var(--pf-blue-gray);
             flex-grow: 1;
             max-width: 300px;
             padding: 0.5rem;
@@ -89,7 +106,7 @@
             max-width: 150px !important;
         }
         .reset-btn {
-            background-color: #1565c0;
+            background-color: var(--pf-green);
             color: white;
             border: none;
             padding: 0.6rem 1rem;
@@ -99,7 +116,7 @@
             transition: background 0.2s;
         }
         .reset-btn:hover {
-            background-color: #0d47a1;
+            background-color: var(--pf-blue-gray);
         }
 
         /* --- Grid & Form Styling --- */
@@ -130,6 +147,7 @@
             font-size: 1rem;
             background-color: #fff;
             width: 100%;
+            color: var(--pf-black);
         }
 
         /* --- Checkbox Styling --- */
@@ -149,26 +167,26 @@
         .checkbox-container label {
             margin-bottom: 0;
             cursor: pointer;
-            color: #7B1FA2; 
+            color: var(--pf-bordeaux); 
             font-weight: bold;
         }
         
-        /* --- Color Palette --- */
-        .color-conn { color: #D32F2F; } 
-        .color-proc { color: #388E3C; } 
-        .color-bio  { color: #F57C00; } 
-        .color-os   { color: #1976D2; } 
-        .color-plat { color: #00838F; } 
-        .color-scan { color: #7B1FA2; } 
-        .color-fixed{ color: #c4c4c4; } 
-        .color-alert{ color: #e53935; font-weight: bold; } 
+        /* --- Corporate Color Palette for Nomenclature --- */
+        .color-conn { color: var(--pf-orange-red); } 
+        .color-proc { color: var(--pf-green); } 
+        .color-bio  { color: var(--pf-orange); } 
+        .color-os   { color: var(--pf-light-blue); } 
+        .color-plat { color: var(--pf-blue-gray); } 
+        .color-scan { color: var(--pf-bordeaux); } 
+        .color-fixed{ color: var(--pf-blue-gray-80); } 
+        .color-alert{ color: var(--pf-orange-red); font-weight: bold; } 
 
         /* --- Output Section Styling --- */
         .output-section {
-            background: #f8f9fa;
+            background: var(--pf-bg-light);
             padding: 1.5rem;
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--pf-blue-gray-20);
         }
         .model-number {
             font-size: 1.5rem;
@@ -185,14 +203,25 @@
         .part-number {
             text-align: center;
             font-size: 1.2rem;
-            color: #555;
+            color: var(--pf-blue-gray-80);
             font-weight: bold;
             margin-bottom: 1.5rem;
         }
         .part-number span {
-            color: #1976D2;
+            color: var(--pf-green);
             font-family: 'Courier New', Courier, monospace;
         }
+        
+        /* Hyperlink styling for generated part number */
+        .part-number span a {
+            color: var(--pf-green);
+            text-decoration: underline;
+        }
+        .part-number span a:hover {
+			color: var(--pf-blue-gray);
+            text-decoration: underline;
+        }
+        
         .specs-list {
             margin: 0;
             padding-left: 1.2rem;
@@ -206,9 +235,9 @@
         .scanner-frame-note {
             margin-top: 1rem;
             padding-top: 1rem;
-            border-top: 1px dashed #ccc;
+            border-top: 1px dashed var(--pf-blue-gray-40);
             font-weight: bold;
-            color: #7B1FA2;
+            color: var(--pf-bordeaux);
         }
 
         /* --- Accessory Table & Image Layout Styling --- */
@@ -228,28 +257,39 @@
             font-size: 0.95rem;
         }
         .acc-table th, .acc-table td {
-            border: 1px solid #ddd;
+            border: 1px solid var(--pf-blue-gray-40);
             padding: 12px;
             text-align: left;
         }
         .acc-table th {
-            background-color: #1565c0;
+            background-color: var(--pf-green);
             color: white;
         }
         .acc-table tr:not(.acc-category):nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: var(--pf-bg-light);
         }
         .acc-table tr:not(.acc-category) {
             cursor: pointer;
             transition: background-color 0.2s;
         }
         .acc-table tr:not(.acc-category):hover {
-            background-color: #e3f2fd !important; /* Highlights on hover */
+            background-color: var(--pf-light-blue-20) !important;
         }
         .acc-category {
             font-weight: bold;
-            background-color: #e3f2fd !important;
-            color: #1565c0;
+            background-color: var(--pf-blue-gray-20) !important;
+            color: var(--pf-black);
+        }
+
+        /* Hyperlink styling for Accessory Art.-No. */
+        .acc-table td a {
+            color: var(--pf-green);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .acc-table td a:hover {
+            color: var(--pf-blue-gray);
+            text-decoration: underline;
         }
         
         /* The sticky preview pane on the right */
@@ -257,8 +297,8 @@
             flex: 0 0 280px;
             position: sticky;
             top: 20px;
-            background: #f8f9fa;
-            border: 1px solid #e2e8f0;
+            background: var(--pf-bg-light);
+            border: 1px solid var(--pf-blue-gray-20);
             border-radius: 8px;
             padding: 1.5rem;
             display: flex;
@@ -277,13 +317,13 @@
             margin-top: 15px;
             font-weight: bold;
             text-align: center;
-            color: #1565c0;
+            color: var(--pf-green);
             font-size: 0.9rem;
         }
         .acc-preview-placeholder {
             padding: 40px 20px;
-            color: #999;
-            border: 2px dashed #ccc;
+            color: var(--pf-blue-gray-80);
+            border: 2px dashed var(--pf-blue-gray-40);
             border-radius: 4px;
             text-align: center;
             font-size: 0.9rem;
@@ -332,10 +372,8 @@
                 <label for="connectivity" class="color-conn">Connectivity & Audio</label>
                 <select id="connectivity">
                     <option value="UNSELECTED" selected>-- Please Select --</option>
-                    <option value="WIE">WIE - Wi-Fi (Intel), Global, Non-GNSS (inc. PWBA Audio)</option>
                     <option value="WIN">WIN - Wi-Fi (Global), Non-GNSS (No PWBA Audio)</option>
                     <option value="WIU">WIU - Wi-Fi (Intel), Global, with GNSS</option>
-                    <option value="LTC">LTC - 4G LTE, Global Antenna (inc. PWBA Audio)</option>
                     <option value="T5G">T5G - 5G WWAN, Wi-Fi 6E, with GNSS</option>
                 </select>
             </div>
@@ -347,8 +385,6 @@
                     <option value="AA1">AA1 - QCS6490 | 8GB RAM | 128GB</option>
                     <option value="AB1">AB1 - Intel N100 | 8GB RAM | 128GB</option>
                     <option value="AC1">AC1 - Intel N100 | 16GB RAM | 256GB</option>
-                    <option value="C8">C8 - Intel Atom x7 | 8GB RAM | 128GB</option>
-                    <option value="C4">C4 - Intel Atom x7 | 4GB RAM | 64GB</option>
                 </select>
             </div>
 
@@ -357,10 +393,8 @@
                 <select id="sensor">
                     <option value="UNSELECTED" selected>-- Please Select --</option>
                     <option value="F">F - Fingerprint</option>
-                    <option value="C">C - Standard Variant (Atom 8GB)</option>
                     <option value="N">N - No Fingerprint</option>
                     <option value="A">A - Fingerprint (Android)</option>
-                    <option value="B">B - Standard Variant (Atom 4GB)</option>
                 </select>
             </div>
 
@@ -369,9 +403,7 @@
                 <select id="os">
                     <option value="UNSELECTED" selected>-- Please Select --</option>
                     <option value="0">0 - No OS</option>
-                    <option value="4">4 - WIN 10 LTSC 21H2</option>
                     <option value="2">2 - Windows 11 IoT Enterprise LTSC</option>
-                    <option value="1">1 - WIN 10 64-Bit</option>
                     <option value="3">3 - Android 15 GMS</option>
                     <option value="B">B - ThinManager Ready</option>
                 </select>
@@ -383,7 +415,6 @@
                     <option value="UNSELECTED" selected>-- Please Select --</option>
                     <option value="none">Blank - Not Applicable</option>
                     <option value="1">1 - Special / Custom (BU)</option>
-                    <option value="K">K - EU/UK/US/CA/AU + Middle East</option>
                     <option value="L">L - EU/UK/US/CA/AU/NZ + Global Certs</option>
                     <option value="J">J - EU/UK/US/CA/AU/JP/MX</option>
                     <option value="M">M - EU/US/CA/AU/NZ</option>
@@ -431,7 +462,7 @@
                 <table class="acc-table">
                     <thead>
                         <tr>
-                            <th>Art.-No.</th>
+                            <th>Part No.</th>
                             <th>Model Designation</th>
                             <th>Description</th>
                         </tr>
@@ -440,37 +471,37 @@
                         <!-- Charging -->
                         <tr class="acc-category"><td colspan="3">Charging</td></tr>
                         <tr id="acc-70177196" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger1a.png">
-                            <td>70177196</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177196" target="_blank">70177196</a></td>
                             <td>SINGLE-CHARGER-SET-EU</td>
                             <td>Single Charger Set EU (24W) for Tab-IND Series</td>
                         </tr>
                         <tr id="acc-70177198" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger1a.png">
-                            <td>70177198</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177198" target="_blank">70177198</a></td>
                             <td>SINGLE-CHARGER-SET-US</td>
                             <td>Single Charger Set US (24W) for Tab-IND Series</td>
                         </tr>
                         <tr id="acc-70177200" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger5a.png">
-                            <td>70177200</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177200" target="_blank">70177200</a></td>
                             <td>5-CHARGER-SET-EU</td>
                             <td>5 Charger Set EU (120W) for Tab-IND Series</td>
                         </tr>
                         <tr id="acc-70177202" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/charger5a.png">
-                            <td>70177202</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177202" target="_blank">70177202</a></td>
                             <td>5-CHARGER-SET-US</td>
                             <td>5 Charger Set US (120W) for Tab-IND Series</td>
                         </tr>
-                        <tr id="acc-589656" data-img="PLACEHOLDER_URL">
-                            <td>589656</td>
+                        <tr id="acc-589656" data-img="PLACEHOLDER_IMG_URL_589656">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589656" target="_blank">589656</a></td>
                             <td>TC TAB-IND 27W US USB-C</td>
                             <td>AC/DC Adapter for USB-C 27W, US version</td>
                         </tr>
-                        <tr id="acc-589657" data-img="PLACEHOLDER_URL">
-                            <td>589657</td>
+                        <tr id="acc-589657" data-img="PLACEHOLDER_IMG_URL_589657">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589657" target="_blank">589657</a></td>
                             <td>TC TAB-IND 27W EU USB-C</td>
                             <td>AC/DC Adapter for USB-C 27W, EU version</td>
                         </tr>
-                        <tr id="acc-589658" data-img="PLACEHOLDER_URL">
-                            <td>589658</td>
+                        <tr id="acc-589658" data-img="PLACEHOLDER_IMG_URL_589658">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589658" target="_blank">589658</a></td>
                             <td>TC TAB-IND 27W UK USB-C</td>
                             <td>AC/DC Adapter for USB-C 27W, UK version</td>
                         </tr>
@@ -478,22 +509,22 @@
                         <!-- Docking -->
                         <tr class="acc-category"><td colspan="3">Docking Stations</td></tr>
                         <tr id="acc-70177191" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Dock1.png">
-                            <td>70177191</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177191" target="_blank">70177191</a></td>
                             <td>FULL-DS-STATION-EU FOR TAB-IND</td>
                             <td>Full docking station EU for Tab-IND</td>
                         </tr>
                         <tr id="acc-70177192" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Dock1.png">
-                            <td>70177192</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177192" target="_blank">70177192</a></td>
                             <td>FULL-DS-STATION-US FOR TAB-IND</td>
                             <td>Full docking station US for Tab-IND</td>
                         </tr>
                         <tr id="acc-70177193" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/DockwScanner1.png">
-                            <td>70177193</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177193" target="_blank">70177193</a></td>
                             <td>SCANNER-FRAME-FULL-DS-EU</td>
                             <td>Docking Station with EU cable for Tab-IND Series with Scanner Frame</td>
                         </tr>
                         <tr id="acc-70177194" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/DockwScanner1.png">
-                            <td>70177194</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177194" target="_blank">70177194</a></td>
                             <td>SCANNER-FRAME-FULL-DS-US</td>
                             <td>Docking Station with US cable for Tab-IND Series with Scanner Frame</td>
                         </tr>
@@ -501,17 +532,17 @@
                         <!-- Batteries -->
                         <tr class="acc-category"><td colspan="3">Battery Packs</td></tr>
                         <tr id="acc-70177188" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt10.png">
-                            <td>70177188</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177188" target="_blank">70177188</a></td>
                             <td>BP 10" WIN TAB-IND10</td>
                             <td>Spare battery pack for Tab-IND 10" WIN</td>
                         </tr>
                         <tr id="acc-589651" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt10.png">
-                            <td>589651</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589651" target="_blank">589651</a></td>
                             <td>BP 10" AND TAB-IND10</td>
                             <td>Spare Battery Pack for Tab-IND 10" AND</td>
                         </tr>				
                         <tr id="acc-70177187" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt08.png">
-                            <td>70177187</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177187" target="_blank">70177187</a></td>
                             <td>BP 8" WIN TAB-IND08</td>
                             <td>Spare Battery Pack for Tab-IND 8" WIN</td>
                         </tr>
@@ -519,108 +550,108 @@
                         <!-- Carrying -->
                         <tr class="acc-category"><td colspan="3">Carrying Accessories</td></tr>
                         <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Nylon.png">
-                            <td>70177209</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177209" target="_blank">70177209</a></td>
                             <td>HA TAB-IND NYLON ADJUST.</td>
                             <td>Nylon Hand Strap, adjustable for Tab-IND Series</td>
                         </tr>
                         <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/HandStrap.png">
-                            <td>70177208</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177208" target="_blank">70177208</a></td>
                             <td>HA TAB-IND TPE ADJUST.</td>
                             <td>TPE Hand Strap, adjustable for Tab-IND Series</td>
                         </tr>
                         <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ShoulderStrap.png">
-                            <td>70177210</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177210" target="_blank">70177210</a></td>
                             <td>SHOULDER STRAP FOR TAB-IND</td>
                             <td>Shoulder strap, length adjustable for Tab-IND Series</td>
                         </tr>
 
+
                         <!-- Rugged Frames -->
                         <tr class="acc-category"><td colspan="3">Rugged Frames</td></tr>
                         <tr id="acc-70177206" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/rugged10.png">
-                            <td>70177206</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177206" target="_blank">70177206</a></td>
                             <td>RUGGED-FRAME-10"-BLACK</td>
                             <td>Rugged Frame 10" for Tab-IND10 Series</td>
                         </tr>
                         <tr id="acc-70177204" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/rugged08.png">
-                            <td>70177204</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177204" target="_blank">70177204</a></td>
                             <td>RUGGED-FRAME-8"-BLACK</td>
                             <td>Rugged Frame 8" for Tab-IND08 Series</td>
                         </tr>
                         <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ruggedIO.png">
-                            <td>70177207</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177207" target="_blank">70177207</a></td>
                             <td>RUGGED FRAME IO ADAPTER</td>
                             <td>Adapter for enabling use of device in rugged frame with the dock</td>
+                        </tr>
+                        <!-- Add-ons -->
+                        <tr class="acc-category"><td colspan="3">Other Add-ons</td></tr>
+                        <tr data-img="PLACEHOLDER_IMG_URL_570157">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=570157" target="_blank">570157</a></td>
+                            <td>USB CABLE C TO C, 1M</td>
+                            <td>USB-C to USB-C cable, 1m</td>
+                        </tr>
+                        <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/stylus_tether.png">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70154951" target="_blank">70154951</a></td>
+                            <td>ST 02 STYLUS WITH TETHER </td>
+                            <td>Passive stylus, 6mm tip, ECOM branded</td>
                         </tr>
 
                         <!-- SmartBack -->
                         <tr class="acc-category"><td colspan="3">Smart-Back</td></tr>
                         <tr id="acc-70177190" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt08.png">
-                            <td>70177190</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177190" target="_blank">70177190</a></td>
                             <td>PP SMARTBACK FOR TAB-IND08</td>
                             <td>8" Power Pack Smart-Back for both WIN & AND</td>
                         </tr>
                         <tr id="acc-589162" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/SpareBatt10.png">
-                            <td>589162</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589162" target="_blank">589162</a></td>
                             <td>PP SMARTBACK FOR TAB-IND10</td>
                             <td>10" Power Pack Smart-Back for both WIN & AND</td>
                         </tr>
                         <tr id="acc-589749" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/vesa75_10.png">
-                            <td>589749</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589749" target="_blank">589749</a></td>
                             <td>VESA 75/100 SmartBack for 10" Tab-IND with EU AC adapter</td>
                             <td>VESA Smartback 10" (EU AC adapter)</td>
                         </tr>
                         <tr id="acc-590105" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/vesa75_10.png">
-                            <td>590105</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=590105" target="_blank">590105</a></td>
                             <td>VESA 75 SmartBack for 10", US AC adapter</td>
                             <td>VESA Smartback 10" (US AC adapter)</td>
                         </tr>
                         <tr id="acc-590329" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/vesa75_10.png">
-                            <td>590329</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=590329" target="_blank">590329</a></td>
                             <td>VESA 75 SmartBack for 10", UK AC adapter</td>
                             <td>VESA Smartback 10" (UK AC adapter)</td>
                         </tr>
                         <tr data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/Link2500i.png">
-                            <td>570007</td>
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=570007" target="_blank">570007</a></td>
                             <td>8-inch SmartBack for payment terminal</td>
                             <td>Payment Smartback 8" Link2500i</td>
                         </tr>
-                        <tr data-img="PLACEHOLDER_URL">
-                            <td>570017</td>
+                        <tr data-img="PLACEHOLDER_IMG_URL_570017">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=570017" target="_blank">570017</a></td>
                             <td>8-inch SmartBack for Equinox Luxe 6200m mobile payment terminal</td>
                             <td>Payment Smartback 8" Equinox 6200m MSR</td>
                         </tr>
-                        <tr data-img="PLACEHOLDER_URL">
-                            <td>589351</td>
+                        <tr data-img="PLACEHOLDER_IMG_URL_589351">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589351" target="_blank">589351</a></td>
                             <td>8-inch SmartBack for Verifone e235 mobile payment terminal</td>
                             <td>Payment Smartback 8" Verifone e235</td>
                         </tr>
-                        <tr data-img="PLACEHOLDER_URL">
-                            <td>589519</td>
+                        <tr data-img="PLACEHOLDER_IMG_URL_589519">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589519" target="_blank">589519</a></td>
                             <td>8-inch SmartBack for Moby/5500M compact mobile card reader</td>
                             <td>Payment Smartback 8" Moby5500m</td>
                         </tr>
-                        <tr data-img="PLACEHOLDER_URL">
-                            <td>570492</td>
+                        <tr data-img="PLACEHOLDER_IMG_URL_570492">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=570492" target="_blank">570492</a></td>
                             <td>8-inch SmartBack for specialized POS hardware</td>
                             <td>Payment Smartback 8" MSR non-encrypting</td>
                         </tr>
-                        <tr id="acc-70198483" data-img="PLACEHOLDER_URL">
-                            <td>70198483</td>
+                        <tr id="acc-70198483" data-img="PLACEHOLDER_IMG_URL_70198483">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70198483" target="_blank">70198483</a></td>
                             <td>8-inch to 10" adapter</td>
                             <td>Smartback Adapter 8" on 10"</td>
-                        </tr>
-
-                        <!-- Add-ons -->
-                        <tr class="acc-category"><td colspan="3">Other Add-ons</td></tr>
-                        <tr data-img="PLACEHOLDER_URL">
-                            <td>570157</td>
-                            <td>USB CABLE C TO C, 1M</td>
-                            <td>USB-C to USB-C cable, 1m</td>
-                        </tr>
-                        <tr data-img="PLACEHOLDER_URL">
-                            <td>70154951</td>
-                            <td>ST 02 STYLUS WITH TETHER </td>
-                            <td>Passive stylus, 6mm tip, ECOM branded</td>
                         </tr>
 
                     </tbody>
@@ -670,14 +701,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const artNo = row.cells[0].innerText;
             const model = row.cells[1].innerText;
 
-            if (imgSrc && imgSrc !== "PLACEHOLDER_URL") {
+            if (imgSrc && !imgSrc.includes("PLACEHOLDER_IMG_URL")) {
                 previewImg.src = imgSrc;
                 previewImg.style.display = 'block';
                 previewPlaceholder.style.display = 'none';
             } else {
                 previewImg.style.display = 'none';
                 previewPlaceholder.style.display = 'block';
-                previewPlaceholder.innerHTML = `<strong>Image Placeholder</strong><br><br><small>Add URL in code for:<br>${artNo}</small>`;
+                previewPlaceholder.innerHTML = `<strong>Image Placeholder</strong><br><br><small>Add Image URL in data-img for:<br>${artNo}</small>`;
             }
             previewCaption.innerText = `${artNo} - ${model}`;
         });
@@ -707,6 +738,21 @@ document.addEventListener('DOMContentLoaded', () => {
         "TAB-IND10WINAB1N2XX.1":   "589781",
         "TAB-IND08WINAB1N0XXMW.1": "589778",
         "TAB-IND10WINAB1N0BU10.3": "70200401"
+    };
+
+    // Dedicated URL dictionary for main generated part numbers
+    const partNumberURLs = {
+        "480993-100012": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100012",
+        "480993-100014": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100014",
+        "480993-100015": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100015",
+        "480993-100016": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100016",
+        "480993-100017": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100017",
+        "480993-100018": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100018",
+        "70182332": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70182332",
+        "70212390": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70212390",
+        "589781": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589781",
+        "589778": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589778",
+        "70200401": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70200401"
     };
 
     const missingChargerParts = [
@@ -942,7 +988,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let notes = "";
         
         if (matchedPartNumber) {
-            partNumberOutput.innerHTML = `Part Number: <span>${matchedPartNumber}</span>`;
+            // Updated to pull from the URL dictionary
+            const safeURL = partNumberURLs[matchedPartNumber] || "PLACEHOLDER_URL_" + matchedPartNumber;
+            partNumberOutput.innerHTML = `Part Number: <span><a href="${safeURL}" target="_blank">${matchedPartNumber}</a></span>`;
             reverseSearchSelect.value = matchedPartNumber; 
             scannerCheckbox.disabled = false;
             
@@ -1027,6 +1075,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if(parsed.os !== undefined) document.getElementById('os').value = parsed.os;
         if(parsed.region !== undefined) document.getElementById('region').value = parsed.region === "" ? "none" : parsed.region;
         
+        const currentCountry = document.getElementById('country').value;
+        if (currentCountry !== "UNSELECTED") {
+            const validRegions = countryMap[currentCountry];
+            if (!validRegions.includes(parsed.region || "")) {
+                document.getElementById('country').value = "UNSELECTED";
+            }
+        }
+
         updateDecoder(true);
     });
 
