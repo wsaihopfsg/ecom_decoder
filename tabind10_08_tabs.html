@@ -991,7 +991,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedPartNumber) {
             // Updated to pull from the URL dictionary
             const safeURL = partNumberURLs[matchedPartNumber] || "PLACEHOLDER_URL_" + matchedPartNumber;
-            partNumberOutput.innerHTML = `Part Number: <span><a href="${safeURL}" target="_blank">${matchedPartNumber}</a></span>`;
+            partNumberOutput.innerHTML = `Part Number & A1 Link: <span><a href="${safeURL}" target="_blank">${matchedPartNumber}</a></span>`;
             reverseSearchSelect.value = matchedPartNumber; 
             scannerCheckbox.disabled = false;
             
@@ -1000,11 +1000,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             if (dropdownKeys.length > 1) {
-                partNumberOutput.innerHTML = `Part Number: <span>Filtering... (${dropdownKeys.length} matches possible)</span>`;
+                partNumberOutput.innerHTML = `Part Number & A1 Link: <span>Filtering... (${dropdownKeys.length} matches possible)</span>`;
             } else if (dropdownKeys.length === 1 && !isComplete) {
-                partNumberOutput.innerHTML = `Part Number: <span>Filtering... (1 match found, complete selection)</span>`;
+                partNumberOutput.innerHTML = `Part Number & A1 Link: <span>Filtering... (1 match found, complete selection)</span>`;
             } else {
-                partNumberOutput.innerHTML = `Part Number: <span>Not Listed / Custom Build</span>`;
+                partNumberOutput.innerHTML = `Part Number & A1 Link: <span>Not Listed / Custom Build</span>`;
             }
             reverseSearchSelect.value = ""; 
             scannerCheckbox.disabled = true;
