@@ -936,8 +936,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!skipDropdownUpdate) {
-            if (stateKeys.length === 1 && dropdownKeys.length > 1) {
-                const parsed = parseKey(stateKeys[0]);
+            // Updated auto-fill logic to instantly snap if there is only one valid configuration remaining
+            if (dropdownKeys.length === 1) {
+                const parsed = parseKey(dropdownKeys[0]);
                 
                 let changed = false;
                 if (parsed.size !== undefined && modelFamily.value !== parsed.size) { modelFamily.value = parsed.size; changed = true; }
