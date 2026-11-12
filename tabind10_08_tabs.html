@@ -218,7 +218,7 @@
             text-decoration: underline;
         }
         .part-number span a:hover {
-			color: var(--pf-blue-gray);
+            color: var(--pf-blue-gray);
             text-decoration: underline;
         }
         
@@ -357,8 +357,8 @@
         <div class="reverse-search-box">
             <select id="modelFamily" class="model-select">
                 <option value="UNSELECTED" selected>-- Screen Size --</option>
-                <option value="10">Tab-IND10</option>
-                <option value="08">Tab-IND08</option>
+                <option value="10">10"</option>
+                <option value="08">8"</option>
             </select>
             <label for="reverseSearch" id="prefixLabel">🔍 Part # Search:</label>
             <select id="reverseSearch">
@@ -384,7 +384,9 @@
                     <option value="UNSELECTED" selected>-- Please Select --</option>
                     <option value="AA1">AA1 - QCS6490 | 8GB RAM | 128GB</option>
                     <option value="AB1">AB1 - Intel N100 | 8GB RAM | 128GB</option>
+                    <option value="AB2">AB2 - Intel N100 | 8GB RAM | 128GB (Ver. 2)</option>
                     <option value="AC1">AC1 - Intel N100 | 16GB RAM | 256GB</option>
+                    <option value="AD1">AD1 - Intel N100 / Core | Extended Config</option>
                 </select>
             </div>
 
@@ -505,6 +507,31 @@
                             <td>TC TAB-IND 27W UK USB-C</td>
                             <td>AC/DC Adapter for USB-C 27W, UK version</td>
                         </tr>
+						<tr id="acc-70189346" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ACSTND05AA00.jpg">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70189346" target="_blank">70189346</a></td>
+							<td>ACSTND05AA00.5B</td>
+                            <td>Modular Charger Base unit </td>
+                        </tr>
+						<tr id="acc-70213838" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ACSTND05BA62.jpg">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70213838" target="_blank">70213838</a></td>
+							<td>ACSTND05BA62.1B</td>
+                            <td>Mod.Charg.Front+Back EU 120W </td>
+                        </tr>
+						<tr id="acc-70213839" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/ACSTND05BA62.jpg">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70213839" target="_blank">70213839</a></td>
+							<td>ACSTND05CA62.1B</td>
+                            <td>Mod.Charg.Front+Back US 120W </td>
+                        </tr>
+						<tr id="acc-588921" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/AMME5037.jpg">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=588921" target="_blank">588921</a></td>
+							<td>AMME5036.1</td>
+                            <td>POWER SUPPLY 120W 12V/10A, EU</td>
+                        </tr>
+						<tr id="acc-70194433" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/AMME5037.jpg">
+                            <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70194433" target="_blank">70194433</a></td>
+							<td>AMME5037.1</td>
+                            <td>POWER SUPPLY 120W 12V/10A, US</td>
+                        </tr>
 
                         <!-- Docking -->
                         <tr class="acc-category"><td colspan="3">Docking Stations</td></tr>
@@ -528,7 +555,8 @@
                             <td>SCANNER-FRAME-FULL-DS-US</td>
                             <td>Docking Station with US cable for Tab-IND Series with Scanner Frame</td>
                         </tr>
-					
+						
+                    
                         <!-- Batteries -->
                         <tr class="acc-category"><td colspan="3">Battery Packs</td></tr>
                         <tr id="acc-70177188" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/TAB-IND10-spare.png">
@@ -540,7 +568,7 @@
                             <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589651" target="_blank">589651</a></td>
                             <td>BP 10" AND TAB-IND10</td>
                             <td>Spare Battery Pack for Tab-IND 10" AND</td>
-                        </tr>				
+                        </tr>               
                         <tr id="acc-70177187" data-img="https://raw.githubusercontent.com/wsaihopfsg/ecom_decoder/refs/heads/main/TabPics/TAB-IND10-spare.png">
                             <td><a href="https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70177187" target="_blank">70177187</a></td>
                             <td>BP 8" WIN TAB-IND08</td>
@@ -733,11 +761,16 @@ document.addEventListener('DOMContentLoaded', () => {
         "TAB-IND10WIUAC1F2XXJW.1": "480993-100016",
         "TAB-IND10WINAA1A3XXNW.1": "480993-100017",
         "TAB-IND10T5GAA1A3XXLW.1": "480993-100018",
-        "TAB-IND10WINAB1N0XXJW.1": "70182332",
-        "TAB-IND10WINAB1N2XXJW.1": "70212390",
+        "IV10WINAB1N0XX.1": "70182332",
+        "TAB-IND10WINAB1N2XXJW.1": "480993-100019",
         "TAB-IND10WINAB1N2XX.1":   "589781",
-        "TAB-IND08WINAB1N0XXMW.1": "589778",
-        "TAB-IND10WINAB1N0BU10.3": "70200401"
+        "IV08WINAB1N0XX.1": "589778",
+        "TAB-IND10WINAB1N0BU10.3": "70200401",
+        "TAB-IND10WIUAD1F2XXJW.1": "480993-100021",
+        "TAB-IND08WINAB1NBXXJW.1": "480993-100020",
+        "IV10WIUAD1F0XX.1":        "70214492",
+        "IV10WINAB2N0XX.2":        "70215238",
+        "IV10WIUAC1F0XX.1":        "70184647"
     };
 
     // Dedicated URL dictionary for main generated part numbers
@@ -749,10 +782,15 @@ document.addEventListener('DOMContentLoaded', () => {
         "480993-100017": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100017",
         "480993-100018": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100018",
         "70182332": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70182332",
-        "70212390": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70212390",
+        "480993-100019": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100019",
         "589781": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589781",
         "589778": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=589778",
-        "70200401": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70200401"
+        "70200401": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70200401",
+        "480993-100021": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100021",
+        "480993-100020": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=480993-100020",
+        "70214492": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70214492",
+        "70215238": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70215238",
+        "70184647": "https://pfeash5live.pepperl-fuchs.com/mwp/jsp/component/pfmodules/alx001ngl/index.jsp?B_MMITNO=70184647"
     };
 
     const missingChargerParts = [
@@ -778,18 +816,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let dirtyFields = new Set();
 
     function parseKey(key) {
-        const regex = /^TAB-IND(10|08)(WIE|WIN|WIU|LTC|T5G)(AA1|AB1|AC1|C8|C4)([FCNAB])([4213B0])(XX|BU)?([KLJMN1])?([WX0])?(?:\.\d+)?$/i;
+        const regex = /^(TAB-IND|IV)(10|08)(WIE|WIN|WIU|LTC|T5G)(AA1|AB1|AB2|AC1|AD1|C8|C4)([FCNAB])([4213B0])(XX|BU)?([KLJMN1])?([WX0])?(\.\d+)?$/i;
         const match = key.match(regex);
         if (match) {
             return {
-                size: match[1] || "",
-                conn: match[2] || "",
-                config: match[3] || "",
-                sensor: match[4] || "",
-                os: match[5] || "",
-                fixed: match[6] || "XX",
-                region: match[7] || "",
-                scanner: match[8] || ""
+                prefix: match[1] || "TAB-IND",
+                size: match[2] || "",
+                conn: match[3] || "",
+                config: match[4] || "",
+                sensor: match[5] || "",
+                os: match[6] || "",
+                fixed: match[7] || "XX",
+                region: match[8] || "",
+                scanner: match[9] || "",
+                ver: match[10] || ".1"
             };
         }
         return {};
@@ -840,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const is10 = (family === "10" || family === "UNSELECTED");
         const is08 = (family === "08" || family === "UNSELECTED");
 
-        const isWin = (["1", "2", "4", "B", "UNSELECTED"].includes(osVal));
+        const isWin = (["1", "2", "4", "B", "0", "UNSELECTED"].includes(osVal));
         const isAnd = (["3", "UNSELECTED"].includes(osVal));
 
         const isKnownRegion = ["EU", "US", "UK"].includes(country);
@@ -863,6 +903,11 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleRow('589656', showUS);
 
         toggleRow('589658', showUK);
+		toggleRow('70213838', showEU);
+		toggleRow('70213839', showUS);
+		
+		toggleRow('588921', showEU);
+		toggleRow('70194433', showUS);
 
         // Docking
         toggleRow('70177191', !hasScanner && showEU);
@@ -926,17 +971,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let rawModelString = "";
         let inferredScanner = "_";
+        let inferredPrefix = "Tab-IND";
+        let inferredVer = ".1";
 
         if (stateKeys.length === 1) {
             rawModelString = stateKeys[0]; 
-            inferredScanner = parseKey(stateKeys[0]).scanner;
+            const p = parseKey(stateKeys[0]);
+            inferredScanner = p.scanner;
+            inferredPrefix = p.prefix.toUpperCase() === "IV" ? "IV" : "Tab-IND";
+            inferredVer = p.ver;
         } else if (stateKeys.length > 1) {
             let firstScan = parseKey(stateKeys[0]).scanner;
-            if(stateKeys.every(k => parseKey(k).scanner === firstScan)) inferredScanner = firstScan;
+            if (stateKeys.every(k => parseKey(k).scanner === firstScan)) inferredScanner = firstScan;
+            let firstPref = parseKey(stateKeys[0]).prefix;
+            if (stateKeys.every(k => parseKey(k).prefix === firstPref)) {
+                inferredPrefix = firstPref.toUpperCase() === "IV" ? "IV" : "Tab-IND";
+            }
+            let firstVer = parseKey(stateKeys[0]).ver;
+            if (stateKeys.every(k => parseKey(k).ver === firstVer)) {
+                inferredVer = firstVer;
+            }
         }
 
         if (!skipDropdownUpdate) {
-            // Updated auto-fill logic to instantly snap if there is only one valid configuration remaining
             if (dropdownKeys.length === 1) {
                 const parsed = parseKey(dropdownKeys[0]);
                 
@@ -958,7 +1015,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- UI & HTML STRING GENERATION ---
-        let htmlString = `<span class="color-fixed">Tab-IND${family === "UNSELECTED" ? "___" : family}</span>`;
+        let htmlString = `<span class="color-fixed">${inferredPrefix}${family === "UNSELECTED" ? "___" : family}</span>`;
         htmlString += `<span class="color-conn">${conn.value === "UNSELECTED" ? "___" : conn.value}</span>`;
         htmlString += `<span class="color-proc">${config.value === "UNSELECTED" ? "___" : config.value}</span>`;
         htmlString += `<span class="color-bio">${sensor.value === "UNSELECTED" ? "_" : sensor.value}</span>`;
@@ -969,9 +1026,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (rValHtml === '1' || inferredScanner === '0') {
             htmlString += `<span class="color-fixed">BU</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">.3</span>`;
         } else if ((region.value === "none" || rValHtml === "") && inferredScanner === "") {
-            htmlString += `<span class="color-fixed">XX</span><span class="color-fixed">.1</span>`;
+            htmlString += `<span class="color-fixed">XX</span><span class="color-fixed">${inferredVer}</span>`;
         } else {
-            htmlString += `<span class="color-fixed">XX</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">.1</span>`;
+            htmlString += `<span class="color-fixed">XX</span><span class="color-plat">${rValHtml}</span><span class="color-scan">${inferredScanner}</span><span class="color-fixed">${inferredVer}</span>`;
         }
 
         modelOutput.innerHTML = htmlString;
@@ -989,7 +1046,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let notes = "";
         
         if (matchedPartNumber) {
-            // Updated to pull from the URL dictionary
             const safeURL = partNumberURLs[matchedPartNumber] || "PLACEHOLDER_URL_" + matchedPartNumber;
             partNumberOutput.innerHTML = `Part Number & A1 Link: <span><a href="${safeURL}" target="_blank">${matchedPartNumber}</a></span>`;
             reverseSearchSelect.value = matchedPartNumber; 
@@ -1011,14 +1067,8 @@ document.addEventListener('DOMContentLoaded', () => {
             scannerCheckbox.checked = false;
         }
 
-        let frameText = "Unresolved";
-        if (inferredScanner === "W") frameText = "W - Standard (No Scanner)";
-        if (inferredScanner === "X") frameText = "X - Scanner frame mounted";
-        if (inferredScanner === "0") frameText = "0 - Special / Custom";
-        if (inferredScanner === "") frameText = "Blank - Not Applicable";
-        
         let familyText = getOptText(modelFamily);
-        if (family === "10") familyText = 'Tab-IND10 (10.1")';
+        if (family === "10") familyText = `${inferredPrefix}10 (10.1")`;
         if (family === "08") familyText = 'Tab-IND08 (8.4")';
 
         let specsHTML = `<li><strong class="color-fixed">Product Family:</strong> ${familyText}</li>`;
